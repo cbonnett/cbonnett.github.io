@@ -125,14 +125,77 @@
 .highlight .vg { color: #19177C } /* Name.Variable.Global */
 .highlight .vi { color: #19177C } /* Name.Variable.Instance */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The rise in popularity in machine learning (ML) has not gone unnocited in the natural sciences. But the application of ML in physical sciences tends to differ from that used in computer science and AI research. These last two are usually performed in the high signal-to-noise regime and it is not clear if can be blindly applied to noisy problems in physics and astronomy for example. Machine Learning has already been proven to usefull in the natural sciences, see the Kaggle <a href="https://www.kaggle.com/c/higgs-boson">Higgs Boson Machine Learning Challenge for example</a>.</p>
+<p>A typical example of this is computer vision where the algorithm is designed and trained to detect objects in images.</p>
+<p>Detecting objects which is trivial for humans (in most cases) challenge lies in getting the computer to peroform as good better than the human.</p>
+<p>In the physical sciences we often deal with very noisy data and we wish to infer probabilities of events, we want answers with 'correct' errorbars or full probabilty density functions (And so might you, see this excellent post on loss/utility functions: <a href="http://www.sumsar.net/blog/2015/01/probable-points-and-credible-intervals-part-two/">http://www.sumsar.net/blog/2015/01/probable-points-and-credible-intervals-part-two/</a>.)</p>
+<p>As far as I know the AI community is not concering itself with determining the probability the dog breed standing under a broken street light on misty moonless night (nor should they). Having said that there is defintivley loads of interest within field Machine Learning to do probabilisitc inference and Bayesian Machine Learning. See the work done by Neil Lawrence and his group in Sheffield (<a href="http://inverseprobability.com/">http://inverseprobability.com/</a>) or the exellent by Yarin Gal in Cambride (<a href="http://mlg.eng.cam.ac.uk/yarin/blog.html">http://mlg.eng.cam.ac.uk/yarin/blog.html</a>).</p>
+<p>In the rest of the blog post we will see some basic ways on how to deal with noisy data using machine learning using a toy problem. In the next post we look at a real life problem and with a real life problem I mean simulated galaxy observations, that's real life for me ;-)</p>
+<p>Lets first generate some data of our toy problem. 
+This is an adaption of the inverse problem presented in paper by <a href="http://research.microsoft.com/~cmbishop/downloads/Bishop-NCRG-94-004.pdf">Bishop on Mixture Density Networks</a>, which we will be using later in the notebook, see also <a href="http://blog.otoro.net/2015/11/24/mixture-density-networks-with-tensorflow/">this blog post by Otoro on MDN</a>.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#All necesarry import for this notebook </span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="kn">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">RobustScaler</span>
+<span class="n">RS</span> <span class="o">=</span> <span class="n">RobustScaler</span><span class="p">()</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We want a problem for which it will be hard to learn the correct answer (in a statistical way). An inverse problem (or sometimes called problem with degeneracies) will suit us well</p>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span> 
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">y_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">NSAMPLE</span><span class="p">)))</span><span class="o">.</span><span class="n">T</span>
+<span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.0001</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">NSAMPLE</span><span class="p">)</span>
+<span class="n">error</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">noise_draw</span> <span class="ow">in</span> <span class="n">noise</span><span class="p">:</span> 
+    <span class="n">error</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">noise_draw</span><span class="p">))</span>
+<span class="n">error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+<span class="n">x_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">0.75</span><span class="o">*</span><span class="n">y_data</span><span class="p">)</span><span class="o">*</span><span class="mf">2.5</span> <span class="o">+</span> <span class="n">y_data</span> <span class="o">+</span> <span class="n">error</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">])</span>
+
+<span class="n">x_vect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">x_data</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span><span class="n">noise</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
 </pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/Users/Christopher_old/anaconda2/lib/python2.7/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
+  warnings.warn(self.msg_depr % (key, alt_key))
+</pre>
+</div>
 </div>
 </div>
 </div>
