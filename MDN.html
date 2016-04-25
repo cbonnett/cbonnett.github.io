@@ -11445,16 +11445,17 @@ In reality the training set is not unbiased sample of the set you are interested
 <li>We are dealing with a co-variate shift, this means that our magnitudes of the training set do not have the same distribution as those of the test set, this can alleviated by incorporating a weighted loss function.</li>
 <li>There are selection effects in the spectroscopic redshifts. Here is an example: imagine 2 galaxies that have very similar magnitudes, but the spectrograph is unable to determine the redshift of one galaxies due to intrinsic properties of that galaxy and they have different redshift. This means we have a selection effect in the label we want to learn and unless we know that selection effects we are unable to correct for it. Work is being done on understanding these effects but it's not an easy task. Also a small percentage of spectroscopic redshifts are wrong. </li>
 <li>The noise properties are unlikely to be fairly sampled given the large range of observing conditions. So it would be useful have a ML method that can extrapolate to different noise models. ML models that do this have been developed in <a href="http://arxiv.org/abs/1501.07604">stellar physics.</a>.</li>
-<li>Good news: for certain subpopulations these problems are not severe and this method could be applied.</li>
+<li>The errors on the magnitudes here are uncorrelated assumed, this is not realistic.   </li>
+<li>Good news: for certain subpopulations these problems are not so severe and this method could be applied.</li>
 </ol>
 <p>You also might be wondering don't you physicist model everything ? Can't you fit your data to your models. The answer is yes, and we do, it's just that we need to understand galaxy evolution from the Big Bang until now and then we have solved the photometric redshift problem (I'm paraphrasing <a href="https://en.wikipedia.org/wiki/Carlos_Frenk">Carlos Frenk</a>). Okay, I'm being a bit sarcastic, but you understand what I'm getting at. Some great progress has been made in the literature on <a href="http://arxiv.org/abs/1603.03037">modelling the physics of galaxies</a> and on using <a href="http://arxiv.org/abs/1602.05960">nice statistical techniques</a> to infer the redshift distribution.</p>
 <h2 id="Some-ML-questions-you-might-be-able-to-help-me-with">Some ML questions you might be able to help me with<a class="anchor-link" href="#Some-ML-questions-you-might-be-able-to-help-me-with">¶</a></h2><ol>
-<li>Using ReLU activation function leads to NaN loss after ~150 iterations, any idea why ? My understanding is that with Adam the gradients shoudln;t blow as easily. </li>
+<li>Using ReLU activation function leads to NaN loss after ~150 iterations, any idea why ? My understanding is that with Adam the gradients shouldn't blow as easily. </li>
 <li>Recently <a href="https://twitter.com/yaringal">Yarin Gal</a> had a <a href="http://arxiv.org/abs/1506.02142">paper</a> and a <a href="http://mlg.eng.cam.ac.uk/yarin/blog_3d801aa532c1ce.html">blog post</a> where he states that you can use dropout technique to get uncertainties on the predictions and  that this is a variational approximation to the Gaussian process. How does one interpret this in the case of MDN ? I have yet run the experiment.</li>
 <li>Speaking of dropout, in initial experiments where I used dropout this occasionally led to NaN loss and hence messed up everything, any particular reason you might know of ? (see point 1.)</li>
 <li>In the loss functions plots there are some wiggles, can these be interpreted at all ?</li>
 </ol>
-<h2 id="Thanks-!">Thanks !<a class="anchor-link" href="#Thanks-!">¶</a></h2><p>The test data was made by my colleague Francisco Castander!</p>
+<h2 id="Thanks-!">Thanks !<a class="anchor-link" href="#Thanks-!">¶</a></h2><p>The test data was made by my colleague Francisco Castander, so many thanks to him.</p>
 <p>This blog post is written in a <a href="https://github.com/cbonnett/blog/blob/master/content/Mixture%20Density%20Networks%20for%20Galaxy%20distance%20determination%20in%20TensorFlow%20.ipynb">jupyter notebook</a> and the data used can be downloaded: <a href="https://drive.google.com/file/d/0B6Mi26c8VkJadFlaVEJObWw3WTg/view?usp=sharing">train data</a> <a href="https://drive.google.com/file/d/0B6Mi26c8VkJaTE5DVFdZTE9SWmM/view?usp=sharing">test data</a>.</p>
 </div>
 </div>
@@ -11712,7 +11713,7 @@ In reality the training set is not unbiased sample of the set you are interested
     })();
   </script>
 </body>
-</html> 
+</html>    
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
