@@ -74,7 +74,7 @@
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h1 id="Mixture-Density-Networks-with-Edward,-Keras-and-TensorFlow"&gt;Mixture Density Networks with Edward, Keras and TensorFlow&lt;a class="anchor-link" href="#Mixture-Density-Networks-with-Edward,-Keras-and-TensorFlow"&gt;¶&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;In the &lt;a href="http://cbonnett.github.io/MDN.html"&gt;previous blog post&lt;/a&gt; we looked at what a Mixture Density Network is with an implementation in TensorFlow. We then used this to learn the distance to galaxies on a simulated data set. In this blog post we'll show an easier to write code of an MDN by combining the power of three python libraries.&lt;/p&gt;
+&lt;p&gt;In the &lt;a href="http://cbonnett.github.io/MDN.html"&gt;previous blog post&lt;/a&gt; we looked at what a Mixture Density Network is with an implementation in TensorFlow. We then used this to learn the distance to galaxies on a simulated data set. In this blog post we'll show an easier to write code of an MDN by combining the power of three python libraries.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="https://github.com/blei-lab/edward"&gt;Edward&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://keras.io/"&gt;Keras&lt;/a&gt; &lt;/li&gt;
