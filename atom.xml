@@ -1,5 +1,208 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PL49</title><link href="http://cbonnett.github.io/" rel="alternate"></link><link href="http://cbonnett.github.io/atom.xml" rel="self"></link><id>http://cbonnett.github.io/</id><updated>2016-05-27T18:40:00+02:00</updated><entry><title>Mixture Density Networks with Edward, Keras and TensorFlow</title><link href="http://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html" rel="alternate"></link><updated>2016-05-27T18:40:00+02:00</updated><author><name>Christopher Bonnett</name></author><id>tag:cbonnett.github.io,2016-05-27:MDN_EDWARD_KERAS_TF.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PL49</title><link href="http://cbonnett.github.io/" rel="alternate"></link><link href="http://cbonnett.github.io/atom.xml" rel="self"></link><id>http://cbonnett.github.io/</id><updated>2016-06-26T18:40:00+02:00</updated><entry><title>Classifying e-commerce products based on images and text</title><link href="http://cbonnett.github.io/Insight.html" rel="alternate"></link><updated>2016-06-26T18:40:00+02:00</updated><author><name>Christopher Bonnett</name></author><id>tag:cbonnett.github.io,2016-06-26:Insight.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+*
+* IPython notebook
+*
+*/.ansibold{font-weight:700}.ansiblack{}.ansired{color:#8b0000}.ansigreen{6400}.ansiyellow{color:#c4a000}.ansiblue{8b}.ansipurple{color:#9400d3}.ansicyan{color:#4682b4}.ansigray{color:gray}.ansibgblack{background-}.ansibgred{background-color:red}.ansibggreen{background-color:green}.ansibgyellow{background-color:#ff0}.ansibgblue{background-f}.ansibgpurple{background-color:#ff00ff}.ansibgcyan{background-ff}.ansibggray{background-color:gray}div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;display:-moz-box;-moz-box-orient:vertical;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;border-radius:2px;box-sizing:border-box;-moz-box-sizing:border-box;border-width:thin;border-style:solid;width:100%;padding:5px;margin:0;outline:0}div.cell.selected{border-color:#ababab}@media print{div.cell.selected{border-color:transparent}}.edit_mode div.cell.selected{border-color:green}.prompt{min-width:14ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;display:-moz-box;-moz-box-orient:vertical;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}@-moz-document url-prefix(){div.inner_cell{overflow-x:hidden}}div.input_area{border:1px solid #cfcfcf;border-radius:2px;background:#f7f7f7;line-height:1.21429em}div.prompt:empty{padding-top:0;padding-bottom:0}div.unrecognized_cell{padding:5px 5px 5px 0;display:-webkit-box;-webkit-box-orient:horizontal;display:-moz-box;-moz-box-orient:horizontal;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}div.unrecognized_cell .inner_cell{border-radius:2px;padding:5px;font-weight:700;color:red;border:1px solid #cfcfcf;background:#eaeaea}div.unrecognized_cell .inner_cell a,div.unrecognized_cell .inner_cell a:hover{color:inherit;text-decoration:none}@media (max-width:540px){.prompt{text-align:left}div.unrecognized_cell&gt;div.prompt{display:none}}div.code_cell{}div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;display:-moz-box;-moz-box-orient:horizontal;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}@media (max-width:540px){div.input{-webkit-box-orient:vertical;-moz-box-orient:vertical;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.input_prompt{color:navy;border-top:1px solid transparent}div.input_area&gt;div.highlight{margin:.4em;border:none;padding:0;background-color:transparent}div.input_area&gt;div.highlight&gt;pre{margin:0;border:none;padding:0;background-color:transparent}.CodeMirror{line-height:1.21429em;font-size:14px;height:auto;background:0 0}.CodeMirror-scroll{overflow-y:hidden;overflow-x:auto}.CodeMirror-lines{padding:.4em}.CodeMirror-linenumber{padding:0 8px 0 4px}.CodeMirror-gutters{border-bottom-left-radius:2px;border-top-left-radius:2px}.CodeMirror pre{padding:0;border:0;border-radius:0}.highlight-base,.highlight-variable{}.highlight-variable-2{color:#1a1a1a}.highlight-variable-3{color:#333}.highlight-string{color:#BA2121}.highlight-comment{color:#408080;font-style:italic}.highlight-number{80}.highlight-atom{color:#88F}.highlight-keyword{color:green;font-weight:700}.highlight-builtin{color:green}.highlight-error{color:red}.highlight-operator{color:#A2F;font-weight:700}.highlight-meta{color:#A2F}.highlight-def{f}.highlight-string-2{color:#f50}.highlight-qualifier{color:#555}.highlight-bracket{color:#997}.highlight-tag{color:#170}.highlight-attribute{c}.highlight-header{f}.highlight-quote{90}.highlight-link{c}.cm-s-ipython span.cm-keyword{color:green;font-weight:700}.cm-s-ipython span.cm-atom{color:#88F}.cm-s-ipython span.cm-number{80}.cm-s-ipython span.cm-def{f}.cm-s-ipython span.cm-variable{}.cm-s-ipython span.cm-operator{color:#A2F;font-weight:700}.cm-s-ipython span.cm-variable-2{color:#1a1a1a}.cm-s-ipython span.cm-variable-3{color:#333}.cm-s-ipython span.cm-comment{color:#408080;font-style:italic}.cm-s-ipython span.cm-string{color:#BA2121}.cm-s-ipython span.cm-string-2{color:#f50}.cm-s-ipython span.cm-meta{color:#A2F}.cm-s-ipython span.cm-qualifier{color:#555}.cm-s-ipython span.cm-builtin{color:green}.cm-s-ipython span.cm-bracket{color:#997}.cm-s-ipython span.cm-tag{color:#170}.cm-s-ipython span.cm-attribute{c}.cm-s-ipython span.cm-header{f}.cm-s-ipython span.cm-quote{90}.cm-s-ipython span.cm-link{c}.cm-s-ipython span.cm-error{color:red}.cm-s-ipython span.cm-tab{background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=')right no-repeat}div.output_wrapper{display:-webkit-box;-webkit-box-align:stretch;display:-moz-box;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;z-index:1}div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:2px;-webkit-box-shadow:inset 0 2px 8px rgba(0,0,0,.8);box-shadow:inset 0 2px 8px rgba(0,0,0,.8);display:block}div.output_collapsed{margin:0;padding:0;display:-webkit-box;-webkit-box-orient:vertical;display:-moz-box;-moz-box-orient:vertical;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.out_prompt_overlay{height:100%;padding:0 .4em;position:absolute;border-radius:2px}div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000;box-shadow:inset 0 0 1px #000;background:rgba(240,240,240,.5)}div.output_prompt{color:#8b0000}div.output_area{padding:0;page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;display:-moz-box;-moz-box-orient:horizontal;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}div.output_area .MathJax_Display{text-align:left!important}div.output_area div.output_area img,div.output_area svg{max-width:100%;height:auto}div.output_area img.unconfined,div.output_area svg.unconfined{max-width:none}.output{display:-webkit-box;-webkit-box-orient:vertical;display:-moz-box;-moz-box-orient:vertical;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}@media (max-width:540px){div.output_area{-webkit-box-orient:vertical;-moz-box-orient:vertical;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.output_area pre{margin:0;padding:0;border:0;vertical-align:baseline;background-color:transparent;border-radius:0}div.output_subarea{overflow-x:auto;padding:.4em;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1;max-width:calc(100% - 14ex)}div.output_text{text-align:left;line-height:1.21429em}div.output_stderr{background:#fdd}div.output_latex{text-align:left}div.output_javascript:empty{padding:0}.js-error{color:#8b0000}div.raw_input_container{font-family:monospace;padding-top:5px}span.raw_input_prompt{}input.raw_input{font-family:inherit;font-size:inherit;color:inherit;width:auto;vertical-align:baseline;padding:0 .25em;margin:0 .25em}input.raw_input:focus{box-shadow:none}p.p-space{margin-bottom:10px}div.output_unrecognized{padding:5px;font-weight:700;color:red}div.output_unrecognized a,div.output_unrecognized a:hover{color:inherit;text-decoration:none}.rendered_html{}.rendered_html :link,.rendered_html :visited,.rendered_html h1:first-child{margin-top:.538em}.rendered_html h2:first-child{margin-top:.636em}.rendered_html h3:first-child{margin-top:.777em}.rendered_html h4:first-child,.rendered_html h5:first-child,.rendered_html h6:first-child{margin-top:1em}.rendered_html *+ol,.rendered_html *+ul{margin-top:1em}.rendered_html *+table{margin-top:1em}.rendered_html *+p{margin-top:1em}.rendered_html *+img{margin-top:1em}div.text_cell{display:-webkit-box;-webkit-box-orient:horizontal;display:-moz-box;-moz-box-orient:horizontal;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}@media (max-width:540px){div.text_cell&gt;div.prompt{display:none}}div.text_cell_render{outline:0;resize:none;width:inherit;border-style:none;padding:.5em .5em .5em .4em;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}a.anchor-link:link{text-decoration:none;padding:0 20px;visibility:hidden}h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible}.text_cell.rendered .input_area{display:none}.text_cell.rendered .text_cell.unrendered .text_cell_render{display:none}.cm-header-1,.cm-header-2,.cm-header-3,.cm-header-4,.cm-header-5,.cm-header-6{font-weight:700;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}.cm-header-1{font-size:185.7%}.cm-header-2{font-size:157.1%}.cm-header-3{font-size:128.6%}.cm-header-4{font-size:110%}.cm-header-5,.cm-header-6{font-size:100%;font-style:italic}&lt;/style&gt;
+&lt;style type="text/css"&gt;.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */&lt;/style&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;During my time at &lt;a href="http://insightdatascience.com/"&gt;Insight&lt;/a&gt; I consulted for a Y-combinator startup &lt;a href="https://www.lynks.com/"&gt;Lynks&lt;/a&gt; that allows people in Egypt to ship fashion and fashion related items from US e-commerce stores to their homes in Egypt. This is a useful service as most of the US e-commerce website do not ship their products to the middle East. 
+Lynks doesn't have it's own inventory and its theoretical inventory is the combined one of all US based e-commerce stores. 
+All the products that are ordered have been classified by hand and Lynks has asked me to help prototype a pipeline that can assist in automating this task. 
+In the best case scenario this work will contribute to a fully automated classification pipeline, lower hanging fruit is to assist the human labelers while more data is collected and the predictive model gets improved. 
+Given that Lynks has been doing this by hand they have a decently sized data labeled data set. 
+The data currently collected for each product is an image and a short description of the item.&lt;br&gt;
+Here are two typical examples of the data I am dealing with: 
+&lt;img alt="Alt Text" src="./images/for_blog.001.jpeg"&gt;
+So given an image and a short description we would like to predict the label. As you can see the label is hierarchical. Given we are building a prototype I will concern myself with the flattened label. 
+In total there are 99 unique classes and the classes are quite unbalanced, I will just work with the top 10 classes for which the classes are quite well balanced.&lt;/img&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h2 id="Machine-learning-model"&gt;Machine learning model&lt;a class="anchor-link" href="#Machine-learning-model"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;I would like to combine the text and image in a machine learning model as they both contain a lot of information, how best to do that is not clear. Below I explain the path taken.&lt;br&gt;
+On the image part of the data I will want to make use of  a convolutional neural network while for the text we will have to do some NLP processing to be able to use it for prediction. 
+Although our data set is not small (~5000 in the training set) it can hardly be compared to &lt;a href="http://karpathy.github.io/2014/09/02/what-i-learned-from-competing-against-a-convnet-on-imagenet/"&gt;Image-Net&lt;/a&gt; data set containing 1.2 million images in a 1000 classes. 
+For this reason it make sense to leverage the power of pre-trained networks that have been been trained on Image-Net which already has  the capability of extracting useful features for natural images. Leveraging a pre-trained machine learning model is called transfer learning. On the text side of the feature space a simle &lt;a href="http://scikit-learn.org/stable/modules/feature_extraction.html#the-bag-of-words-representation"&gt;bag of words model&lt;/a&gt; will be sufficient given that the mere presence of a word is very informative.&lt;br&gt;
+So I created a neural network that has a convolutional branch one on side while the other branch accepts the vectorized words. I settled on the following architecture for the model: 
+&lt;img height="300" src="./images/model.001.jpeg" width="600" /&gt;&lt;/br&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;For this work I used the Keras library for which a pre-trained VGG-16 network is available. I won't go in detail on how to do the transfer learning as the author of Keras has written a &lt;a href="http://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html"&gt;very comprehesive guide to transfer learning&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The information content of text varies quite widely, for example, certain items contain the words 'men's shirt' which tells you all the information you need, in that case the information in the image part is negligible in comparison, in other more rares cases the text will not be as informative, for example: 'bronx 84 graphic t'.  Given that the overwhelming majority of t-shirt's in the data set are actually denoted as t-shirt.&lt;br&gt;
+Furthermore the text in previous example doesn't contain any gender information so it might be hard for the network to predict if this a male or female fashion item. 
+Having said that, we have to keep in mind what the potential purposes of this classification process are, if for example this is used to estimate the shipping cost of the product a misclassification between a male and female shirt won't be of monetary importance, but if this is used to understand the clientele in a better way this mistake is very relevant.&lt;/br&gt;&lt;/p&gt;
+&lt;h2 id="Performance"&gt;Performance&lt;a class="anchor-link" href="#Performance"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Above I explained that I would like to use a neural net architecture that combines both images and text. This is quite a canon to wield and we should check how far we can get with just text. Below is the performance of using the text alone, the images and the combination of both.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;&lt;tr&gt;
+&lt;th style="text-align:center"&gt;Images&lt;/th&gt;
+&lt;th style="text-align:center"&gt;Text&lt;/th&gt;
+&lt;th style="text-align:center"&gt;Images + text&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style="text-align:center"&gt;78%&lt;/td&gt;
+&lt;td style="text-align:center"&gt;85%&lt;/td&gt;
+&lt;td style="text-align:center"&gt;85%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;For the text I have tried random forest and logistic regression both for which I it was easy to do hyper parameter optimization using random search, logistic regression with L2 regularization seems to have the edge over L1 regularization while none of random forest models were competitive.&lt;/p&gt;
+&lt;p&gt;Given these results it doesn’t seem justified to use a deep learning which is much more involved process than running  a simple and fast logistic regression.
+There are how ever a few more tricks up the deep learning sleeve that we will need to try before given up. One of the first things that comes to mind is hyper parameter optimization, like I did with the text only model. Given that feedback loop for hyper parameter optimization is slow due to the fact that training a deep learning model takes quite a bit of time I opted to use this  only as a last measure.&lt;br&gt;
+A more natural way forward is to attempt to find better convolutional filters that are better suited given the task as hand.&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;The pretrained network VVG than I’m using was trained on Image-Net which has 1000 classes, none of which to my knowledge are clothing or fashion items, so it makes sense to try and adjust the convolutional layers that have learned to identify higher level features of the training set.
+This process is called fine tuning. I opted for fine-tuning the last 3 convolutional layers.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;&lt;tr&gt;
+&lt;th style="text-align:center"&gt;Images&lt;/th&gt;
+&lt;th style="text-align:center"&gt;Text&lt;/th&gt;
+&lt;th style="text-align:center"&gt;Images + text&lt;/th&gt;
+&lt;th style="text-align:center"&gt;Images + text + Fine Tuning&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style="text-align:center"&gt;78%&lt;/td&gt;
+&lt;td style="text-align:center"&gt;85%&lt;/td&gt;
+&lt;td style="text-align:center"&gt;85%&lt;/td&gt;
+&lt;td style="text-align:center"&gt;88%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The fine tuning brought another 3 in accuracy, making the deep learning model clearly the best model with 88% accuracy
+The errors on these classification metrics are of the order 0.01% so all the differences here are significant.&lt;/p&gt;
+&lt;p&gt;There however still a few examples that have been misclassified that puzzle me. 
+For example a normal looking  [insert] with the following text [insert] is still being misclassified by the model. 
+It seems like a simple decision tree would be able to tell you that  it is is not a [insert].
+This begs the question, can we leverage a simple decision tree based model in combination with the deep learning model to get a better prediction ? And if so how do you combine the models ? 
+Model averaging has been proven to be very powerful in the past, but in this case I opted for a strategy inspired by my intuition that I wrote about above, a simple decision tree can tell you very well in which categories the object cannot be. So a very simple model that sets the probability of an object belonging to a class to zero if the decision tree predicts a zero probability there and renormalizing the other other values of the deep learning model. 
+This leads to a total accuracy of 90% if you using a simple rather shallow decision tree and 
+Up to 91% if a random forest model is used where the depth is restricted.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;&lt;tr&gt;
+&lt;th style="text-align:center"&gt;Images&lt;/th&gt;
+&lt;th style="text-align:center"&gt;Text&lt;/th&gt;
+&lt;th style="text-align:center"&gt;Images + text&lt;/th&gt;
+&lt;th style="text-align:center"&gt;Images + text + Fine Tuning&lt;/th&gt;
+&lt;th style="text-align:center"&gt;Images + text + Fine Tuning + Tree&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style="text-align:center"&gt;78%&lt;/td&gt;
+&lt;td style="text-align:center"&gt;85%&lt;/td&gt;
+&lt;td style="text-align:center"&gt;85%&lt;/td&gt;
+&lt;td style="text-align:center"&gt;88%&lt;/td&gt;
+&lt;td style="text-align:center"&gt;90%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In [ ]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: 'center'," +
+        "    displayIndent: '0em'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['$','$'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
+        "    } " +
+        "}); ";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;
+</summary><category term="Keras"></category></entry><entry><title>Mixture Density Networks with Edward, Keras and TensorFlow</title><link href="http://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html" rel="alternate"></link><updated>2016-05-27T18:40:00+02:00</updated><author><name>Christopher Bonnett</name></author><id>tag:cbonnett.github.io,2016-05-27:MDN_EDWARD_KERAS_TF.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
@@ -2742,7 +2945,7 @@ Vnsw9AWmAAAAAElFTkSuQmCC
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;
-</summary><category term="Edward"></category><category term="Keras"></category><category term="TensorFlow"></category><category term="MDN"></category></entry><entry><title>Mixture Density Networks for Galaxy distance determination in TensorFlow</title><link href="http://cbonnett.github.io/MDN.html" rel="alternate"></link><updated>2016-05-25T18:40:00+02:00</updated><author><name>Christopher Bonnett</name></author><id>tag:cbonnett.github.io,2016-04-25:MDN.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+</summary><category term="Edward"></category><category term="Keras"></category><category term="TensorFlow"></category><category term="MDN"></category></entry><entry><title>Mixture Density Networks for Galaxy distance determination in TensorFlow</title><link href="http://cbonnett.github.io/MDN.html" rel="alternate"></link><updated>2016-05-25T18:40:00+02:00</updated><author><name>Christopher Bonnett</name></author><id>tag:cbonnett.github.io,2016-05-25:MDN.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *

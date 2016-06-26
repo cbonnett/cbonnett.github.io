@@ -42,10 +42,42 @@
 <ul class="main-navigation">
     <li><a href="/archives.html">Archives</a></li>
     <li><a href="https://www.linkedin.com/in/cbonnett">LinkedIn</a></li>
+      <li >
+        <a href="http://cbonnett.github.io/category/misc.html">Misc</a>
+      </li>
 </ul></nav>
   <div id="main">
     <div id="content">
 <div class="blog-index">
+  		<article>
+<header>
+      <h1 class="entry-title">
+        <a href="http://cbonnett.github.io/Insight.html">Classifying e-commerce products based on images and text</a>
+      </h1>
+    <p class="meta">
+<time datetime="2016-06-26T10:20:00+02:00" pubdate>Sun 26 June 2016</time>    </p>
+</header>
+
+  <div class="entry-content">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>During my time at <a href="http://insightdatascience.com/">Insight</a> I consulted for a Y-combinator startup <a href="https://www.lynks.com/">Lynks</a> that allows people in Egypt to ship fashion and fashion related items from US e-commerce stores to their homes in Egypt. This is a useful service as most of the US e-commerce website do not ship their products to the middle East. 
+Lynks doesn't have it's own inventory and its theoretical inventory is the combined one of all US based e-commerce stores. 
+All the products that are ordered have been classified by hand and Lynks has asked me to help prototype a pipeline that can assist in automating this task. 
+In the best case scenario this work will contribute to a fully automated classification pipeline, lower hanging fruit is to assist the human labelers while more data is collected and the predictive model gets improved. 
+Given that Lynks has been doing this by hand they have a decently sized data labeled data set. 
+The data currently collected for each product is an image and a short description of the item.<br>
+Here are two typical examples of the data I am dealing with: 
+<img alt="Alt Text" src="./images/for_blog.001.jpeg">
+So given an image and a short description we would like to predict the label. As you can see the label is hierarchical. Given we are building a prototype I will concern myself with the flattened label. 
+In total there are 99 unique classes and the classes are quite unbalanced, I will just work with the top 10 classes for which the classes are quite well balanced.</img></div>
+  <footer>
+    <a rel="full-article" href="http://cbonnett.github.io/Insight.html">Read On &crarr;</a>
+  </footer>
+  		</article>
   		<article>
 <header>
       <h1 class="entry-title">
@@ -72,7 +104,7 @@
         <a href="http://cbonnett.github.io/MDN.html">Mixture Density Networks for Galaxy distance determination in TensorFlow</a>
       </h1>
     <p class="meta">
-<time datetime="2016-04-25T10:20:00+02:00" pubdate>Mon 25 April 2016</time>    </p>
+<time datetime="2016-05-25T10:20:00+02:00" pubdate>Wed 25 May 2016</time>    </p>
 </header>
 
   <div class="entry-content">
@@ -96,6 +128,9 @@ The code used in this work is based on the <a href="http://blog.otoro.net/2015/1
     <h1>Recent Posts</h1>
     <ul id="recent_posts">
       <li class="post">
+          <a href="http://cbonnett.github.io/Insight.html">Classifying e-commerce products based on images and text</a>
+      </li>
+      <li class="post">
           <a href="http://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html">Mixture Density Networks with Edward, Keras and TensorFlow</a>
       </li>
       <li class="post">
@@ -107,8 +142,7 @@ The code used in this work is based on the <a href="http://blog.otoro.net/2015/1
       
     <h1>Categories</h1>
     <ul id="recent_posts">
-        <li><a href="http://cbonnett.github.io/category/ml.html">ML</a></li>
-        <li><a href="http://cbonnett.github.io/category/ml-in-science.html">ML in science</a></li>
+        <li><a href="http://cbonnett.github.io/category/misc.html">misc</a></li>
     </ul>
   </section>
  
@@ -149,15 +183,4 @@ The code used in this work is based on the <a href="http://blog.otoro.net/2015/1
     })();
   </script>
 </body>
-</html>   
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-9853651-2', 'auto');
-  ga('send', 'pageview');
-
-</script>
+</html>
