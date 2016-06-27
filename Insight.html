@@ -139,17 +139,17 @@ All the products that are ordered have been classified by hand and Lynks has ask
 In the best case scenario this work will contribute to a fully automated classification pipeline, lower hanging fruit is to assist the human labelers while more data is collected and the predictive model gets improved. 
 Given that Lynks has been doing this by hand they have a decently sized data labeled data set. 
 The data currently collected for each product is an image and a short description of the item.<br>
-Here are two typical examples of the data I am dealing with: 
-<img alt="Alt Text" src="./images/for_blog.001.jpeg">
-So given an image and a short description we would like to predict the label. As you can see the label is hierarchical. Given we are building a prototype I will concern myself with the flattened label. 
-In total there are 99 unique classes and the classes are quite unbalanced, I will just work with the top 10 classes for which the classes are quite well balanced.</img></br></p>
+Here are two typical examples of the data I am dealing with:</br></p>
+<p><img alt="Alt Text" src="./images/for_blog.001.jpeg" /></p>
+<p>So given an image and a short description we would like to predict the label. As you can see the label is hierarchical. Given we are building a prototype I will concern myself with the flattened label. 
+In total there are 99 unique classes and the classes are quite unbalanced, I will just work with the top 10 classes for which the classes are quite well balanced.</p>
 <h2 id="Machine-learning-model">Machine learning model<a class="anchor-link" href="#Machine-learning-model">¶</a></h2><p>I would like to combine the text and image in a machine learning model as they both contain a lot of information, how best to do that is not clear. Below I explain the path taken.<br>
 On the image part of the data I will want to make use of  a convolutional neural network while for the text we will have to do some NLP processing to be able to use it for prediction. 
 Although our data set is not small (~5000 in the training set) it can hardly be compared to <a href="http://karpathy.github.io/2014/09/02/what-i-learned-from-competing-against-a-convnet-on-imagenet/">Image-Net</a> data set containing 1.2 million images in a 1000 classes. 
 For this reason it make sense to leverage the power of pre-trained networks that have been been trained on Image-Net which already has  the capability of extracting useful features for natural images. Leveraging a pre-trained machine learning model is called transfer learning. On the text side of the feature space a simle <a href="http://scikit-learn.org/stable/modules/feature_extraction.html#the-bag-of-words-representation">bag of words model</a> will be sufficient given that the mere presence of a word is very informative.<br>
-So I created a neural network that has a convolutional branch one on side while the other branch accepts the vectorized words. I settled on the following architecture for the model: 
-<img alt="Alt Text" src="./images/model.001.jpeg">
-For this work I used the Keras library for which a pre-trained VGG-16 network is available. I won't go in detail on how to do the transfer learning as the author of Keras has written a <a href="http://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html">very comprehesive guide to transfer learning</a>.</img></br></br></p>
+So I created a neural network that has a convolutional branch one on side while the other branch accepts the vectorized words. I settled on the following architecture for the model:</br></br></p>
+<p><img alt="Alt Text" src="./images/model.001.jpeg" /></p>
+<p>For this work I used the Keras library for which a pre-trained VGG-16 network is available. I won't go in detail on how to do the transfer learning as the author of Keras has written a <a href="http://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html">very comprehesive guide to transfer learning</a>.</p>
 <p>The information content of text varies quite widely, for example, certain items contain the words 'men's shirt' which tells you all the information you need, in that case the information in the image part is negligible in comparison, in other more rares cases the text will not be as informative, for example: 'bronx 84 graphic t'.  Given that the overwhelming majority of t-shirt's in the data set are actually denoted as t-shirt.<br>
 Furthermore the text in previous example doesn't contain any gender information so it might be hard for the network to predict if this a male or female fashion item. 
 Having said that, we have to keep in mind what the potential purposes of this classification process are, if for example this is used to estimate the shipping cost of the product a misclassification between a male and female shirt won't be of monetary importance, but if this is used to understand the clientele in a better way this mistake is very relevant.</br></p>
@@ -164,7 +164,7 @@ Having said that, we have to keep in mind what the potential purposes of this cl
 <tbody>
 <tr>
 <td style="text-align:center">78%</td>
-<td style="text-align:center">85%</td>
+<td style="text-align:center">86%</td>
 <td style="text-align:center">85%</td>
 </tr>
 </tbody>
@@ -186,7 +186,7 @@ This process is called fine tuning. I opted for fine-tuning the last 3 convoluti
 <tbody>
 <tr>
 <td style="text-align:center">78%</td>
-<td style="text-align:center">85%</td>
+<td style="text-align:center">86%</td>
 <td style="text-align:center">85%</td>
 <td style="text-align:center">88%</td>
 </tr>
@@ -207,16 +207,16 @@ Up to 91% if a random forest model is used where the depth is restricted.</p>
 <th style="text-align:center">Text</th>
 <th style="text-align:center">Images + text</th>
 <th style="text-align:center">Images + text + Fine Tuning</th>
-<th style="text-align:center">Images + text + Fine Tuning + Tree</th>
+<th style="text-align:center">Images + text + Fine Tuning + RF</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:center">78%</td>
-<td style="text-align:center">85%</td>
+<td style="text-align:center">86%</td>
 <td style="text-align:center">85%</td>
 <td style="text-align:center">88%</td>
-<td style="text-align:center">90%</td>
+<td style="text-align:center">92%</td>
 </tr>
 </tbody>
 </table>
