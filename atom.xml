@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PL49</title><link href="http://cbonnett.github.io/" rel="alternate"></link><link href="http://cbonnett.github.io/atom.xml" rel="self"></link><id>http://cbonnett.github.io/</id><updated>2016-06-26T18:40:00+02:00</updated><entry><title>Classifying e-commerce products based on images and text</title><link href="http://cbonnett.github.io/Insight.html" rel="alternate"></link><updated>2016-06-26T18:40:00+02:00</updated><author><name>Christopher Bonnett</name></author><id>tag:cbonnett.github.io,2016-06-26:Insight.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Adventures in Machine Learning</title><link href="http://cbonnett.github.io/" rel="alternate"></link><link href="http://cbonnett.github.io/atom.xml" rel="self"></link><id>http://cbonnett.github.io/</id><updated>2016-06-26T18:40:00+02:00</updated><entry><title>Classifying e-commerce products based on images and text</title><link href="http://cbonnett.github.io/Insight.html" rel="alternate"></link><updated>2016-06-26T18:40:00+02:00</updated><author><name>Christopher Bonnett</name></author><id>tag:cbonnett.github.io,2016-06-26:Insight.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
