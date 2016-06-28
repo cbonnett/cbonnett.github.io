@@ -76,30 +76,29 @@
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;During my time at &lt;a href="http://insightdatascience.com/"&gt;Insight&lt;/a&gt; I consulted for a Y-combinator startup &lt;a href="https://www.lynks.com/"&gt;Lynks&lt;/a&gt; that allows people in Egypt to ship fashion and fashion related items from US e-commerce stores to their homes in Egypt. This is a useful service as most of the US e-commerce website do not ship their products to the middle East. 
 Lynks doesn't have it's own inventory and its theoretical inventory is the combined one of all US based e-commerce stores. 
-All the products that are ordered have been classified by hand and Lynks has asked me to help prototype a pipeline that can assist in automating this task. 
-In the best case scenario this work will contribute to a fully automated classification pipeline, lower hanging fruit is to assist the human labelers while more data is collected and the predictive model gets improved. 
-Given that Lynks has been doing this by hand they have a decently sized data labeled data set. 
+All the products that are ordered are classified by hand and Lynks has asked me to help prototype a pipeline that can assist in automating this task. 
+In the best case scenario this work will contribute to a fully automated classification pipeline, lower hanging fruit would be to assist the human labelers while more data is collected and the predictive model gets improved. 
 The data currently collected for each product is an image and a short description of the item.&lt;br&gt;
-Here are two typical examples of the data I am dealing with:&lt;/br&gt;&lt;/p&gt;
+Here are two typical examples with the assinged labels that I am dealing with:&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Alt Text" src="./images/for_blog.001.jpeg" /&gt;&lt;/p&gt;
 &lt;p&gt;So given an image and a short description we would like to predict the label. As you can see the label is hierarchical. Given we are building a prototype I will concern myself with the flattened label. 
 In total there are 99 unique classes and the classes are quite unbalanced, I will just work with the top 10 classes for which the classes are quite well balanced.&lt;/p&gt;
-&lt;h2 id="Machine-learning-model"&gt;Machine learning model&lt;a class="anchor-link" href="#Machine-learning-model"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;I would like to combine the text and image in a machine learning model as they both contain a lot of information, how best to do that is not clear. Below I explain the path taken.&lt;br&gt;
-On the image part of the data I will want to make use of  a convolutional neural network while for the text we will have to do some NLP processing to be able to use it for prediction. 
+&lt;h2 id="Machine-learning-model"&gt;Machine learning model&lt;a class="anchor-link" href="#Machine-learning-model"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;h3 id="Images"&gt;Images&lt;a class="anchor-link" href="#Images"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;I would like to combine the text and image in a machine learning model as they both contain a lot of information, how best to do that is not clear. Below I explain the path taken.&lt;br&gt;
+On the image part of the data I will want to make use of a convolutional neural network while for the text we will have to do some NLP processing to be able to use it for prediction. 
 Although our data set is not small (~5000 in the training set) it can hardly be compared to &lt;a href="http://karpathy.github.io/2014/09/02/what-i-learned-from-competing-against-a-convnet-on-imagenet/"&gt;Image-Net&lt;/a&gt; data set containing 1.2 million images in a 1000 classes. 
-For this reason it make sense to leverage the power of pre-trained networks that have been been trained on Image-Net which already has  the capability of extracting useful features for natural images. Leveraging a pre-trained machine learning model is called transfer learning. On the text side of the feature space a simle &lt;a href="http://scikit-learn.org/stable/modules/feature_extraction.html#the-bag-of-words-representation"&gt;bag of words model&lt;/a&gt; will be sufficient given that the mere presence of a word is very informative.&lt;br&gt;
+For this reason it make sense to leverage the power of pre-trained networks that have been been trained on Image-Net which already has the capability of extracting useful features for natural images. Leveraging a pre-trained machine learning model is called transfer learning. On the text side of the feature space a simple &lt;a href="http://scikit-learn.org/stable/modules/feature_extraction.html#the-bag-of-words-representation"&gt;bag of words model&lt;/a&gt; will be sufficient given that the mere presence of a word is very informative and I don't expect a gain from interactions.&lt;br&gt;
 So I created a neural network that has a convolutional branch one on side while the other branch accepts the vectorized words. I settled on the following architecture for the model:&lt;/br&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Alt Text" src="./images/model.001.jpeg" /&gt;&lt;/p&gt;
 &lt;p&gt;For this work I used the Keras library for which a pre-trained VGG-16 network is available. I won't go in detail on how to do the transfer learning as the author of Keras has written a &lt;a href="http://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html"&gt;very comprehesive guide to transfer learning&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;The information content of text varies quite widely, for example, certain items contain the words 'men's shirt' which tells you all the information you need, in that case the information in the image part is negligible in comparison, in other more rares cases the text will not be as informative, for example: 'bronx 84 graphic t'.  Given that the overwhelming majority of t-shirt's in the data set are actually denoted as t-shirt.&lt;br&gt;
+&lt;h3 id="Text"&gt;Text&lt;a class="anchor-link" href="#Text"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;The information content of text varies quite widely, for example, certain items contain the words 'men's shirt' which tells you all the information you need, in that case the information in the image part is negligible in comparison, in other more rares cases the text will not be as informative, for example: 'bronx 84 graphic t'.  Given that the overwhelming majority of t-shirt's in the data set are actually denoted as 't-shirt'.&lt;br&gt;
 Furthermore the text in previous example doesn't contain any gender information so it might be hard for the network to predict if this a male or female fashion item. 
 Having said that, we have to keep in mind what the potential purposes of this classification process are, if for example this is used to estimate the shipping cost of the product a misclassification between a male and female shirt won't be of monetary importance, but if this is used to understand the clientele in a better way this mistake is very relevant.&lt;/br&gt;&lt;/p&gt;
-&lt;h2 id="Performance"&gt;Performance&lt;a class="anchor-link" href="#Performance"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Above I explained that I would like to use a neural net architecture that combines both images and text. This is quite a canon to wield and we should check how far we can get with just text. Below is the performance of using the text alone, the images and the combination of both.&lt;/p&gt;
+&lt;h2 id="Performance"&gt;Performance&lt;a class="anchor-link" href="#Performance"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Above I explained that I would like to use a neural network architecture that combines both images and text. This is quite a canon to wield and we should check how far we can get with just text. Below is the performance of using the text alone, the images and the combination of both.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;&lt;tr&gt;
 &lt;th style="text-align:center"&gt;Images&lt;/th&gt;
 &lt;th style="text-align:center"&gt;Text&lt;/th&gt;
-&lt;th style="text-align:center"&gt;Images + text&lt;/th&gt;
+&lt;th style="text-align:center"&gt;Images + Text&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
@@ -112,10 +111,10 @@ Having said that, we have to keep in mind what the potential purposes of this cl
 &lt;/table&gt;
 &lt;p&gt;For the text I have tried random forest and logistic regression both for which I it was easy to do hyper parameter optimization using random search, logistic regression with L2 regularization seems to have the edge over L1 regularization while none of random forest models were competitive.&lt;/p&gt;
 &lt;p&gt;Given these results it doesn’t seem justified to use a deep learning which is much more involved process than running  a simple and fast logistic regression.
-There are how ever a few more tricks up the deep learning sleeve that we will need to try before given up. One of the first things that comes to mind is hyper parameter optimization, like I did with the text only model. Given that feedback loop for hyper parameter optimization is slow due to the fact that training a deep learning model takes quite a bit of time I opted to use this  only as a last measure.&lt;br&gt;
+There are how ever a few more tricks up the deep learning sleeve that we will need to try before given up. One of the first things that comes to mind is hyper parameter optimization, like I did with the text only model. Given that feedback loop for hyper parameter optimization is slow due to the fact that training a deep learning model takes quite a bit of time I opted to use this only as a last measure.&lt;br&gt;
 A more natural way forward is to attempt to find better convolutional filters that are better suited given the task as hand.&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;The pretrained network VVG than I’m using was trained on Image-Net which has 1000 classes, none of which to my knowledge are clothing or fashion items, so it makes sense to try and adjust the convolutional layers that have learned to identify higher level features of the training set.
-This process is called fine tuning. I opted for fine-tuning the last 3 convolutional layers.&lt;/p&gt;
+This process is called fine tuning. I opted for fine-tuning the last 3 convolutional layers, here are the results.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;&lt;tr&gt;
 &lt;th style="text-align:center"&gt;Images&lt;/th&gt;
@@ -133,15 +132,14 @@ This process is called fine tuning. I opted for fine-tuning the last 3 convoluti
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;The fine tuning brought another 3 in accuracy, making the deep learning model clearly the best model with 88% accuracy
-The errors on these classification metrics are of the order 0.01% so all the differences here are significant.&lt;/p&gt;
+&lt;p&gt;The fine tuning brought another 3% in accuracy, making the deep learning model clearly the best model with 88% accuracy. The errors on these classification metrics are of the order 0.01% so all the differences here are significant.&lt;/p&gt;
 &lt;p&gt;There however still a few examples that have been misclassified that puzzle me. 
-For example a normal looking  [insert] with the following text [insert] is still being misclassified by the model. 
+For example a normal looking  [insert] with the following text [insert] is still being misclassified by the model as [insert]. 
 It seems like a simple decision tree would be able to tell you that  it is is not a [insert].
-This begs the question, can we leverage a simple decision tree based model in combination with the deep learning model to get a better prediction ? And if so how do you combine the models ? 
-Model averaging has been proven to be very powerful in the past, but in this case I opted for a strategy inspired by my intuition that I wrote about above, a simple decision tree can tell you very well in which categories the object cannot be. So a very simple model that sets the probability of an object belonging to a class to zero if the decision tree predicts a zero probability there and renormalizing the other other values of the deep learning model. 
-This leads to a total accuracy of 90% if you using a simple rather shallow decision tree and 
-Up to 91% if a random forest model is used where the depth is restricted.&lt;/p&gt;
+This begs the question, can we leverage a simple decision tree based model in combination with the deep learning model to get a better prediction ? And if so how do you combine the models ?&lt;/p&gt;
+&lt;p&gt;Model averaging has been proven to be very powerful in the past, but in this case I opted for a strategy inspired by my intuition that I wrote about above, a simple decision tree can tell you very well in which categories the object cannot be. So a very simple model that sets the probability of an object belonging to a class to zero if the decision tree predicts a zero probability and renormalizing the other other values of the deep learning model.&lt;/p&gt;
+&lt;p&gt;This leads to a total accuracy of 90% if you using a simple rather shallow decision tree and 
+up to 93% if a random forest model&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;&lt;tr&gt;
 &lt;th style="text-align:center"&gt;Images&lt;/th&gt;
@@ -157,7 +155,7 @@ Up to 91% if a random forest model is used where the depth is restricted.&lt;/p&
 &lt;td style="text-align:center"&gt;86%&lt;/td&gt;
 &lt;td style="text-align:center"&gt;85%&lt;/td&gt;
 &lt;td style="text-align:center"&gt;88%&lt;/td&gt;
-&lt;td style="text-align:center"&gt;92%&lt;/td&gt;
+&lt;td style="text-align:center"&gt;93%&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -2945,7 +2943,7 @@ Vnsw9AWmAAAAAElFTkSuQmCC
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;
-</summary><category term="Edward"></category><category term="Keras"></category><category term="TensorFlow"></category><category term="MDN"></category></entry><entry><title>Mixture Density Networks for Galaxy distance determination in TensorFlow</title><link href="http://cbonnett.github.io/MDN.html" rel="alternate"></link><updated>2016-05-25T18:40:00+02:00</updated><author><name>Christopher Bonnett</name></author><id>tag:cbonnett.github.io,2016-05-25:MDN.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+</summary><category term="Edward"></category><category term="Keras"></category><category term="TensorFlow"></category><category term="MDN"></category></entry><entry><title>Mixture Density Networks for Galaxy distance determination in TensorFlow</title><link href="http://cbonnett.github.io/MDN.html" rel="alternate"></link><updated>2016-05-25T18:40:00+02:00</updated><author><name>Christopher Bonnett</name></author><id>tag:cbonnett.github.io,2016-04-25:MDN.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
