@@ -74,10 +74,9 @@
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;During my time at &lt;a href="http://insightdatascience.com/"&gt;Insight&lt;/a&gt; I consulted a &lt;a href="https://www.ycombinator.com/"&gt;Y-combinator&lt;/a&gt; startup &lt;a href="https://www.lynks.com/"&gt;Lynks&lt;/a&gt; that allows people in Egypt to ship fashion and fashion related items from US e-commerce stores to their homes in Egypt. This is a useful service as most of the US e-commerce website do not ship their products to the middle East. 
-Lynks doesn't have it's own inventory and its theoretical inventory is the combined one of all US based e-commerce stores. 
-All the products that are ordered are classified by hand and Lynks has asked me to help prototype a pipeline that can assist in automating this task. 
-In the best case scenario this work will contribute to a fully automated classification pipeline, lower hanging fruit would be to assist the human labelers while more data is collected and the predictive model are improved. 
+&lt;p&gt;During my time at &lt;a href="http://insightdatascience.com/"&gt;Insight&lt;/a&gt; I consulted a &lt;a href="https://www.ycombinator.com/"&gt;Y-combinator&lt;/a&gt; startup &lt;a href="https://www.lynks.com/"&gt;Lynks&lt;/a&gt; that allows people in Egypt to ship fashion and fashion related items from US e-commerce stores to their homes in Egypt. This is a useful service as many US e-commerce websites do not take orders from abroad. Lynks buys products from any e-retailer on behalf of customers through their 'universal shopping cart' and has that inventory ship to the Lynks warehouse in Delaware. That's where Lynks will consolidate orders and ship off completed ones to the end customer. Other than the couple of days that products pass-through Lynks warehouse, Lynks doesn't store inventory, so its theoretical product-list is the combination of all US based e-commerce stores.
+All the products that are ordered are currently classified by hand and Lynks has asked me to help prototype a pipeline that can assist in automating this task. 
+In the best case scenario this work will contribute to a fully automated classification pipeline, lower hanging fruit would be to assist the human labelers while more data is collected and the predictive models are improved. 
 The data currently collected for each product is an image and a short description of the item.&lt;br&gt;
 Here are two typical examples with the assinged labels that I am dealing with:&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Alt Text" src="./images/for_blog.001.jpeg" /&gt;&lt;/p&gt;
