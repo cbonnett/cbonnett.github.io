@@ -131,25 +131,24 @@
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>During my time at <a href="http://insightdatascience.com/">Insight</a> I consulted a <a href="https://www.ycombinator.com/">Y-combinator</a> startup <a href="https://www.lynks.com/">Lynks</a> that allows people in Egypt to ship fashion and fashion related items from US e-commerce stores to their homes in Egypt. This is a useful service as many US e-commerce websites do not take orders from abroad. Lynks buys products from any e-retailer on behalf of customers through their 'universal shopping cart' and has that inventory ship to the Lynks warehouse in Delaware. That's where Lynks will consolidate orders and ship off completed ones to the end customer. Other than the couple of days that products pass-through Lynks warehouse, Lynks doesn't store inventory, so its theoretical product-list is the combination of all US based e-commerce stores.
+<p>During my time at <a href="http://insightdatascience.com/">Insight</a> I consulted a <a href="https://www.ycombinator.com/">Y-combinator</a> startup <a href="https://www.lynks.com/">Lynks</a> that allows people in Egypt to ship fashion and fashion related items from US e-commerce stores to their homes in Egypt. This is a useful service as many US e-commerce websites do not take orders from abroad. Lynks buys products from any e-retailer on behalf of customers through their 'universal shopping cart' and ships that inventory to the Lynks warehouse in Delaware, where it consolidates orders and ships completed ones to the end customer. Other than the couple of days that products pass-through Lynks warehouse, Lynks doesn't store inventory, so its theoretical product list is the combination of all US based e-commerce stores.
 All the products that are ordered are currently classified by hand and Lynks has asked me to help prototype a pipeline that can assist in automating this task. 
-In the best case scenario this work will contribute to a fully automated classification pipeline, lower hanging fruit would be to assist the human labelers while more data is collected and the predictive models are improved. 
+In the best case scenario this work will contribute to a fully automated classification pipeline; lower hanging fruit would be to assist the human labelers while more data is collected and the predictive models are improved. 
 The data currently collected for each product is an image and a short description of the item.<br>
-Here are two typical examples with the assinged labels that I am dealing with:</br></p>
+Here are two typical examples with the assigned labels that I am dealing with:</br></p>
 <p><img alt="Alt Text" src="./images/for_blog.001.jpeg" /></p>
 <p>So given an image and a short description we would like to predict the label. As you can see the label is hierarchical. Given we are building a prototype I will concern myself with the flattened label. 
-In total there are 99 unique classes and the classes are quite unbalanced, I will just work with the top 10 classes for which the classes are quite well balanced.</p>
-<h2 id="Machine-learning-model">Machine learning model<a class="anchor-link" href="#Machine-learning-model">¶</a></h2><h3 id="Images">Images<a class="anchor-link" href="#Images">¶</a></h3><p>I would like to combine the text and image in a machine learning model as they both contain a lot of information, how best to do that is not clear. Below I explain the path I took.<br>
-On the image part of the data I will want to make use of a convolutional neural network while for the text we will have to do some NLP processing to be able to use it in a machine learning model. 
+In total there are 99 unique classes and the classes are quite unbalanced, I will just work with the top 10 classes for which the classes are balanced well.</p>
+<h2 id="Machine-learning-model">Machine learning model<a class="anchor-link" href="#Machine-learning-model">¶</a></h2><h3 id="Images">Images<a class="anchor-link" href="#Images">¶</a></h3><p>My goal is to combine the text and image into a single machine learning model, since they contain complementary information. Below I explain the path I took.<br>
+For the image data, I will want to make use of a convolutional neural network, while for the text data I will use NLP processing before using it in a machine learning model. 
 Although our data set is not small (~5000 in the training set) it can hardly be compared to <a href="http://karpathy.github.io/2014/09/02/what-i-learned-from-competing-against-a-convnet-on-imagenet/">Image-Net</a> data set containing 1.2 million images in a 1000 classes. 
 For this reason it make sense to leverage the power of pre-trained network that has been been trained on Image-Net which already has the capability of extracting useful features for natural images. Leveraging a pre-trained machine learning model is called transfer learning. On the text side of the feature space a simple <a href="http://scikit-learn.org/stable/modules/feature_extraction.html#the-bag-of-words-representation">bag of words model</a> will be sufficient given that the mere presence of a word is very informative and I don't expect a gain from interactions.<br>
 So I created a neural network that has a convolutional branch one on side while the other branch accepts the vectorized words. I settled on the following architecture for the model:</br></br></p>
 <p><img alt="Alt Text" src="./images/model.001.jpeg" /></p>
 <p>For this work I used the Keras library for which a pre-trained VGG-16 network is available. I won't go in detail on how to do the transfer learning as the author of Keras has written a <a href="http://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html">very comprehesive guide to transfer learning</a>.</p>
-<h3 id="Text">Text<a class="anchor-link" href="#Text">¶</a></h3><p>The information content of text varies quite widely, for example, certain items contain the words 'men's shirt' which tells you all the information you need, in that case the information in the image part is negligible in comparison, in other more rares cases the text will not be as informative, for example: 'bronx 84 graphic t'.  Given that the overwhelming majority of t-shirt's in the data set are actually denoted as 't-shirt'.<br>
-Furthermore the text in previous example doesn't contain any gender information so it might be hard for the network to predict if this a male or female fashion item. 
-Having said that, we have to keep in mind what the potential purposes of this classification process are, if for example this is used to estimate the shipping cost of the product a misclassification between a male and female shirt won't be of monetary importance, but if this is used to understand the clientele in a better way this mistake is very relevant.</br></p>
-<h2 id="Performance">Performance<a class="anchor-link" href="#Performance">¶</a></h2><p>Above I explained that I would like to use a neural network architecture that combines both images and text. This is quite a canon to wield and we should check how far we can get with just text. Below is the performance of using the text alone, the images and the combination of both.</p>
+<h3 id="Text">Text<a class="anchor-link" href="#Text">¶</a></h3><p>The information content of the text varies quite widely. In some cases, the item can be classified accurately using the text alone (e.g., 'men's shirt'); in other, rarer cases the text will not be as informative (e.g., 'bronx 84 graphic t'). Furthermore, the text in previous example might be difficult to classify as male or female since the text does not contain any gender information.
+Having said that, we have to keep in mind what the potential purposes of this classification process are. If, for example, classification is used to estimate the shipping cost of the product, a misclassification between a male and female shirt won't be of monetary importance; however, if it is used to understand the clientele in a better way this mistake is very relevant.</p>
+<h2 id="Performance">Performance<a class="anchor-link" href="#Performance">¶</a></h2><p>Above I explained that I would like to use a neural network architecture that combines both images and text. This is quite a cannon to wield and we should check how far we can get with just text. Below is the performance of using the text alone, the images and the combination of both.</p>
 <table>
 <thead><tr>
 <th style="text-align:center">Images</th>
@@ -165,11 +164,11 @@ Having said that, we have to keep in mind what the potential purposes of this cl
 </tr>
 </tbody>
 </table>
-<p>For the text I have tried random forest and logistic regression both for which I it was easy to do hyper parameter optimization using random search, logistic regression with L2 regularization seems to have the edge over L1 regularization while none of random forest models were competitive.</p>
-<p>Given these results it doesn’t seem justified to use deep learning which is much more involved process than running  a simple and fast logistic regression.
-There are how ever a few more tricks up the deep learning sleeve that we will need to try before given up. One of the first things that comes to mind is hyper parameter optimization, like I did with the text only model. Given that feedback loop for hyper parameter optimization is slow due to the fact that training a deep learning model takes quite a bit of time I opted to use this only as a last measure.<br>
-A more natural way forward is to attempt to find better convolutional filters that are better suited given the task as hand.</br></p>
-<p>The pretrained network VVG than I’m using was trained on Image-Net which has 1000 classes, none of which to my knowledge are clothing or fashion items, so it makes sense to try and adjust the convolutional layers that have learned to identify higher level features of the training set.
+<p>For the text I have tried random forest and logistic regression both for which I it was easy to do hyperparameter optimization using random search, logistic regression with L2 regularization seems to have the edge over L1 regularization while none of random forest models were competitive.</p>
+<p>Given these results it doesn’t seem justified to use deep learning which is much more involved process than running a simple and fast logistic regression.
+There are how ever a few more tricks up the deep learning sleeve to try before giving up. One such trick is hyperparameter optimization, like I did with the text only model. Given that feedback loop for hyperparameter optimization is slow due to the fact that training a deep learning model takes quite a bit of time, I opted to use this only as a last measure.<br>
+A more natural way forward is to attempt to find convolutional filters that are better suited given the task at hand.</br></p>
+<p>The pretrained network VVG than I’m using was trained on Image-Net which has 1000 classes, none of which to my knowledge are clothing or fashion items, so it makes sense to try and adjust the convolutional layers that have learned to identify higher-level features of the training set.
 This process is called fine tuning. I opted for fine-tuning the last 3 convolutional layers, here are the results.</p>
 <table>
 <thead><tr>
@@ -192,10 +191,9 @@ This process is called fine tuning. I opted for fine-tuning the last 3 convoluti
 <h3 id="Adding-Trees">Adding Trees<a class="anchor-link" href="#Adding-Trees">¶</a></h3><p>There are however still a few examples that have been misclassified that puzzle me. 
 For example a normal looking men's shirt with the following text "ralph lauren men's button-down pony logo plaid shirt" is still being misclassified by the model as "Clothing &gt;&gt; Women &gt;&gt; Dress". 
 It seems like a simple decision tree would be able to tell you that it is is not a woman's dress.
-This begs the question, can we leverage a simple decision tree based model in combination with the deep learning model to get a better prediction ? And if so how do you combine the models ?</p>
+This raises the question, can we leverage a simple decision tree based model in combination with the deep learning model to get a better prediction? And if so how do you combine the models?</p>
 <p>Model averaging has been proven to be very powerful in the past, but in this case I opted for a strategy inspired by my intuition that I mentioned above. A simple decision tree can tell you very well in which categories the object cannot be. So a very simple model is one that sets the probability of an object belonging to a class to zero if the decision tree predicts a zero probability and renormalizing the other other values of the deep learning model. This works better than model averaging in my case.</p>
-<p>This leads to a total accuracy of 91% if you using a simple rather shallow decision tree and 
-up to 93% if a random forest model is used.</p>
+<p>This leads to a total accuracy of 91% for a simple, rather shallow, decision tree and up to 93% if a random forest model is used.</p>
 <table>
 <thead><tr>
 <th style="text-align:center">Images</th>
@@ -215,12 +213,11 @@ up to 93% if a random forest model is used.</p>
 </tr>
 </tbody>
 </table>
-<p>So in conclusion, a deep learning model in combination with a random forest model has the best performance for this classification problem, but a simple logisitic regression will you get you a very long way there.</p>
-</div>        
+<p>So in conclusion, a deep learning model in combination with a random forest model has the best performance for this classification problem, but a simple logistic regression will you get you a very long way there.</p>
 </div>
 </div>
 <iframe src="//www.slideshare.net/slideshow/embed_code/key/29i7m4KYapjll3" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/ChristopherBonnettPh/ecommerce-product-classification-with-deep-learning-and-random-forests" title="E-commerce product classification with deep learning and random forests" target="_blank">E-commerce product classification with deep learning and random forests</a> </strong> from <strong><a href="//www.slideshare.net/ChristopherBonnettPh" target="_blank">Christopher Bonnett Ph.D</a></strong>  
-    
+</div>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
