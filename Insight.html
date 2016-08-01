@@ -53,7 +53,7 @@
 <header>
       <h1 class="entry-title">Classifying e-commerce products based on images and text</h1>
     <p class="meta">
-<time datetime="2016-07-09T10:20:00+02:00" pubdate>Sun 26 June 2016</time>    </p>
+<time datetime="2016-06-26T10:20:00+02:00" pubdate>Sun 26 June 2016</time>    </p>
 </header>
 
   <div class="entry-content"><style type="text/css">/*!
@@ -1033,7 +1033,9 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>During my time at <a href="http://insightdatascience.com/">Insight</a> I consulted a <a href="https://www.ycombinator.com/">Y-combinator</a> startup <a href="https://www.lynks.com/">Lynks</a> that allows people in Egypt to ship fashion and fashion related items from US e-commerce stores to their homes in Egypt. This is a useful service as many US e-commerce websites do not take orders from abroad. Lynks buys products from any e-retailer on behalf of customers through their 'universal shopping cart' and ships that inventory to the Lynks warehouse in Delaware, where it consolidates orders and ships completed ones to the end customer. Other than the couple of days that products pass-through Lynks warehouse, Lynks doesn't store inventory, so its theoretical product list is the combination of all US based e-commerce stores.
+<p>The topic of this blog post is my project at <a href="http://insightdatascience.com/">Insight Data Science</a>, a program that helps academics, like myself, transition from academia into industry. So as you have probably figured, I am looking for a job, so feel free to get in touch if you think I might be of interest to your company (in the US). 
+The first part of the blog will be a high-level description of the data science. The specifics of the project, including code and low-level technical aspects, are treated in a second part.</p>
+<p>During my time at <a href="http://insightdatascience.com/">Insight</a> I consulted for a <a href="https://www.ycombinator.com/">Y-combinator</a> startup called <a href="https://www.lynks.com/">Lynks</a> that allows people in Egypt to ship fashion and fashion-related items from US e-commerce stores to their homes in Egypt. This is a useful service as many US e-commerce websites do not take orders from abroad. Lynks buys products from any e-retailer on behalf of customers through their 'universal shopping cart' and ships that inventory to the Lynks warehouse in Delaware, where it consolidates orders and ships completed ones to the end customer. Other than the couple of days that products pass-through Lynks warehouse, Lynks doesn't store inventory, so its theoretical product list is the combination of all US based e-commerce stores.
 All the products that are ordered are currently classified by hand and Lynks has asked me to help prototype a pipeline that can assist in automating this task. 
 In the best case scenario this work will contribute to a fully automated classification pipeline; lower hanging fruit would be to assist the human labelers while more data is collected and the predictive models are improved. 
 The data currently collected for each product is an image and a short description of the item.<br>
@@ -1083,7 +1085,6 @@ This process is called fine tuning. I opted for fine-tuning the last 3 convoluti
 </thead>
 <tbody>
 <tr>
-    
 <td style="text-align:center">85%</td>
 <td style="text-align:center">86%</td>
 <td style="text-align:center">93%</td>
@@ -1092,13 +1093,180 @@ This process is called fine tuning. I opted for fine-tuning the last 3 convoluti
 </tbody>
 </table>
 <p>The fine tuning brought another 1% in accuracy, making the deep learning model clearly the best model with  94% accuracy. The errors on these classification metrics are of the order 0.01% so all the differences here are significant.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Technical-aspects">Technical aspects<a class="anchor-link" href="#Technical-aspects">¶</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this part I will cover some of the technical parts of the project, along with some code snippets that might be of interest to the reader. 
+I first defined the VGG architecture and loaded in the weights; this process is also covered in a <a href="http://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html">blog post</a> 
+by the Keras author <a href="https://twitter.com/fchollet">François Chollet</a>. 
+The following code cell defines two functions: one defines the convolutional part of the VGG architecture and sets the layers so they cannot be trained as we want to use transfer learning, and the other loads the weights.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">get_base_model</span><span class="p">():</span>
+    <span class="sd">"""</span>
+<span class="sd">    Returns the convolutional part of VGG net as a keras model </span>
+<span class="sd">    All layers have trainable set to False</span>
+<span class="sd">    """</span>
+    <span class="n">img_width</span><span class="p">,</span> <span class="n">img_height</span> <span class="o">=</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span>
 
+    <span class="c1"># build the VGG16 network</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ZeroPadding2D</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">img_width</span><span class="p">,</span> <span class="n">img_height</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">'image_input'</span><span class="p">))</span>
 
-<iframe src="http://www.slideshare.net/ChristopherBonnettPh/slideshelf" width="615px" height="470px" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:none;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>    
- 
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Convolution2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'conv1_1'</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ZeroPadding2D</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Convolution2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'conv1_2'</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ZeroPadding2D</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Convolution2D</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'conv2_1'</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ZeroPadding2D</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Convolution2D</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'conv2_2'</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ZeroPadding2D</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Convolution2D</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'conv3_1'</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ZeroPadding2D</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Convolution2D</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'conv3_2'</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ZeroPadding2D</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Convolution2D</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'conv3_3'</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ZeroPadding2D</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Convolution2D</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'conv4_1'</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ZeroPadding2D</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Convolution2D</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'conv4_2'</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ZeroPadding2D</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Convolution2D</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'conv4_3'</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ZeroPadding2D</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Convolution2D</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'conv5_1'</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ZeroPadding2D</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Convolution2D</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'conv5_2'</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ZeroPadding2D</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Convolution2D</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'conv5_3'</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+
+    <span class="c1"># set trainable to false in all layers </span>
+    <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="s1">'trainable'</span><span class="p">):</span>
+            <span class="n">layer</span><span class="o">.</span><span class="n">trainable</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="k">return</span> <span class="n">model</span>
+
+<span class="k">def</span> <span class="nf">load_weights_in_base_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    The function takes the VGG convolutian part and loads</span>
+<span class="sd">    the weights from the pre-trained model and then returns the model</span>
+<span class="sd">    """</span>
+    <span class="n">weight_file</span> <span class="o">=</span> <span class="s1">''</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">WEIGHTS_PATH</span><span class="p">,</span> <span class="s1">'vgg16_weights.h5'</span><span class="p">))</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">weight_file</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">'nb_layers'</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">):</span>
+            <span class="c1"># we don't look at the last (fully-connected) layers in the savefile</span>
+            <span class="k">break</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">'layer_{}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">)]</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span><span class="p">[</span><span class="s1">'param_{}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">)]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">'nb_params'</span><span class="p">])]</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">set_weights</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">model</span>
+</pre></div>
 </div>
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we want to expand the model so that it can accept the vectorized text as well as the images. 
+To make the code adaptable, we will have to pass in several variables such as the number of classes and the size of the vectorized text.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">make_final_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">vec_size</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">,</span> <span class="n">do</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">l2_strength</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    model : The VGG conv only part with loaded weights</span>
+<span class="sd">    vec_size : The size of the vectorized text vector coming from the bag of words </span>
+<span class="sd">    n_classes : How many classes are you trying to classify ? </span>
+<span class="sd">    do : 0.5 Dropout probability</span>
+<span class="sd">    l2_strenght : The L2 regularization strength</span>
+<span class="sd">    </span>
+<span class="sd">    output : The full model that takes images of size (224, 224) and an additional vector</span>
+<span class="sd">    of size vec_size as input</span>
+<span class="sd">    """</span>
+    
+    <span class="c1">### top_aux_model takes the vectorized text as input</span>
+    <span class="n">top_aux_model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+    <span class="n">top_aux_model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">vec_size</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">vec_size</span><span class="p">,),</span> <span class="n">name</span><span class="o">=</span><span class="s1">'aux_input'</span><span class="p">))</span>
+
+    <span class="c1">### top_model takes output from VGG conv and then adds 2 hidden layers</span>
+    <span class="n">top_model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+    <span class="n">top_model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Flatten</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">output_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">name</span><span class="o">=</span><span class="s1">'top_flatter'</span><span class="p">))</span>
+    <span class="n">top_model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'top_relu'</span><span class="p">,</span> <span class="n">W_regularizer</span><span class="o">=</span><span class="n">l2</span><span class="p">(</span><span class="n">l2_strength</span><span class="p">)))</span>
+    <span class="n">top_model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="n">do</span><span class="p">))</span>
+    <span class="n">top_model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'sigmoid'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'top_sigmoid'</span><span class="p">,</span> <span class="n">W_regularizer</span><span class="o">=</span><span class="n">l2</span><span class="p">(</span><span class="n">l2_strength</span><span class="p">)))</span>
+    <span class="c1">### this is than added to the VGG conv-model</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">top_model</span><span class="p">)</span>
+    
+    <span class="c1">### here we merge 'model' that creates features from images with 'top_aux_model'</span>
+    <span class="c1">### that are the bag of words features extracted from the text. </span>
+    <span class="n">merged</span> <span class="o">=</span> <span class="n">Merge</span><span class="p">([</span><span class="n">model</span><span class="p">,</span> <span class="n">top_aux_model</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'concat'</span><span class="p">)</span>
+
+    <span class="c1">### final_model takes the combined feature vectors and add a sofmax classifier to it</span>
+    <span class="n">final_model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+    <span class="n">final_model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">merged</span><span class="p">)</span>
+    <span class="n">final_model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="n">do</span><span class="p">))</span>
+    <span class="n">final_model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">n_classes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'softmax'</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">final_model</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The above code blocks allow us to define a model that takes images and an additional vector (e.g., text) and puts it all in neural network that can be trained. In this model we simply concatenate the feature vectors extracted from the text and apply a softmax classification layer to the concatenated vector. I tried more complex models, but all had worse performance.<br>
+Having defined the model, we would like to train and validate it, preferably with the processing tools that the Keras library provides. To make this possible we will have to adapt the Keras library pre-processing methods, since they only work for images. After first building my own (not so pretty) processing pipeline, I opted for the more elegant and robust solution of adapting the existing Keras capabilities. I went with adapting the <a href="http://keras.io/preprocessing/image/">'flow_from_directory'</a> method. The original method expects that all the images belonging to the same class live in the same sub-folder. This can be easily extended so that method not just looks for an image in the folder but also an numpy binary (.npy) file. This file is expected to have same name as the image file just with the '.npy' extension. So if the image is named 54567.jpg the pipeline expect there to be a  54567.npy file in the same folder. The fork of Keras with this feature implemented can be found <a href="https://github.com/cbonnett/keras">here</a>.</br></p>
+<h2 id="So-what-about-classes-that-are-not-in-the-training-sample">So what about classes that are not in the training sample<a class="anchor-link" href="#So-what-about-classes-that-are-not-in-the-training-sample">¶</a></h2><p>A relevant question in any machine learning model and one that is very relevant for this project is: what happens when 
+the model is fed and image with accompanying text that does not belong to any of the classes in the training set? From the mechanics of a neural network we know that the softmax classifier will (incorrectly) classify an out-of-train-class object as belonging to one of the 10 classes. An example here could be an image of an e-commerce product like a book with the accompanying description.</p>
+<p>In this case, the fact that we have the bag-of-words vector makes this problem tractable. Recall that the bag-of-words model will return the word count for all unique words that are in the training set. For the case of the book, it is likely that not even a single word in the book description was seen in the training set. Therefore, every entry of the text vector will be zero. If such a vector is encountered it can be considered out-of-training sample and hence sent to a human classifier. A more challenging problem is when we only have image data as input. I hope to write about addressing that problem in future blog posts.</p>
+</div>
+</div>
+<iframe src="http://www.slideshare.net/ChristopherBonnettPh/slideshelf" width="615px" height="470px" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:none;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
+</div>  
+
 
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var mathjaxscript = document.createElement('script');
@@ -1213,7 +1381,7 @@ This process is called fine tuning. I opted for fine-tuning the last 3 convoluti
     })();
   </script>
 </body>
-</html>       
+</html>        
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
