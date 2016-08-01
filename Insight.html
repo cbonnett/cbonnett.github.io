@@ -1073,7 +1073,7 @@ Having said that, we have to keep in mind what the potential purposes of this cl
 But is it clear that the combination of both the images and the text leads to a large increased performance.<br>
 There a few more things we can try to optmize even further. One such trick is hyperparameter optimization, like I did with the text only model. Given that feedback loop for hyperparameter optimization is slow due to the fact that training a deep learning model takes quite a bit of time, I opted to use this only as a last measure.<br>
 A more natural way forward is to attempt to find convolutional filters that are better suited given the task at hand.</br></br></p>
-<p>The pretrained network VVG than I’m using was trained on Image-Net which has 1000 classes, none of which to my knowledge are clothing or fashion items, so it makes sense to try and adjust the convolutional layers that have learned to identify higher-level features of the training set.
+<p>The pretrained network VGG than I’m using was trained on Image-Net which has 1000 classes, none of which to my knowledge are clothing or fashion items, so it makes sense to try and adjust the convolutional layers that have learned to identify higher-level features of the training set.
 This process is called fine tuning. I opted for fine-tuning the last 3 convolutional layers, here are the results.</p>
 <table>
 <thead><tr>
