@@ -1,0 +1,229 @@
+/* Final Adjusted CSS for Adventures in Machine Learning */
+
+body {
+  font-family: 'PT Sans', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header Styles */
+header[role="banner"] {
+  background-color: #2c3e50;
+  padding: 20px 0;
+}
+
+header .container {
+  padding-left: 20px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5em;
+  text-align: left;
+}
+
+header h1 a {
+  color: #ecf0f1;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+header h1 a:hover {
+  color: #3498db;
+}
+
+/* Navigation Styles */
+nav[role="navigation"] {
+  background-color: #34495e;
+  padding: 10px 0;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+nav ul li {
+  display: inline;
+  margin: 0 10px;
+}
+
+nav ul li a {
+  color: #ecf0f1;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #3498db;
+}
+
+/* Main Content Layout */
+#main {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+#content {
+  flex: 0 0 70%;
+  padding-right: 30px;
+}
+
+.blog-index {
+  background-color: #fff;
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Sidebar Styles */
+.sidebar {
+  flex: 0 0 25%;
+  background-color: #f1f1f1;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.sidebar h1 {
+  font-size: 1.2em;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.sidebar ul {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.sidebar li {
+  margin-bottom: 10px;
+}
+
+.sidebar a {
+  color: #3498db;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.sidebar a:hover {
+  color: #2980b9;
+}
+
+/* Article Styles */
+article {
+  margin-bottom: 40px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+}
+
+article h1 {
+  color: #2c3e50;
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+article .meta {
+  color: #7f8c8d;
+  font-style: italic;
+  font-size: 0.9em;
+  margin-bottom: 20px;
+}
+
+/* Footer Styles */
+footer[role="contentinfo"] {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 40px;
+}
+
+/* Typography Styles */
+p {
+  margin-bottom: 20px;
+}
+
+code {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 2px 4px;
+}
+
+blockquote {
+  border-left: 4px solid #3498db;
+  margin: 0 0 20px;
+  padding: 10px 20px;
+  background-color: #f8f8f8;
+  font-style: italic;
+}
+
+/* Image Styles */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Twitter Button Styles */
+.twitter-follow-button {
+  margin-top: 20px;
+}
+
+/* Read On Button Styles */
+.read-on {
+  display: inline-block;
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 15px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.read-on:hover {
+  background-color: #2980b9;
+}
+
+/* Responsive Styles */
+@media (max-width: 968px) {
+  #main {
+      flex-direction: column;
+  }
+  
+  #content,
+  .sidebar {
+      flex-basis: 100%;
+  }
+  
+  #content {
+      padding-right: 0;
+  }
+  
+  .sidebar {
+      margin-top: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  header h1 {
+      font-size: 2em;
+  }
+  
+  nav ul li {
+      display: block;
+      margin: 10px 0;
+  }
+}
