@@ -1,5 +1,6 @@
-/* Improved styles for Adventures in Machine Learning */
+/* Complete Updated CSS for Adventures in Machine Learning */
 
+/* Global Styles */
 body {
   font-family: 'PT Sans', sans-serif;
   line-height: 1.6;
@@ -15,14 +16,20 @@ body {
   padding: 0 20px;
 }
 
+/* Header Styles */
 header[role="banner"] {
   background-color: #2c3e50;
   padding: 20px 0;
 }
 
+header .container {
+  padding-left: 20px;
+}
+
 header h1 {
   margin: 0;
   font-size: 2.5em;
+  text-align: left;
 }
 
 header h1 a {
@@ -35,6 +42,7 @@ header h1 a:hover {
   color: #3498db;
 }
 
+/* Navigation Styles */
 nav[role="navigation"] {
   background-color: #34495e;
   padding: 10px 0;
@@ -63,10 +71,12 @@ nav ul li a:hover {
   color: #3498db;
 }
 
+/* Main Content Layout */
 #main {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  gap: 30px;
 }
 
 #content {
@@ -76,31 +86,13 @@ nav ul li a:hover {
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
+/* Sidebar Styles */
 .sidebar {
   flex: 1;
-  margin-left: 30px;
+  max-width: 250px;
   background-color: #f1f1f1;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-article {
-  margin-bottom: 40px;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 20px;
-}
-
-article h1 {
-  color: #2c3e50;
-  font-size: 2em;
-  margin-bottom: 10px;
-}
-
-article .meta {
-  color: #7f8c8d;
-  font-style: italic;
-  font-size: 0.9em;
-  margin-bottom: 20px;
 }
 
 .sidebar h1 {
@@ -127,6 +119,27 @@ article .meta {
   color: #2980b9;
 }
 
+/* Article Styles */
+article {
+  margin-bottom: 40px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+}
+
+article h1 {
+  color: #2c3e50;
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+article .meta {
+  color: #7f8c8d;
+  font-style: italic;
+  font-size: 0.9em;
+  margin-bottom: 20px;
+}
+
+/* Footer Styles */
 footer[role="contentinfo"] {
   background-color: #2c3e50;
   color: #ecf0f1;
@@ -135,19 +148,7 @@ footer[role="contentinfo"] {
   margin-top: 40px;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  #main {
-      flex-direction: column;
-  }
-  
-  .sidebar {
-      margin-left: 0;
-      margin-top: 20px;
-  }
-}
-
-/* Additional styles for better readability and aesthetics */
+/* Typography Styles */
 p {
   margin-bottom: 20px;
 }
@@ -168,12 +169,36 @@ blockquote {
   font-style: italic;
 }
 
+/* Image Styles */
 img {
   max-width: 100%;
   height: auto;
 }
 
-/* Styles for the Twitter follow button */
+/* Twitter Button Styles */
 .twitter-follow-button {
   margin-top: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 968px) {
+  #main {
+      flex-direction: column;
+  }
+  
+  .sidebar {
+      max-width: none;
+      margin-top: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  header h1 {
+      font-size: 2em;
+  }
+  
+  nav ul li {
+      display: block;
+      margin: 10px 0;
+  }
 }
