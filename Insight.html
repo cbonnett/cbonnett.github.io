@@ -10,10 +10,6 @@
   <link href="http://cbonnett.github.io/atom.xml" type="application/atom+xml" rel="alternate"
         title="Adventures in Machine Learning Atom Feed" />
 
-
-
-
-
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
@@ -29,32 +25,37 @@
         rel="stylesheet" type="text/css">
   <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
         rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="improved-styles.css">
 </head>
 
 <body>
-  <header role="banner"><hgroup>
-  <h1><a href="http://cbonnett.github.io/">Adventures in Machine Learning</a></h1>
-</hgroup></header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="http://cbonnett.github.io/atom.xml" rel="subscribe-atom">Atom</a></li>
-</ul>
+  <header role="banner">
+    <div class="container">
+      <h1><a href="http://cbonnett.github.io/">Adventures in Machine Learning</a></h1>
+    </div>
+  </header>
+  
+  <nav role="navigation">
+    <div class="container">
+      <ul class="subscription" data-subscription="rss">
+        <li><a href="http://cbonnett.github.io/atom.xml" rel="subscribe-atom">Atom</a></li>
+      </ul>
+      <ul class="main-navigation">
+        <li><a href="https://www.linkedin.com/in/cbonnett">LinkedIn</a></li>
+        <li><a href="http://cbonnett.github.io/category/.html"></a></li>
+      </ul>
+    </div>
+  </nav>
 
-
-<ul class="main-navigation">
-    <li><a href="https://www.linkedin.com/in/cbonnett">LinkedIn</a></li>
-      <li class="active">
-        <a href="http://cbonnett.github.io/category/.html"></a>
-      </li>
-</ul></nav>
-  <div id="main">
+  <div id="main" class="container">
     <div id="content">
-<div>
-  <article class="hentry" role="article">
-<header>
-      <h1 class="entry-title">Classifying e-commerce products based on images and text</h1>
-    <p class="meta">
-<time datetime="2016-06-26T10:20:00+02:00" pubdate>Sun 26 June 2016</time>    </p>
-</header>
+      <article>
+        <header>
+          <h1 class="entry-title">Classifying e-commerce products based on images and text</h1>
+          <p class="meta">
+            <time datetime="2016-06-26T10:20:00+02:00" pubdate>Sun 26 June 2016</time>
+          </p>
+        </header>
 
   <div class="entry-content"><style type="text/css">/*!
 *
@@ -1266,7 +1267,6 @@ the model is fed and image with accompanying text that does not belong to any of
 </div>
 </div>  
 </div>       
-<iframe src="http://www.slideshare.net/ChristopherBonnettPh/slideshelf" width="615px" height="470px" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:none;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>      
 </div> 
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var mathjaxscript = document.createElement('script');
