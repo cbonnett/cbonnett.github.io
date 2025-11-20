@@ -7,7 +7,7 @@
   <title>Mixture Density Networks with Edward, Keras and TensorFlow &mdash; Adventures in Machine Learning</title>
   <meta name="author" content="Christopher Bonnett">
 
-  <link href="http://cbonnett.github.io/atom.xml" type="application/atom+xml" rel="alternate"
+  <link href="https://cbonnett.github.io/atom.xml" type="application/atom+xml" rel="alternate"
         title="Adventures in Machine Learning Atom Feed" />
 
 
@@ -20,9 +20,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-    <link href="http://cbonnett.github.io/favicon.png" rel="icon">
+    <link href="https://cbonnett.github.io/favicon.png" rel="icon">
 
-  <link href="http://cbonnett.github.io/theme/css/main.css" media="screen, projection"
+  <link href="https://cbonnett.github.io/theme/css/main.css" media="screen, projection"
         rel="stylesheet" type="text/css">
 
   <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
@@ -30,21 +30,33 @@
   <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
         rel="stylesheet" type="text/css">
   <link rel="stylesheet" type="text/css" href="improved-styles.css">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CF8XLEYDMP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CF8XLEYDMP');
+</script>
+
+  <link rel="canonical" href="https://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html">
 </head>
 
 <body>
   <header role="banner"><hgroup>
-  <h1><a href="http://cbonnett.github.io/">Adventures in Machine Learning</a></h1>
+  <h1><a href="https://cbonnett.github.io/">Adventures in Machine Learning</a></h1>
 </hgroup></header>
   <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="http://cbonnett.github.io/atom.xml" rel="subscribe-atom">Atom</a></li>
+  <li><a href="https://cbonnett.github.io/atom.xml" rel="subscribe-atom">Atom</a></li>
 </ul>
 
 
 <ul class="main-navigation">
     <li><a href="https://www.linkedin.com/in/cbonnett">LinkedIn</a></li>
       <li class="active">
-        <a href="http://cbonnett.github.io/category/.html"></a>
+        <a href="https://cbonnett.github.io/category/.html"></a>
       </li>
 </ul></nav>
   <div id="main">
@@ -1034,7 +1046,7 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In the <a href="http://cbonnett.github.io/MDN.html">previous blog post</a> we looked at what a Mixture Density Network is with an implementation in TensorFlow. We then used this to learn the distance to galaxies on a simulated data set. In this blog post we'll show an easier way to code up an MDN by combining the power of three python libraries.</p>
+<p>In the <a href="https://cbonnett.github.io/MDN.html">previous blog post</a> we looked at what a Mixture Density Network is with an implementation in TensorFlow. We then used this to learn the distance to galaxies on a simulated data set. In this blog post we'll show an easier way to code up an MDN by combining the power of three python libraries.</p>
 <ol>
 <li><a href="https://github.com/blei-lab/edward">Edward</a></li>
 <li><a href="http://keras.io/">Keras</a> </li>
@@ -1042,7 +1054,7 @@ h6:hover .anchor-link {
 </ol>
 <p>You are likely familiar with number 2 and 3 so let me tell you a bit about the first. Edward is a python library
 for probabilistic modelling, inference, and criticism. It's goal it to fuse the related areas of Bayesian Statistics, Machine Learning, Deep Learning and Probabilistic Programming. Edward is developed by the group of <a href="http://www.cs.columbia.edu/~blei/">David Blei</a> at Columbia University with the main developer being <a href="https://twitter.com/dustinvtran">Dustin Tran</a>. The example we discuss here is based on the <a href="https://github.com/blei-lab/edward/blob/master/examples/mixture_density_network.py">example</a> in the Edward repo that was written by Dustin and <a href="https://twitter.com/cbonnett">myself</a>.</p>
-<p>Edward implements many probability distribution functions that are TensorFlow compatible, this makes it attractive to use for MDN's. In the <a href="http://cbonnett.github.io/MDN.html">previous blog post</a> we had to roll our own $Beta$ distribution, with Edward this is no longer necessary. Keep in mind, if you want to use Keras and TensorFlow like we will do in this post you need to set the backend of Keras to TensorFlow, <a href="http://keras.io/backend/">here</a> it is explained how to do that.</p>
+<p>Edward implements many probability distribution functions that are TensorFlow compatible, this makes it attractive to use for MDN's. In the <a href="https://cbonnett.github.io/MDN.html">previous blog post</a> we had to roll our own $Beta$ distribution, with Edward this is no longer necessary. Keep in mind, if you want to use Keras and TensorFlow like we will do in this post you need to set the backend of Keras to TensorFlow, <a href="http://keras.io/backend/">here</a> it is explained how to do that.</p>
 <p>Here are all the distributions that are currently implemented in Edward, there are more to come:</p>
 <ol>
 <li><a href="https://github.com/blei-lab/edward/blob/master/edward/stats/distributions.py#L49">Bernoulli</a></li>
@@ -3711,12 +3723,12 @@ Vnsw9AWmAAAAAElFTkSuQmCC
     </span>
   </span>
 <time datetime="2016-05-27T10:20:00+02:00" pubdate>Fri 27 May 2016</time>  <span class="categories">
-    <a class='category' href='http://cbonnett.github.io/category/.html'></a>
+    <a class='category' href='https://cbonnett.github.io/category/.html'></a>
   </span>
   <span class="categories">
-    <a class="category" href="http://cbonnett.github.io/tag/edward.html">Edward</a>,    <a class="category" href="http://cbonnett.github.io/tag/keras.html">Keras</a>,    <a class="category" href="http://cbonnett.github.io/tag/tensorflow.html">TensorFlow</a>,    <a class="category" href="http://cbonnett.github.io/tag/mdn.html">MDN</a>  </span>
+    <a class="category" href="https://cbonnett.github.io/tag/edward.html">Edward</a>,    <a class="category" href="https://cbonnett.github.io/tag/keras.html">Keras</a>,    <a class="category" href="https://cbonnett.github.io/tag/tensorflow.html">TensorFlow</a>,    <a class="category" href="https://cbonnett.github.io/tag/mdn.html">MDN</a>  </span>
 </p><div class="sharing">
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html" data-via="cbonnett" data-counturl="http://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="https://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html" data-via="cbonnett" data-counturl="https://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html" >Tweet</a>
 </div>    </footer>
   </article>
 
@@ -3730,13 +3742,13 @@ Vnsw9AWmAAAAAElFTkSuQmCC
     <h1>Recent Posts</h1>
     <ul id="recent_posts">
       <li class="post">
-          <a href="http://cbonnett.github.io/Insight.html">Classifying e-commerce products based on images and text</a>
+          <a href="https://cbonnett.github.io/Insight.html">Classifying e-commerce products based on images and text</a>
       </li>
       <li class="post">
-          <a href="http://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html">Mixture Density Networks with Edward, Keras and TensorFlow</a>
+          <a href="https://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html">Mixture Density Networks with Edward, Keras and TensorFlow</a>
       </li>
       <li class="post">
-          <a href="http://cbonnett.github.io/MDN.html">Mixture Density Networks for Galaxy distance determination in TensorFlow</a>
+          <a href="https://cbonnett.github.io/MDN.html">Mixture Density Networks for Galaxy distance determination in TensorFlow</a>
       </li>
     </ul>
   </section>
@@ -3744,14 +3756,14 @@ Vnsw9AWmAAAAAElFTkSuQmCC
       
     <h1>Categories</h1>
     <ul id="recent_posts">
-        <li><a href="http://cbonnett.github.io/category/.html"></a></li>
+        <li><a href="https://cbonnett.github.io/category/.html"></a></li>
     </ul>
   </section>
  
 
   <section>
   <h1>Tags</h1>
-    <a href="http://cbonnett.github.io/tag/.html"></a>,    <a href="http://cbonnett.github.io/tag/mdn.html">MDN</a>,    <a href="http://cbonnett.github.io/tag/redshift.html">redshift</a>,    <a href="http://cbonnett.github.io/tag/keras.html">Keras</a>,    <a href="http://cbonnett.github.io/tag/edward.html">Edward</a>,    <a href="http://cbonnett.github.io/tag/tensorflow.html">TensorFlow</a>  </section>
+    <a href="https://cbonnett.github.io/tag/.html"></a>,    <a href="https://cbonnett.github.io/tag/mdn.html">MDN</a>,    <a href="https://cbonnett.github.io/tag/redshift.html">redshift</a>,    <a href="https://cbonnett.github.io/tag/keras.html">Keras</a>,    <a href="https://cbonnett.github.io/tag/edward.html">Edward</a>,    <a href="https://cbonnett.github.io/tag/tensorflow.html">TensorFlow</a>  </section>
 
 
 
@@ -3764,13 +3776,13 @@ Vnsw9AWmAAAAAElFTkSuQmCC
     Copyright &copy;  2016  Christopher Bonnett &mdash;
   <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
 </p></footer>
-  <script src="http://cbonnett.github.io/theme/js/modernizr-2.0.js"></script>
-  <script src="http://cbonnett.github.io/theme/js/ender.js"></script>
-  <script src="http://cbonnett.github.io/theme/js/octopress.js" type="text/javascript"></script>
+  <script src="https://cbonnett.github.io/theme/js/modernizr-2.0.js"></script>
+  <script src="https://cbonnett.github.io/theme/js/ender.js"></script>
+  <script src="https://cbonnett.github.io/theme/js/octopress.js" type="text/javascript"></script>
   <script type="text/javascript">
     var disqus_shortname = 'mk49';
     var disqus_identifier = '/MDN_EDWARD_KERAS_TF.html';
-    var disqus_url = 'http://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html';
+    var disqus_url = 'https://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html';
     var disqus_title = 'Mixture Density Networks with Edward, Keras and TensorFlow';
     (function() {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
