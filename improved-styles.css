@@ -205,8 +205,11 @@ article header h1 {
 }
 
 /* Fix Title Contrast */
+article header h1,
 article header h1 a,
+.entry-title,
 .entry-title a,
+h1.entry-title,
 h1.entry-title a {
     color: #111827 !important;
     /* Dark text for high contrast */
