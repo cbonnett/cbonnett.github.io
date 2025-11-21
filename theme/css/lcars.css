@@ -2,13 +2,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&display=swap');
 
 :root {
-    --lcars-bg: #000000;
+    --lcars-bg: #050510;
+    /* Deep space blue/black */
     --lcars-orange: #FF9900;
     --lcars-purple: #CC99CC;
     --lcars-blue: #9999FF;
     --lcars-beige: #FFCC99;
     --lcars-red: #CC0000;
-    --lcars-text: #FFCC99;
+    --lcars-text: #FFDDAA;
+    /* Brighter beige for better contrast */
     /* Beige text is common */
     --lcars-font: 'Antonio', sans-serif;
     --lcars-elbow-width: 150px;
