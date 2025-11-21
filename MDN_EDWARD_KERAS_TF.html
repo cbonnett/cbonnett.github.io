@@ -1,38 +1,24 @@
 <!DOCTYPE html>
+
 <!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
 <!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <title>Mixture Density Networks with Edward, Keras and TensorFlow &mdash; Adventures in Machine Learning</title>
-  <meta name="author" content="Christopher Bonnett">
-
-  <link href="https://cbonnett.github.io/atom.xml" type="application/atom+xml" rel="alternate"
-        title="Adventures in Machine Learning Atom Feed" />
-
-
-
-
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-    <link href="https://cbonnett.github.io/favicon.png" rel="icon">
-
-  <link href="https://cbonnett.github.io/theme/css/main.css" media="screen, projection"
-        rel="stylesheet" type="text/css">
-
-  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
-        rel="stylesheet" type="text/css">
-  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
-        rel="stylesheet" type="text/css">
-  <link rel="stylesheet" type="text/css" href="improved-styles.css">
-
+<meta charset="utf-8"/>
+<title>Mixture Density Networks with Edward, Keras and TensorFlow — Adventures in Machine Learning</title>
+<meta content="Christopher Bonnett" name="author"/>
+<link href="https://cbonnett.github.io/atom.xml" rel="alternate" title="Adventures in Machine Learning Atom Feed" type="application/atom+xml"/>
+<!-- http://t.co/dKP3o1e -->
+<meta content="True" name="HandheldFriendly"/>
+<meta content="320" name="MobileOptimized"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="https://cbonnett.github.io/favicon.png" rel="icon"/>
+<link href="https://cbonnett.github.io/theme/css/main.css" media="screen, projection" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"/>
+<link href="improved-styles.css" rel="stylesheet" type="text/css"/>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CF8XLEYDMP"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CF8XLEYDMP"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -40,35 +26,18 @@
 
   gtag('config', 'G-CF8XLEYDMP');
 </script>
-
-  <link rel="canonical" href="https://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html">
-</head>
-
-<body>
-  <header role="banner"><hgroup>
-  <h1><a href="https://cbonnett.github.io/">Adventures in Machine Learning</a></h1>
-</hgroup></header>
-  <nav role="navigation">
-
-
-<ul class="main-navigation">
-        <li><a href="https://www.linkedin.com/in/cbonnett">LinkedIn</a></li>
-    
-      <li class="active">
-        <a href="https://cbonnett.github.io/category/.html"></a>
-      </li>
-</ul></nav>
-  <div id="main">
-    <div id="content">
+<link href="https://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html" rel="canonical"/>
+<link href="/theme/css/lcars.css" rel="stylesheet"/></head>
+<body><div class="lcars-container"><div class="lcars-sidebar"><div class="lcars-elbow"></div><div class="lcars-sidebar-content"><a class="lcars-nav-item" href="https://www.linkedin.com/in/cbonnett">LinkedIn</a></div></div><div class="lcars-header"><h1>Adventures in Machine Learning</h1></div><div class="lcars-main">
+<div id="content">
 <div>
-  <article class="hentry" role="article">
+<article class="hentry" role="article">
 <header>
-      <h1 class="entry-title">Mixture Density Networks with Edward, Keras and TensorFlow</h1>
-    <p class="meta">
-<time datetime="2016-05-27T10:20:00+02:00" pubdate>Fri 27 May 2016</time>    </p>
+<h1 class="entry-title">Mixture Density Networks with Edward, Keras and TensorFlow</h1>
+<p class="meta">
+<time datetime="2016-05-27T10:20:00+02:00" pubdate="">Fri 27 May 2016</time> </p>
 </header>
-
-  <div class="entry-content"><style type="text/css">/*!
+<div class="entry-content"><style type="text/css">/*!
 *
 * IPython notebook
 *
@@ -1084,7 +1053,7 @@ for probabilistic modelling, inference, and criticism. It's goal it to fuse the 
 <div class="prompt input_prompt">In [20]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># imports</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># imports</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
@@ -1116,7 +1085,7 @@ for probabilistic modelling, inference, and criticism. It's goal it to fuse the 
 <div class="prompt input_prompt">In [21]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">build_toy_dataset</span><span class="p">(</span><span class="n">nsample</span><span class="o">=</span><span class="mi">40000</span><span class="p">):</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">build_toy_dataset</span><span class="p">(</span><span class="n">nsample</span><span class="o">=</span><span class="mi">40000</span><span class="p">):</span>
     <span class="n">y_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">nsample</span><span class="p">)))</span><span class="o">.</span><span class="n">T</span>
     <span class="n">r_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">nsample</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span> <span class="c1"># random noise</span>
     <span class="n">x_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">0.75</span><span class="o">*</span><span class="n">y_data</span><span class="p">)</span><span class="o">*</span><span class="mf">7.0</span><span class="o">+</span><span class="n">y_data</span><span class="o">*</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r_data</span><span class="o">*</span><span class="mf">1.0</span><span class="p">)</span>
@@ -1150,7 +1119,7 @@ Size of output in test data: (36000, 1)
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div class="output_png output_subarea ">
+<div class="output_png output_subarea">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXoAAAECCAYAAADw0Rw8AAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzt3XlwXOd55/vve05vQGMhQYIgCZLabB9RtkRKNknJ2mzL
 S2I54ziVuRPfJOWxnMpNKql7k9z4LslkkjtVk8m9STzJTCrOlBM7Kju24yVKYluWLEuyREE0KUsi
@@ -1401,8 +1370,8 @@ ifXSz+fXaNzn80+Ar1iW9TDBqqB/X99yFnkM+JBlWX2F25+uZzGX8XfAlyzLOkwwWn6kQd95FP0u
 8AXLssLAAPCtOtezkl8H/rtlWQ4wBvxqneuBYFHAJuAPLMv6jwTTn/8bQZ1X9HxKrxshhGhyjbBi
 RAghxBqSoBdCiCYnQS+EEE1Ogl4IIZqcBL0QQjQ5CXohhGhyEvRCCNHkJOiFEKLJ/f9XiFByrXFn
 0AAAAABJRU5ErkJggg==
-">
-</img></div>
+"/>
+</div>
 </div>
 </div>
 </div>
@@ -1421,7 +1390,7 @@ RAghxBqSoBdCiCYnQS+EEE1Ogl4IIZqcBL0QQjQ5CXohhGhyEvRCCNHkJOiFEKLJ/f9XiFByrXFn
 <div class="prompt input_prompt">In [22]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">class</span> <span class="nc">MixtureDensityNetwork</span><span class="p">:</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="k">class</span> <span class="nc">MixtureDensityNetwork</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Mixture density network for outputs y on inputs x.</span>
 <span class="sd">    p((x,y), (z,theta))</span>
@@ -1473,7 +1442,7 @@ RAghxBqSoBdCiCYnQS+EEE1Ogl4IIZqcBL0QQjQ5CXohhGhyEvRCCNHkJOiFEKLJ/f9XiFByrXFn
 <div class="prompt input_prompt">In [23]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">ed</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">ed</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">MixtureDensityNetwork</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1497,7 +1466,7 @@ The following line passes the <code>model</code> and <code>data</code> to <code>
 <div class="prompt input_prompt">In [24]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">ed</span><span class="o">.</span><span class="n">Data</span><span class="p">([</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span> <span class="c1"># Make Edward Data model</span>
 
@@ -1546,7 +1515,7 @@ The <code>build_loss</code> method in the <code>MAP</code> class can be found <a
 <div class="prompt input_prompt">In [25]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">NEPOCH</span> <span class="o">=</span> <span class="mi">1000</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">NEPOCH</span> <span class="o">=</span> <span class="mi">1000</span>
 <span class="n">train_loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">NEPOCH</span><span class="p">)</span>
 <span class="n">test_loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">NEPOCH</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NEPOCH</span><span class="p">):</span>
@@ -1577,7 +1546,7 @@ We see that it converges after 400 training steps.</p>
 <div class="prompt input_prompt">In [26]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">NEPOCH</span><span class="p">),</span> <span class="n">test_loss</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Test'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">NEPOCH</span><span class="p">),</span> <span class="n">train_loss</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Train'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
@@ -1595,7 +1564,7 @@ We see that it converges after 400 training steps.</p>
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div class="output_png output_subarea ">
+<div class="output_png output_subarea">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA7sAAAD5CAYAAADm4iIMAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzs3XmcHHWd//FXVfU199kzyeQ+vwkhIRnCFRIgXAIiAssh
 eCCgK4rosuoq6iq7rvdPxNVdWZEACoiAB/cpN4YgCZCLVO6LZJJJMpn76KN+f/RkjmSuTmamZzrv
@@ -1894,8 +1863,8 @@ TiuPnQ0sjoirKeb4HgRcCEzryt1IklQzjuxKktQd04Gvhvx8Xf7esdznXoq5vYsoHl+enJm/lXUz
 gXsoVmX+EDgVOC0znwbIzCXAyRRJ8CBFsnxFZs4tjx9uBUpXpZQkbTJcjVmSpFFW+Z7dSZn5dq/b
 I0lSEzmyK0mSJElqHJNdSZJ6w0erJEnqIh9jliRJkiQ1jiO7kiRJkqTGMdmVJEmSJDWOya4kSZIk
 qXFMdiVJkiRJjWOyK0mSJElqHJNdSZIkSVLj/APPeH2igXUtvQAAAABJRU5ErkJggg==
-">
-</img></div>
+"/>
+</div>
 </div>
 </div>
 </div>
@@ -1916,7 +1885,7 @@ In the next plot the truth is the vertical grey line while the blue line is the 
 <div class="prompt input_prompt">In [27]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">obj</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">obj</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
 <span class="n">plot_normal_mix</span><span class="p">(</span><span class="n">pred_weights</span><span class="p">[</span><span class="n">obj</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">pred_means</span><span class="p">[</span><span class="n">obj</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">pred_std</span><span class="p">[</span><span class="n">obj</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> 
@@ -1942,7 +1911,7 @@ In the next plot the truth is the vertical grey line while the blue line is the 
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div class="output_png output_subarea ">
+<div class="output_png output_subarea">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA6sAAAFxCAYAAACV2D7lAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzs3Xl81NW9//HXTPZ9YyAhCAjoEdGigldFUBBFrTteueq9
 pT+rV6vWvVprrVpvtXXf7qVVaK27t2Kp1wWKloIUW1xBBDmALJJAQvZ9n/n9MTMhCVlmJpNMQt7P
@@ -2577,8 +2546,8 @@ LHVjJbDazFqAj4CnfY5Hst99wJ9JPaBZ65zb6HM8kn0eAV4wsyWk3ir9TX/DkSy2GrjFzKq95bv9
 DEaGhGeBVWa2nlRv2Ar11ks/+B7wtJmFgV3Aiz7HI9nvfuB3ZhYFjgH3XmiHQDKZHPCoRERERERE
 RHojU4cBi4iIiIiIyCVMyaqIiIiIiIhkHCWrIiIiIiIiknGUrIqIiIiIiEjGUbIqIiIiIiIiGUfJ
 qoiIiIiIiGQcJasiIiIiIiKScf4Hs+pC/ZdwNGAAAAAASUVORK5CYII=
-">
-</img></div>
+"/>
+</div>
 </div>
 </div>
 </div>
@@ -2598,7 +2567,7 @@ Seems the MDN learned what it needed too.</p>
 <div class="prompt input_prompt">In [30]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">sample_from_mixture</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">pred_weights</span><span class="p">,</span> <span class="n">pred_means</span><span class="p">,</span> 
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">sample_from_mixture</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">pred_weights</span><span class="p">,</span> <span class="n">pred_means</span><span class="p">,</span> 
                         <span class="n">pred_std</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">a</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">a</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"hex"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#4CB391"</span><span class="p">,</span> 
               <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">14</span><span class="p">,</span><span class="mi">14</span><span class="p">))</span>
@@ -2614,7 +2583,7 @@ Seems the MDN learned what it needed too.</p>
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div class="output_png output_subarea ">
+<div class="output_png output_subarea">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAagAAAGoCAYAAAATsnHAAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzsvXmYJFd5p/tGRO5ZWfvW1fumktRqtdQSSAKxSCCQDAJj
 jAFjhjE24A2v4/EY8Nhzx9f2GC+Dfe3xGHtsjxcwIEBYmE0SSAgQSGrt6q7et+ql9i33iDj3j6jI
@@ -3628,8 +3597,8 @@ QH1dL/USxO9OvAB8DCCXy30AOLqxw1kX/CbwfwPkcrnNODfuyQ0NrGO4AAAAtElEQVQd0frh1Vwu
 udxzOG8Yv3kLviW6+J+BP8nlcjHgOPCNDR5PhJuEyIsvQoQIESJ0JaIpvggRIkSI0JWIElSECBEi
 ROhKRAkqQoQIESJ0JaIEFSFChAgRuhJRgooQIUKECF2JKEFFiBAhQoSuRJSgIkSIECFCV+L/B30P
 Vnsw9AWmAAAAAElFTkSuQmCC
-">
-</img></div>
+"/>
+</div>
 </div>
 </div>
 </div>
@@ -3649,7 +3618,7 @@ Vnsw9AWmAAAAAElFTkSuQmCC
 <div class="prompt input_prompt">In [29]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Helper functions</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># Helper functions</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span> <span class="k">as</span> <span class="n">normal</span>
 <span class="k">def</span> <span class="nf">plot_normal_mix</span><span class="p">(</span><span class="n">pis</span><span class="p">,</span> <span class="n">mus</span><span class="p">,</span> <span class="n">sigmas</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">comp</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="sd">"""</span>
@@ -3714,93 +3683,57 @@ Vnsw9AWmAAAAAElFTkSuQmCC
 }
 </script>
 </div>
-    <footer>
+<footer>
 <p class="meta">
-  <span class="byline author vcard">
+<span class="byline author vcard">
     Posted by <span class="fn">
         Christopher Bonnett
     </span>
-  </span>
-<time datetime="2016-05-27T10:20:00+02:00" pubdate>Fri 27 May 2016</time>  <span class="categories">
-    <a class='category' href='https://cbonnett.github.io/category/.html'></a>
-  </span>
-  <span class="categories">
-    <a class="category" href="https://cbonnett.github.io/tag/edward.html">Edward</a>,    <a class="category" href="https://cbonnett.github.io/tag/keras.html">Keras</a>,    <a class="category" href="https://cbonnett.github.io/tag/tensorflow.html">TensorFlow</a>,    <a class="category" href="https://cbonnett.github.io/tag/mdn.html">MDN</a>  </span>
+</span>
+<time datetime="2016-05-27T10:20:00+02:00" pubdate="">Fri 27 May 2016</time> <span class="categories">
+<a class="category" href="https://cbonnett.github.io/category/.html"></a>
+</span>
+<span class="categories">
+<a class="category" href="https://cbonnett.github.io/tag/edward.html">Edward</a>,    <a class="category" href="https://cbonnett.github.io/tag/keras.html">Keras</a>,    <a class="category" href="https://cbonnett.github.io/tag/tensorflow.html">TensorFlow</a>,    <a class="category" href="https://cbonnett.github.io/tag/mdn.html">MDN</a> </span>
 </p><div class="sharing">
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="https://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html" data-via="cbonnett" data-counturl="https://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html" >Tweet</a>
-</div>    </footer>
-  </article>
-
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
-  </section>
+<a class="twitter-share-button" data-counturl="https://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html" data-url="https://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html" data-via="cbonnett" href="http://twitter.com/share">Tweet</a>
+</div> </footer>
+</article>
+<section>
+<h1>Comments</h1>
+<div aria-live="polite" id="disqus_thread"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
+</section>
 </div>
 <aside class="sidebar">
-  <section>
-    <h1>Recent Posts</h1>
-    <ul id="recent_posts">
-      <li class="post">
-          <a href="https://cbonnett.github.io/Insight.html">Classifying e-commerce products based on images and text</a>
-      </li>
-      <li class="post">
-          <a href="https://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html">Mixture Density Networks with Edward, Keras and TensorFlow</a>
-      </li>
-      <li class="post">
-          <a href="https://cbonnett.github.io/MDN.html">Mixture Density Networks for Galaxy distance determination in TensorFlow</a>
-      </li>
-    </ul>
-  </section>
-  <section>
-      
-    <h1>Categories</h1>
-    <ul id="recent_posts">
-        <li><a href="https://cbonnett.github.io/category/.html"></a></li>
-    </ul>
-  </section>
- 
-
-  <section>
-  <h1>Tags</h1>
-    <a href="https://cbonnett.github.io/tag/.html"></a>,    <a href="https://cbonnett.github.io/tag/mdn.html">MDN</a>,    <a href="https://cbonnett.github.io/tag/redshift.html">redshift</a>,    <a href="https://cbonnett.github.io/tag/keras.html">Keras</a>,    <a href="https://cbonnett.github.io/tag/edward.html">Edward</a>,    <a href="https://cbonnett.github.io/tag/tensorflow.html">TensorFlow</a>  </section>
-
-
-
 <section>
-    <a href="http://twitter.com/cbonnett" class="twitter-follow-button" data-show-count="true">Follow @cbonnett</a>
+<h1>Recent Posts</h1>
+<ul id="recent_posts">
+<li class="post">
+<a href="https://cbonnett.github.io/Insight.html">Classifying e-commerce products based on images and text</a>
+</li>
+<li class="post">
+<a href="https://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html">Mixture Density Networks with Edward, Keras and TensorFlow</a>
+</li>
+<li class="post">
+<a href="https://cbonnett.github.io/MDN.html">Mixture Density Networks for Galaxy distance determination in TensorFlow</a>
+</li>
+</ul>
 </section>
-</aside>    </div>
-  </div>
-  <footer role="contentinfo"><p>
-    Copyright &copy;  2016  Christopher Bonnett &mdash;
-  <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
-</p></footer>
-  <script src="https://cbonnett.github.io/theme/js/modernizr-2.0.js"></script>
-  <script src="https://cbonnett.github.io/theme/js/ender.js"></script>
-  <script src="https://cbonnett.github.io/theme/js/octopress.js" type="text/javascript"></script>
-  <script type="text/javascript">
-    var disqus_shortname = 'mk49';
-    var disqus_identifier = '/MDN_EDWARD_KERAS_TF.html';
-    var disqus_url = 'https://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html';
-    var disqus_title = 'Mixture Density Networks with Edward, Keras and TensorFlow';
-    (function() {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = "//" + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-     })();
-  </script>
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-</body>
+<section>
+<h1>Categories</h1>
+<ul id="recent_posts">
+<li><a href="https://cbonnett.github.io/category/.html"></a></li>
+</ul>
+</section>
+<section>
+<h1>Tags</h1>
+<a href="https://cbonnett.github.io/tag/.html"></a>,    <a href="https://cbonnett.github.io/tag/mdn.html">MDN</a>,    <a href="https://cbonnett.github.io/tag/redshift.html">redshift</a>,    <a href="https://cbonnett.github.io/tag/keras.html">Keras</a>,    <a href="https://cbonnett.github.io/tag/edward.html">Edward</a>,    <a href="https://cbonnett.github.io/tag/tensorflow.html">TensorFlow</a> </section>
+<section>
+<a class="twitter-follow-button" data-show-count="true" href="http://twitter.com/cbonnett">Follow @cbonnett</a>
+</section>
+</aside> </div>
+</div></div></body>
 </html>
-
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

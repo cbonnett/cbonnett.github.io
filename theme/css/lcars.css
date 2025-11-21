@@ -1,0 +1,200 @@
+/* LCARS CSS Theme */
+@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&display=swap');
+
+:root {
+    --lcars-bg: #000000;
+    --lcars-orange: #FF9900;
+    --lcars-purple: #CC99CC;
+    --lcars-blue: #9999FF;
+    --lcars-beige: #FFCC99;
+    --lcars-red: #CC0000;
+    --lcars-text: #FFCC99;
+    /* Beige text is common */
+    --lcars-font: 'Antonio', sans-serif;
+    --lcars-elbow-width: 150px;
+    --lcars-header-height: 80px;
+    --lcars-gap: 5px;
+}
+
+body {
+    background-color: var(--lcars-bg);
+    color: var(--lcars-text);
+    font-family: var(--lcars-font);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-size: 18px;
+}
+
+a {
+    color: var(--lcars-blue);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--lcars-orange);
+}
+
+/* LCARS Grid Layout */
+.lcars-container {
+    display: grid;
+    grid-template-columns: var(--lcars-elbow-width) 1fr;
+    grid-template-rows: var(--lcars-header-height) 1fr;
+    height: 100vh;
+    gap: var(--lcars-gap);
+    padding: var(--lcars-gap);
+    box-sizing: border-box;
+}
+
+/* Header Area (Top Right) */
+.lcars-header {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--lcars-orange);
+    border-bottom-left-radius: 40px;
+    /* The inner curve of the elbow */
+    padding: 0 20px;
+    color: #000;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.lcars-header h1 {
+    margin: 0;
+    font-size: 1.5em;
+    letter-spacing: 2px;
+}
+
+.lcars-header a {
+    color: #000;
+}
+
+/* Sidebar (Left) - The "Elbow" Vertical Part */
+.lcars-sidebar {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    /* The elbow shape is built with children */
+}
+
+.lcars-elbow {
+    height: var(--lcars-header-height);
+    background-color: var(--lcars-orange);
+    border-bottom-right-radius: 40px;
+    /* The outer curve */
+    margin-bottom: var(--lcars-gap);
+    position: relative;
+}
+
+/* Filler to make the curve look right if needed, but simple border radius often works for the "hockey stick" look */
+/* Actually, the classic LCARS elbow is a solid block that turns. 
+   Top-Left block (elbow) connects to Top-Right bar.
+   Left column continues down.
+*/
+
+.lcars-sidebar-content {
+    flex-grow: 1;
+    background-color: var(--lcars-purple);
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    border-top-right-radius: 20px;
+    /* Optional styling */
+}
+
+.lcars-nav-item {
+    display: block;
+    padding: 10px 20px;
+    margin-bottom: 5px;
+    background-color: var(--lcars-blue);
+    color: #000;
+    text-align: right;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-right: 10px;
+    /* Indent from the right edge of the bar */
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    transition: background-color 0.3s;
+}
+
+.lcars-nav-item:hover {
+    background-color: var(--lcars-beige);
+    color: #000;
+}
+
+/* Main Content Area */
+.lcars-main {
+    grid-column: 2;
+    grid-row: 2;
+    background-color: #000;
+    border: 2px solid var(--lcars-blue);
+    /* Frame the content */
+    border-top: none;
+    /* Connected to header */
+    border-left: none;
+    /* Connected to sidebar */
+    border-top-left-radius: 20px;
+    /* Inner curve matching header/sidebar */
+    padding: 20px;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Content Typography */
+.lcars-main h1,
+.lcars-main h2,
+.lcars-main h3 {
+    color: var(--lcars-orange);
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+.lcars-main p {
+    line-height: 1.6;
+    margin-bottom: 1.5em;
+    max-width: 800px;
+}
+
+.lcars-main article {
+    margin-bottom: 40px;
+    border-bottom: 1px dashed var(--lcars-blue);
+    padding-bottom: 20px;
+}
+
+.lcars-main article header p.meta {
+    color: var(--lcars-purple);
+    font-size: 0.9em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .lcars-container {
+        grid-template-columns: 60px 1fr;
+        grid-template-rows: 60px 1fr;
+    }
+
+    :root {
+        --lcars-elbow-width: 60px;
+        --lcars-header-height: 60px;
+    }
+
+    .lcars-header h1 {
+        font-size: 1em;
+    }
+
+    .lcars-nav-item {
+        font-size: 0.9em;
+        padding: 10px 5px;
+        text-align: center;
+        margin-right: 0;
+        border-radius: 0;
+    }
+}

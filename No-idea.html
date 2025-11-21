@@ -1,35 +1,22 @@
 <!DOCTYPE html>
+
 <!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
 <!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <title>#Mixture Density Networks for Galaxy distance determination in TensorFlow &mdash; MK47</title>
-  <meta name="author" content="Christopher Bonnett">
-
-
-
-
-
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-    <link href="/favicon.png" rel="icon">
-
-  <link href="/theme/css/main.css" media="screen, projection"
-        rel="stylesheet" type="text/css">
-
-  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
-        rel="stylesheet" type="text/css">
-  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
-        rel="stylesheet" type="text/css">
-
+<meta charset="utf-8"/>
+<title>#Mixture Density Networks for Galaxy distance determination in TensorFlow — MK47</title>
+<meta content="Christopher Bonnett" name="author"/>
+<!-- http://t.co/dKP3o1e -->
+<meta content="True" name="HandheldFriendly"/>
+<meta content="320" name="MobileOptimized"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="/favicon.png" rel="icon"/>
+<link href="/theme/css/main.css" media="screen, projection" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"/>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CF8XLEYDMP"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CF8XLEYDMP"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -37,38 +24,19 @@
 
   gtag('config', 'G-CF8XLEYDMP');
 </script>
-
-<link rel="stylesheet" href="/improved-styles.css" type="text/css">
-  <link rel="canonical" href="https://cbonnett.github.io/No-idea.html">
-</head>
-
-<body>
-  <header role="banner"><hgroup>
-  <h1><a href="/">MK47</a></h1>
-</hgroup></header>
-  <nav role="navigation">
-
-
-<ul class="main-navigation">
-        <li><a href="https://www.linkedin.com/in/cbonnett">LinkedIn</a></li>
-      <li class="active">
-        <a href="/category/ml-in-science.html">Ml in science</a>
-      </li>
-      <li >
-        <a href="/category/yeah.html">Yeah</a>
-      </li>
-</ul></nav>
-  <div id="main">
-    <div id="content">
+<link href="/improved-styles.css" rel="stylesheet" type="text/css"/>
+<link href="https://cbonnett.github.io/No-idea.html" rel="canonical"/>
+<link href="/theme/css/lcars.css" rel="stylesheet"/></head>
+<body><div class="lcars-container"><div class="lcars-sidebar"><div class="lcars-elbow"></div><div class="lcars-sidebar-content"><a class="lcars-nav-item" href="https://www.linkedin.com/in/cbonnett">LinkedIn</a><a class="lcars-nav-item" href="/category/ml-in-science.html">Ml in science</a><a class="lcars-nav-item" href="/category/yeah.html">Yeah</a></div></div><div class="lcars-header"><h1>MK47</h1></div><div class="lcars-main">
+<div id="content">
 <div>
-  <article class="hentry" role="article">
+<article class="hentry" role="article">
 <header>
-      <h1 class="entry-title">#Mixture Density Networks for Galaxy distance determination in TensorFlow</h1>
-    <p class="meta">
-<time datetime="2016-04-15T10:20:00+02:00" pubdate>Fri 15 April 2016</time>    </p>
+<h1 class="entry-title">#Mixture Density Networks for Galaxy distance determination in TensorFlow</h1>
+<p class="meta">
+<time datetime="2016-04-15T10:20:00+02:00" pubdate="">Fri 15 April 2016</time> </p>
 </header>
-
-  <div class="entry-content"><style type="text/css">/*!
+<div class="entry-content"><style type="text/css">/*!
 *
 * IPython notebook
 *
@@ -178,10 +146,10 @@ The code used in this work is based on the <a href="http://blog.otoro.net/2015/1
 The inverse part refers to the fact that the there is not enough information in the features to find the correct solution, this means the solution can have more than one mode.</p>
 <p>You might be wandering why we need the distances to the galaxies, in my case it to measure the accelerated expansion of the universe aka Dark Energy, and to be more exact we would like to infer the redshift distrubtion of an ensemble of galaxies. Other astronomer might want to use it other purposes.</p>
 <p>The distance to a galaxy, which we will refer to as <a href="https://en.wikipedia.org/wiki/Redshift">redshift</a>, can be exaclty measured with a spectrograph. A spectrograph will detect emission lines in the spectrum of the galaxy that allows to precisely determine the redshift of the galaxy. The problem with spectrographs is that the use is expensive in time, meaning you can not observe massive amount of galaxies with them. 
-To be able to measure the properties of massive amount of galaxies (100 million+) we perform photometric surveys, these use massive CCD cameras to take images of the sky in several filters. In the following image, the blue, green and red line is the spectrum of a galaxy a different redshifts. With a spectropgraph one can measure exact details and hence the redshift. The 5 grey areas on bottom are the filter response curves used in photometric surveys. This means that in the photometric survey we measure 5 values, one for each of the filters. The measurment are referred to as magnitudes (wich happens to be the negative of a log transform of the flux, high magnitute means a faint galaxy).<br>
+To be able to measure the properties of massive amount of galaxies (100 million+) we perform photometric surveys, these use massive CCD cameras to take images of the sky in several filters. In the following image, the blue, green and red line is the spectrum of a galaxy a different redshifts. With a spectropgraph one can measure exact details and hence the redshift. The 5 grey areas on bottom are the filter response curves used in photometric surveys. This means that in the photometric survey we measure 5 values, one for each of the filters. The measurment are referred to as magnitudes (wich happens to be the negative of a log transform of the flux, high magnitute means a faint galaxy).<br/>
 As you can see the detailed information of the spectrum of galaxies is lost when using the photometric information, the adavatage is that we can observe many more galaxies. But now the problem is that we have to infer the redshift of the galaxies with just those 5 numbers, and as you probably can see from the image, it's not going to be easy.
-<img alt="Alt Text" src="./images/plot_sdss_filters_2.png">
-This image is taken from the <a href="http://www.astroml.org/#astroml-machine-learning-and-data-mining-for-astronomy">astroML</a> page that accompanies the excellent book: <a href="http://www.astroml.org/#textbook">Statistics, Data Mining, and Machine Learning in Astronomy</a></img></br></p>
+<img alt="Alt Text" src="./images/plot_sdss_filters_2.png"/>
+This image is taken from the <a href="http://www.astroml.org/#astroml-machine-learning-and-data-mining-for-astronomy">astroML</a> page that accompanies the excellent book: <a href="http://www.astroml.org/#textbook">Statistics, Data Mining, and Machine Learning in Astronomy</a></p>
 </div>
 </div>
 </div>
@@ -222,7 +190,7 @@ So the output of a MDN is $k$ mixture components and the parameters for each of 
 <div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<div class="highlight hl-ipython2"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">beta</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
@@ -264,7 +232,7 @@ So the output of a MDN is $k$ mixture components and the parameters for each of 
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div class="output_png output_subarea ">
+<div class="output_png output_subarea">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA6QAAAEYCAYAAABLKDv6AAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzs3XdYVNf6NuBnDzD0pqJYEBULiqISNHaUYC/RJHpM0Ngl
 iXo8KSb2nqgxMTm2n2gwxpqoseGxt9gwakTEhiAKiICASBWYsr8/+JgwYWZghg7PfV25AnutWfud
@@ -950,8 +918,8 @@ uxw10Xjl9slE00W5XN6zZw9efvllAMCGDRvw5JNPuhku0X2Vy+ORHvxN00RzczOeeeYZlyMmsjdy
 n/PD1nuK5M1DRERERERE5AJHL9klIiIiIiIiqhQLUiIiIiIiInIFC1IiIiIiIiJyBQtSIiIiIiIi
 cgULUiIiIiIiInIFC1IiIiIiIiJyBQtSIiIiIiIicgULUiIiIiIiInLF/wEICeilvoiBpwAAAABJ
 RU5ErkJggg==
-">
-</img></div>
+"/>
+</div>
 </div>
 </div>
 </div>
@@ -970,7 +938,7 @@ RU5ErkJggg==
 <div class="prompt input_prompt">In [3]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 <span class="n">df_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'./data/galaxy_redshift_sims_train.csv'</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">'c'</span><span class="p">,</span> <span class="n">na_filter</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span> 
 <span class="n">df_valid</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'./data/galaxy_redshift_sims_valid.csv'</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">'c'</span><span class="p">,</span> <span class="n">na_filter</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
 <span class="n">df_valid</span> <span class="o">=</span> <span class="n">df_valid</span><span class="p">[(</span><span class="n">df_valid</span><span class="o">.</span><span class="n">redshift</span> <span class="o">&lt;</span> <span class="n">df_train</span><span class="o">.</span><span class="n">redshift</span><span class="o">.</span><span class="n">max</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_valid</span><span class="o">.</span><span class="n">redshift</span> <span class="o">&gt;</span> <span class="n">df_train</span><span class="o">.</span><span class="n">redshift</span><span class="o">.</span><span class="n">min</span><span class="p">())]</span>
@@ -1011,7 +979,7 @@ RU5ErkJggg==
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div class="output_png output_subarea ">
+<div class="output_png output_subarea">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABBIAAAGPCAYAAADhmPP8AAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzsnXlcT8sbxz/fdu2llKUQbrnas0eoREShtJdkV7ZrDaHs
 IdnupRJRuZJCuCjJLet1cW3JrlKkRSpaz++Pft+j813qW1Jh3q9Xr1ffOXNmnjlnznOe88zMMyyK
@@ -3004,8 +2972,8 @@ lUEIIezJ/v37WbFiBU5OTri4uBAVFcWFCxdYv369yXYwMTGR0NBQbt26hUaj4bXXXqN79+4N2m7u
 3Lmz1v2npaU9cFmDgoKq/XSjcpsvvfQSEyZMeODtioeLDCQIIYQQQgghhBCi3uRii0IIIYQQQggh
 hKg3GUgQQgghhBBCCCFEvclAghBCCCGEEEIIIepNBhKEEEIIIYQQQghRbzKQIIQQQgghhBBCiHqT
 gQQhhBBCCCGEEELU2/8D165K42fds3wAAAAASUVORK5CYII=
-">
-</img></div>
+"/>
+</div>
 </div>
 </div>
 </div>
@@ -3015,7 +2983,7 @@ gQQhhBBCCCGEEELU2/8D165K42fds3wAAAAASUVORK5CYII=
 <div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">df_train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">df_train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -3156,7 +3124,7 @@ gQQhhBBCCCGEEELU2/8D165K42fds3wAAAAASUVORK5CYII=
 <div class="prompt input_prompt">In [5]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">df_valid</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">df_valid</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -3337,7 +3305,7 @@ gQQhhBBCCCGEEELU2/8D165K42fds3wAAAAASUVORK5CYII=
 <div class="prompt input_prompt">In [6]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">RobustScaler</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">RobustScaler</span>
 <span class="n">RS</span> <span class="o">=</span> <span class="n">RobustScaler</span><span class="p">()</span>
 
 <span class="c1">### The training features ### </span>
@@ -3401,7 +3369,7 @@ gQQhhBBCCCGEEELU2/8D165K42fds3wAAAAASUVORK5CYII=
 <div class="prompt input_prompt">In [7]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">### we will make a third test set ###</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1">### we will make a third test set ###</span>
 <span class="c1">### where magnitudes are set to the  ###</span>
 <span class="c1">### true value but we change the noise ###</span>
 
@@ -3450,7 +3418,7 @@ gQQhhBBCCCGEEELU2/8D165K42fds3wAAAAASUVORK5CYII=
 <div class="prompt input_prompt">In [8]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="kn">as</span> <span class="nn">tf</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="kn">as</span> <span class="nn">tf</span>
 <span class="n">STDEV</span> <span class="o">=</span> <span class="mf">0.25</span>
 <span class="n">KMIX</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># number of mixtures</span>
 <span class="n">NOUT</span> <span class="o">=</span> <span class="n">KMIX</span> <span class="o">*</span> <span class="mi">3</span>  <span class="c1"># pi, alpa , beta</span>
@@ -3500,12 +3468,12 @@ gQQhhBBCCCGEEELU2/8D165K42fds3wAAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The parameters we want to predict are $k$ mixutures $\pi$ and the  $\alpha$ and $\beta$ shape paramters for  each of the $Beta$ distrubutions. All three are subjects have their constraints :<br>
+<p>The parameters we want to predict are $k$ mixutures $\pi$ and the  $\alpha$ and $\beta$ shape paramters for  each of the $Beta$ distrubutions. All three are subjects have their constraints :<br/>
 $$\sum_{n=1}^{K} \pi_{n} = 1 $$
-$$\alpha, \beta &gt; 0$$<br>
+$$\alpha, \beta &gt; 0$$<br/>
 Which we can implement in the following function below which transform the KMIX outputs into the factors we can interpret as our paramters. 
 The first five outputs are mapped to the 5 mixin weigths $\pi$ by putting them through a softmax transformation, this ensures they are positive and add to one, while the next five are mapped to the $\alpha's$ and the last five to the $\beta's$ and by taking the expontential of those we can guarantee that they are positive as required.
-Below is a schematic where the output is mapped to two $Beta$ functions.</br></br></p>
+Below is a schematic where the output is mapped to two $Beta$ functions.</p>
 </div>
 </div>
 </div>
@@ -3514,7 +3482,7 @@ Below is a schematic where the output is mapped to two $Beta$ functions.</br></b
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img alt="ALt Text" src="./images/MDN_drawing_small.png" /></p>
+<p><img alt="ALt Text" src="./images/MDN_drawing_small.png"/></p>
 </div>
 </div>
 </div>
@@ -3523,7 +3491,7 @@ Below is a schematic where the output is mapped to two $Beta$ functions.</br></b
 <div class="prompt input_prompt">In [9]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">get_mixture_coef</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">get_mixture_coef</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
     <span class="n">out_pi</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="n">KMIX</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">"mixparam"</span><span class="p">)</span>
     <span class="n">out_alpha</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="n">KMIX</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">"mixparam"</span><span class="p">)</span>
     <span class="n">out_beta</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="n">KMIX</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">"mixparam"</span><span class="p">)</span>
@@ -3561,7 +3529,7 @@ Below is a schematic where the output is mapped to two $Beta$ functions.</br></b
 <div class="prompt input_prompt">In [14]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">gammaln</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">gammaln</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="c1"># fast approximate gammaln from Paul Mineiro</span>
     <span class="c1"># http://www.machinedlearnings.com/2011/06/faster-lda.html</span>
     <span class="n">logterm</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">log</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">+</span> <span class="n">x</span><span class="p">))</span>
@@ -3600,7 +3568,7 @@ This information is contained in the magnitude errors. To first order the magnit
 <div class="prompt input_prompt">In [15]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">get_lossfunc</span><span class="p">(</span><span class="n">out_pi</span><span class="p">,</span> <span class="n">out_alpha</span><span class="p">,</span> <span class="n">out_beta</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Wh</span><span class="p">,</span> <span class="n">Wh2</span><span class="p">,</span> <span class="n">Wo</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="mf">5e-4</span><span class="p">):</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">get_lossfunc</span><span class="p">(</span><span class="n">out_pi</span><span class="p">,</span> <span class="n">out_alpha</span><span class="p">,</span> <span class="n">out_beta</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Wh</span><span class="p">,</span> <span class="n">Wh2</span><span class="p">,</span> <span class="n">Wo</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="mf">5e-4</span><span class="p">):</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">tf_beta_dist</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">out_alpha</span><span class="p">,</span> <span class="n">out_beta</span><span class="p">)</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">out_pi</span><span class="p">)</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">keep_dims</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -3627,7 +3595,7 @@ This information is contained in the magnitude errors. To first order the magnit
 <div class="prompt input_prompt">In [16]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">NEPOCH</span> <span class="o">=</span> <span class="mi">100</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">NEPOCH</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">weight_decay_value</span> <span class="o">=</span> <span class="mf">0.001</span>
 <span class="c1"># with tf.device('/cpu:0'):</span>
 <span class="n">lossfunc</span> <span class="o">=</span> <span class="n">get_lossfunc</span><span class="p">(</span><span class="n">out_pi</span><span class="p">,</span> <span class="n">out_alpha</span><span class="p">,</span> <span class="n">out_beta</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Wh</span><span class="p">,</span> <span class="n">Wh2</span><span class="p">,</span> <span class="n">Wo</span><span class="p">)</span>
@@ -3741,7 +3709,7 @@ This information is contained in the magnitude errors. To first order the magnit
 <div class="prompt input_prompt">In [17]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">NEPOCH</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">loss_train</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Train'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">NEPOCH</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">loss_valid_1</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Valid_1'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">NEPOCH</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">loss_valid_2</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Valid_2'</span><span class="p">)</span>
@@ -3771,7 +3739,7 @@ This information is contained in the magnitude errors. To first order the magnit
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div class="output_text output_subarea ">
+<div class="output_text output_subarea">
 <pre>&lt;matplotlib.figure.Figure at 0x108ecc950&gt;</pre>
 </div>
 </div>
@@ -3792,7 +3760,7 @@ This information is contained in the magnitude errors. To first order the magnit
 <div class="prompt input_prompt">In [19]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">gal_id</span> <span class="o">=</span> <span class="mi">173</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">gal_id</span> <span class="o">=</span> <span class="mi">173</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="n">plot_beta_mix</span><span class="p">(</span><span class="n">pi_1</span><span class="p">[</span><span class="n">gal_id</span><span class="p">],</span> <span class="n">alpha_1</span><span class="p">[</span><span class="n">gal_id</span><span class="p">],</span> <span class="n">beta_1</span><span class="p">[</span><span class="n">gal_id</span><span class="p">],</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">plot_beta_mix</span><span class="p">(</span><span class="n">pi_2</span><span class="p">[</span><span class="n">gal_id</span><span class="p">],</span> <span class="n">alpha_2</span><span class="p">[</span><span class="n">gal_id</span><span class="p">],</span> <span class="n">beta_2</span><span class="p">[</span><span class="n">gal_id</span><span class="p">],</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -3819,7 +3787,7 @@ This information is contained in the magnitude errors. To first order the magnit
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div class="output_png output_subarea ">
+<div class="output_png output_subarea">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABBYAAAFxCAYAAADH6yvvAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAGMtJREFUeJzt3V9o1ff5wPEnNo225ojI0ju1nWso9CKtXgw6QgtrmDDH
 +se0aUu86OhgVwPdxXpR9UZiO9aLYb3YBo66rRkyt5XA2iGxvbCjSGhssws3RJywm9C15k8zU8n3
@@ -3933,8 +3901,8 @@ TLNG2MPLlT18mT28fHdThF38/9nFy5NdfJldvPhuam/U4fr6+uLEiRPV3ysaGhqKkZGRmJubi/7+
 9Z7XVlJv1n379sXOnTsjIuLBBx+Mhx9+uJnHvSH1Zv3iLzh3dHTEhg0b4vHHH2/yiZfGF78XV8bd
 VKZZ7eHlyx62h5f7boqwi+3i5c8utou/zG5qK1rhF38AAACApmjYr0IAAAAArU9YAAAAANKEBQAA
 ACBNWAAAAADShAUAAAAgTVgAAAAA0oQFAAAAIE1YAAAAANL+D6EzREz2sy2OAAAAAElFTkSuQmCC
-">
-</img></div>
+"/>
+</div>
 </div>
 </div>
 </div>
@@ -3953,7 +3921,7 @@ ACBNWAAAAADShAUAAAAgTVgAAAAA0oQFAAAAIE1YAAAAANL+D6EzREz2sy2OAAAAAElFTkSuQmCC
 <div class="prompt input_prompt">In [20]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="n">gal_id</span> <span class="o">=</span> <span class="mi">999</span>
 
 <span class="n">plot_beta_mix</span><span class="p">(</span><span class="n">pi_1_a</span><span class="p">[</span><span class="n">gal_id</span><span class="p">],</span> <span class="n">alpha_1_a</span><span class="p">[</span><span class="n">gal_id</span><span class="p">],</span> <span class="n">beta_1_a</span><span class="p">[</span><span class="n">gal_id</span><span class="p">],</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">comp</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'SN-1'</span><span class="p">)</span>
@@ -3987,7 +3955,7 @@ ACBNWAAAAADShAUAAAAgTVgAAAAA0oQFAAAAIE1YAAAAANL+D6EzREz2sy2OAAAAAElFTkSuQmCC
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div class="output_png output_subarea ">
+<div class="output_png output_subarea">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABBYAAAFxCAYAAADH6yvvAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAF/BJREFUeJzt3V9o3fX5wPEnNabV5kgpi3dtdc4geFFNLwaOoDDDCuuY
 fxqNSnrhcLCrQbuLeWHbm5LqmBej9mIbdNhtzShzmwSmo6T1og4pwVSzi26U0hV2E5w2f8waS76/
@@ -4098,8 +4066,8 @@ a2uLXbt2xYMPPrjMp/5yavS8Zmk1mveBAwdi9+7dERFx7733xv3337+cx/1SazTrT/6Se0dHR2ze
 vDkefvjhZT7xyvDJd0O9PzaHXaQs+0g59pFy7CJl2UeWx1LsI22VL18BAAAASU37KgQAAACw8gkL
 AAAAQJqwAAAAAKQJCwAAAECasAAAAACkCQsAAABAmrAAAAAApAkLAAAAQNr/AI+8qAH2JxgwAAAA
 AElFTkSuQmCC
-">
-</img></div>
+"/>
+</div>
 </div>
 </div>
 </div>
@@ -4123,7 +4091,7 @@ AElFTkSuQmCC
 <div class="prompt input_prompt">In [71]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">res_1_df</span> <span class="o">=</span> <span class="n">return_df</span><span class="p">(</span><span class="n">pi_1</span><span class="p">,</span> <span class="n">alpha_1</span><span class="p">,</span> <span class="n">beta_1</span><span class="p">,</span> <span class="n">Y_valid</span><span class="p">)</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">res_1_df</span> <span class="o">=</span> <span class="n">return_df</span><span class="p">(</span><span class="n">pi_1</span><span class="p">,</span> <span class="n">alpha_1</span><span class="p">,</span> <span class="n">beta_1</span><span class="p">,</span> <span class="n">Y_valid</span><span class="p">)</span>
 <span class="n">res_2_df</span> <span class="o">=</span> <span class="n">return_df</span><span class="p">(</span><span class="n">pi_2</span><span class="p">,</span> <span class="n">alpha_2</span><span class="p">,</span> <span class="n">beta_2</span><span class="p">,</span> <span class="n">Y_valid</span><span class="p">)</span>
 <span class="n">res_3_df</span> <span class="o">=</span> <span class="n">return_df</span><span class="p">(</span><span class="n">pi_3</span><span class="p">,</span> <span class="n">alpha_3</span><span class="p">,</span> <span class="n">beta_3</span><span class="p">,</span> <span class="n">Y_valid</span><span class="p">)</span>
 <span class="n">res_4_df</span> <span class="o">=</span> <span class="n">return_df</span><span class="p">(</span><span class="n">pi_4</span><span class="p">,</span> <span class="n">alpha_4</span><span class="p">,</span> <span class="n">beta_4</span><span class="p">,</span> <span class="n">Y_valid</span><span class="p">)</span>
@@ -4144,7 +4112,7 @@ AElFTkSuQmCC
 <div class="prompt input_prompt">In [72]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">res_2_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">'variance'</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">res_2_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">'variance'</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -4278,7 +4246,7 @@ The MDN is obtained by stacking the PDF's (dotted line) and the truth is KDE est
 <div class="prompt input_prompt">In [97]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
 <span class="n">plot_ensemble</span><span class="p">(</span><span class="n">res_1_df</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">redshift_sel</span><span class="o">=</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">))</span>
 <span class="n">plot_ensemble</span><span class="p">(</span><span class="n">res_1_df</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">redshift_sel</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
@@ -4298,7 +4266,7 @@ The MDN is obtained by stacking the PDF's (dotted line) and the truth is KDE est
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div class="output_png output_subarea ">
+<div class="output_png output_subarea">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAwAAAGACAYAAAApqfByAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzs3Xd803X+wPFXZtN0l06WliGggIjiiVDQ0wLqeYcDDlCG
 eooIiLJFhSrDUTiGyBRBEA8R9BTEH0MROPFch1sB2YXuJm2TNju/P9KGlm4obdq8n49HH48k3/X+
@@ -6115,8 +6083,8 @@ P/lJysvLmTt3LpIksW7dOu6//36efvppZFnmgQceGPH1j398yDXXXMPNN9/M+vXrsdlsU1ZXQRCE
 s5WIxYIgCNNLxGHhXCBZoh+LIAiCIAiCIAiCIAjHEackCIIgCIIgCIIgCIJwApEwEARBEARBEARB
 EAThBCJhIAiCIAiCIAiCIAjCCUTCQBAEQRAEQRAEQRCEE4iEgSAIgiAIgiAIgiAIJxAJA0EQBEEQ
 BEEQBEEQTiASBoIgCIIgCIIgCIIgnOD/B4lSWuV/OPVeAAAAAElFTkSuQmCC
-">
-</img></div>
+"/>
+</div>
 </div>
 </div>
 </div>
@@ -6127,8 +6095,8 @@ BEEQBEEQTiASBoIgCIIgCIIgCIIgnOD/B4lSWuV/OPVeAAAAAElFTkSuQmCC
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Is-that-all-there-is-too-it-?">Is that all there is too it ?<a class="anchor-link" href="#Is-that-all-there-is-too-it-?">¶</a></h1><p>It seems that the MDN did a pretty good job, Hooray !
-You might be wondering if this is realistic ? Let me give you some insight into further complications.<br>
-In reality the training set is not un abiased sample of the set you are interested in, this is true in 3 different ways.</br></p>
+You might be wondering if this is realistic ? Let me give you some insight into further complications.<br/>
+In reality the training set is not un abiased sample of the set you are interested in, this is true in 3 different ways.</p>
 <ol>
 <li>We are dealing with a co-variate shift, this means that our magnitudes of the training set do not have the same distribtuion as those of the test set, this can alleviated by incorporanting a weighte loss function</li>
 <li>There are selection effects in the specotroscopic redshifts. Here is an example, imagine 2 galaxies that have the same magnitudes, but the spectrograph is unable to determine the redshift of one galaxies due to intrinsic properties of that galaxy and they hve different redshift. This means we have a selection effect in the truth set and unless we konw that selection effects we are unable to correct for it. Work is being done on understandgin these effects but it is not an easy task. </li>
@@ -6152,7 +6120,7 @@ The answer is yes, and we do, it just that we need to understand galaxy evolutio
 <div class="prompt input_prompt">In [22]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="sd">"""</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="sd">"""</span>
 <span class="sd">Helper functions</span>
 <span class="sd">"""</span>
 
@@ -6232,7 +6200,7 @@ The answer is yes, and we do, it just that we need to understand galaxy evolutio
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span> 
+<div class="highlight hl-ipython2"><pre><span></span> 
 </pre></div>
 </div>
 </div>
@@ -6266,69 +6234,53 @@ The answer is yes, and we do, it just that we need to understand galaxy evolutio
 }
 </script>
 </div>
-    <footer>
+<footer>
 <p class="meta">
-  <span class="byline author vcard">
+<span class="byline author vcard">
     Posted by <span class="fn">
         Christopher Bonnett
     </span>
-  </span>
-<time datetime="2016-04-15T10:20:00+02:00" pubdate>Fri 15 April 2016</time>  <span class="categories">
-    <a class='category' href='/category/ml-in-science.html'>ML in science</a>
-  </span>
-  <span class="categories">
-    <a class="category" href="/tag/tensorflow.html">Tensorflow</a>,    <a class="category" href="/tag/redshift.html">redshift</a>,    <a class="category" href="/tag/mdn.html">MDN</a>  </span>
+</span>
+<time datetime="2016-04-15T10:20:00+02:00" pubdate="">Fri 15 April 2016</time> <span class="categories">
+<a class="category" href="/category/ml-in-science.html">ML in science</a>
+</span>
+<span class="categories">
+<a class="category" href="/tag/tensorflow.html">Tensorflow</a>,    <a class="category" href="/tag/redshift.html">redshift</a>,    <a class="category" href="/tag/mdn.html">MDN</a> </span>
 </p><div class="sharing">
-</div>    </footer>
-  </article>
-
+</div> </footer>
+</article>
 </div>
 <aside class="sidebar">
-  <section>
-    <h1>Recent Posts</h1>
-    <ul id="recent_posts">
-      <li class="post">
-          <a href="/No-idea.html">#Mixture Density Networks for Galaxy distance determination in TensorFlow</a>
-      </li>
-      <li class="post">
-          <a href="/Uncertainty.html">Hi</a>
-      </li>
-      <li class="post">
-          <a href="/my-super-post.html">Hi</a>
-      </li>
-    </ul>
-  </section>
-  <section>
-      
-    <h1>Categories</h1>
-    <ul id="recent_posts">
-        <li><a href="/category/ml-in-science.html">ML in science</a></li>
-        <li><a href="/category/yeah.html">yeah</a></li>
-    </ul>
-  </section>
- 
-
-  <section>
-  <h1>Tags</h1>
-    <a href="/tag/tensorflow.html">Tensorflow</a>,    <a href="/tag/awesome.html">awesome</a>,    <a href="/tag/thats.html">thats</a>,    <a href="/tag/mdn.html">MDN</a>,    <a href="/tag/redshift.html">redshift</a>  </section>
-
-
-
 <section>
-    <p>Follow <a href="http://twitter.com/cbonnett">@cbonnett</a></p>
+<h1>Recent Posts</h1>
+<ul id="recent_posts">
+<li class="post">
+<a href="/No-idea.html">#Mixture Density Networks for Galaxy distance determination in TensorFlow</a>
+</li>
+<li class="post">
+<a href="/Uncertainty.html">Hi</a>
+</li>
+<li class="post">
+<a href="/my-super-post.html">Hi</a>
+</li>
+</ul>
 </section>
-</aside>    </div>
-  </div>
-  <footer role="contentinfo"><p>
-    Copyright &copy;  2010&ndash;2016  Christopher Bonnett &mdash;
-  <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
-</p></footer>
-  <script src="/theme/js/modernizr-2.0.js"></script>
-  <script src="/theme/js/ender.js"></script>
-  <script src="/theme/js/octopress.js" type="text/javascript"></script>
-</body>
-</html>    
-
+<section>
+<h1>Categories</h1>
+<ul id="recent_posts">
+<li><a href="/category/ml-in-science.html">ML in science</a></li>
+<li><a href="/category/yeah.html">yeah</a></li>
+</ul>
+</section>
+<section>
+<h1>Tags</h1>
+<a href="/tag/tensorflow.html">Tensorflow</a>,    <a href="/tag/awesome.html">awesome</a>,    <a href="/tag/thats.html">thats</a>,    <a href="/tag/mdn.html">MDN</a>,    <a href="/tag/redshift.html">redshift</a> </section>
+<section>
+<p>Follow <a href="http://twitter.com/cbonnett">@cbonnett</a></p>
+</section>
+</aside> </div>
+</div></div></body>
+</html>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -6339,7 +6291,6 @@ The answer is yes, and we do, it just that we need to understand galaxy evolutio
   ga('send', 'pageview');
 
 </script>
-
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -6349,9 +6300,7 @@ The answer is yes, and we do, it just that we need to understand galaxy evolutio
   ga('create', 'UA-9853651-2', 'auto');
   ga('send', 'pageview');
 
-</script>  
-
-
+</script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

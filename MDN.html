@@ -1,38 +1,24 @@
 <!DOCTYPE html>
+
 <!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
 <!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <title>Mixture Density Networks for Galaxy distance determination in TensorFlow &mdash; Adventures in Machine Learning</title>
-  <meta name="author" content="Christopher Bonnett">
-
-  <link href="https://cbonnett.github.io/atom.xml" type="application/atom+xml" rel="alternate"
-        title="Adventures in Machine Learning Atom Feed" />
-
-
-
-
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-    <link href="https://cbonnett.github.io/favicon.png" rel="icon">
-
-  <link href="https://cbonnett.github.io/theme/css/main.css" media="screen, projection"
-        rel="stylesheet" type="text/css">
-
-  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
-        rel="stylesheet" type="text/css">
-  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
-        rel="stylesheet" type="text/css">
-  <link rel="stylesheet" type="text/css" href="improved-styles.css">
-
+<meta charset="utf-8"/>
+<title>Mixture Density Networks for Galaxy distance determination in TensorFlow — Adventures in Machine Learning</title>
+<meta content="Christopher Bonnett" name="author"/>
+<link href="https://cbonnett.github.io/atom.xml" rel="alternate" title="Adventures in Machine Learning Atom Feed" type="application/atom+xml"/>
+<!-- http://t.co/dKP3o1e -->
+<meta content="True" name="HandheldFriendly"/>
+<meta content="320" name="MobileOptimized"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="https://cbonnett.github.io/favicon.png" rel="icon"/>
+<link href="https://cbonnett.github.io/theme/css/main.css" media="screen, projection" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"/>
+<link href="improved-styles.css" rel="stylesheet" type="text/css"/>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CF8XLEYDMP"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CF8XLEYDMP"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -40,35 +26,18 @@
 
   gtag('config', 'G-CF8XLEYDMP');
 </script>
-
-  <link rel="canonical" href="https://cbonnett.github.io/MDN.html">
-</head>
-
-<body>
-  <header role="banner"><hgroup>
-  <h1><a href="https://cbonnett.github.io/">Adventures in Machine Learning</a></h1>
-</hgroup></header>
-  <nav role="navigation">
-
-
-<ul class="main-navigation">
-        <li><a href="https://www.linkedin.com/in/cbonnett">LinkedIn</a></li>
-    
-      <li class="active">
-        <a href="https://cbonnett.github.io/category/.html"></a>
-      </li>
-</ul></nav>
-  <div id="main">
-    <div id="content">
+<link href="https://cbonnett.github.io/MDN.html" rel="canonical"/>
+<link href="/theme/css/lcars.css" rel="stylesheet"/></head>
+<body><div class="lcars-container"><div class="lcars-sidebar"><div class="lcars-elbow"></div><div class="lcars-sidebar-content"><a class="lcars-nav-item" href="https://www.linkedin.com/in/cbonnett">LinkedIn</a></div></div><div class="lcars-header"><h1>Adventures in Machine Learning</h1></div><div class="lcars-main">
+<div id="content">
 <div>
-  <article class="hentry" role="article">
+<article class="hentry" role="article">
 <header>
-      <h1 class="entry-title">Mixture Density Networks for Galaxy distance determination in TensorFlow</h1>
-    <p class="meta">
-<time datetime="2016-04-25T10:20:00+02:00" pubdate>Mon 25 April 2016</time>    </p>
+<h1 class="entry-title">Mixture Density Networks for Galaxy distance determination in TensorFlow</h1>
+<p class="meta">
+<time datetime="2016-04-25T10:20:00+02:00" pubdate="">Mon 25 April 2016</time> </p>
 </header>
-
-  <div class="entry-content"><style type="text/css">/*!
+<div class="entry-content"><style type="text/css">/*!
 *
 * IPython notebook
 *
@@ -1055,10 +1024,10 @@ Btw, we will refer to the distance of a galaxy as <a href="https://en.wikipedia.
 <p>Due to nature of the galaxies and due to the noise properties it can happen that a galaxy that is close by (i.e low redshift) looks like a different kind of galaxy that is far away (i.e high redshift) and with the limited features we can measure we have no idea of knowing which it is. So we are interested in estimating the probability density function of the redshift for the galaxies and using MDN's is one possible way of doing so.</p>
 <p>You might be wondering why we need the distances to the galaxies, in my case it is to measure the accelerated expansion of the universe a.k.a <a href="https://en.wikipedia.org/wiki/Dark_energy">Dark Energy</a>, and to be more exact I would like to infer the redshift distribution of an ensemble of galaxies. Other astronomer might want to use it other purposes.</p>
 <p>The redshift of a galaxy can be measured exactly with a spectrograph. A spectrograph will detect emission lines in the spectrum of the galaxy that allows to precisely determine the redshift. The problem with spectrographs is that the use is expensive in time, meaning you can not observe massive amount of galaxies with them. 
-To be able to measure the properties of massive amount of galaxies (100 million+) we perform photometric surveys, these use large CCD cameras to take images of the sky in several filters. In the following image, the blue, green and red line is the spectrum of a galaxy at different redshifts. With a spectrograph one can measure exact details of these lines and hence the redshift. The 5 grey areas on bottom are the filter response curves used in photometric surveys. This means that in the photometric survey we measure 5 values, one for each of the filters. The measurement are referred to as magnitudes (which happens to be the negative of a log transform of the flux thus high magnitude means a faint galaxy).<br>
+To be able to measure the properties of massive amount of galaxies (100 million+) we perform photometric surveys, these use large CCD cameras to take images of the sky in several filters. In the following image, the blue, green and red line is the spectrum of a galaxy at different redshifts. With a spectrograph one can measure exact details of these lines and hence the redshift. The 5 grey areas on bottom are the filter response curves used in photometric surveys. This means that in the photometric survey we measure 5 values, one for each of the filters. The measurement are referred to as magnitudes (which happens to be the negative of a log transform of the flux thus high magnitude means a faint galaxy).<br/>
 As you can see the detailed information of the spectrum of galaxies is lost when using the photometric information, the advantage is that we can observe many more galaxies. But now the problem is that we have to infer the redshift of the galaxies with just those 5 numbers, and as you probably can see from the image, it's not going to be easy.
-<img alt="Alt Text" src="./images/plot_sdss_filters_2.png">
-This image is taken from the <a href="http://www.astroml.org/#astroml-machine-learning-and-data-mining-for-astronomy">astroML</a> page that accompanies the excellent book: <a href="http://www.astroml.org/#textbook">Statistics, Data Mining, and Machine Learning in Astronomy</a></img></br></p>
+<img alt="Alt Text" src="./images/plot_sdss_filters_2.png"/>
+This image is taken from the <a href="http://www.astroml.org/#astroml-machine-learning-and-data-mining-for-astronomy">astroML</a> page that accompanies the excellent book: <a href="http://www.astroml.org/#textbook">Statistics, Data Mining, and Machine Learning in Astronomy</a></p>
 <p>To make things more complicated the noise levels within the data sets differ quite significantly, this can be due to that some parts of the sky have been observed with longer exposure times, but even for galaxies with the same amount of exposure time the noise levels will differ based on the brightness and size of the galaxy and on the amount of turbulence in the atmosphere while observing. The good news is that for each of the 5 magnitudes (i.e features) we can also estimate the noise of this measurement, this leaves us with 5 measured magnitudes accompanied with an error estimate totalling to 10 features (we are assuming the noise is not correlated which is a simplification).</p>
 <p>Just to recap, from a machine learning standpoint we have the following problem, we have a large data set for which  we have measured 5 magnitudes and their respective errors, a subset of these galaxies have also been observed with a spectrograph and hence we know the exact redshift. We want to predict the redshift, so we have a regression  problem, but we are not just interested in the most likely redshift but in the full PDF.</p>
 <h2 id="Mixture-Density-Networks">Mixture Density Networks<a class="anchor-link" href="#Mixture-Density-Networks">¶</a></h2><p>This is where MDN's come in, MDN's are very similar to standard Neural Networks with the only difference being that final layer is mapped to a mixture of distributions. This makes them an elegant solution for modelling arbitrary conditional probability distributions like we have here. 
@@ -1074,7 +1043,7 @@ Here is a little recap on what shape the $Beta$ distribution can take.</p>
 <div class="prompt input_prompt">In [2]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<div class="highlight hl-ipython2"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">beta</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
@@ -1108,7 +1077,7 @@ Here is a little recap on what shape the $Beta$ distribution can take.</p>
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div class="output_png output_subarea ">
+<div class="output_png output_subarea">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA60AAAEdCAYAAADn8IGDAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzs3XdYVFf6B/DvpRfpVSliVySoKK5uYu8GYxJLYkNFjT2a
 RBPMJkbdrEbX6C/GaGIXUbFhQzH2rgEVRKJiYyjSi4Uuw/39wXLDhEGYAWXA7+d58uxwzrln3jtz
@@ -1720,8 +1689,8 @@ vLwcgiCAYRjMmjULDMPgtttuw+zZs1FcXAyr1QoASEtLw8cff4zXX38dy5cvR1RUFG655RY88cQT
 bb4PI1JnJUIIIYQQQgghYSoozYMJIYQQQgghhJBAoKSVEEIIIYQQQkjYoqSVEEIIIYQQQkjYoqSV
 EEIIIYQQQkjYoqSVEEIIIYQQQkjYoqSVEEIIIYQQQkjYoqSVEEIIIYQQQkjYoqSVEEIIIYQQQkjY
 oqSVEEIIIYQQQkjY+v8Bwvj69dWOqgAAAABJRU5ErkJggg==
-">
-</img></div>
+"/>
+</div>
 </div>
 </div>
 </div>
@@ -1740,7 +1709,7 @@ oqSVEEIIIYQQQkjY+v8Bwvj69dWOqgAAAABJRU5ErkJggg==
 <div class="prompt input_prompt">In [3]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 <span class="n">df_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'./data/galaxy_redshift_sims_train.csv'</span><span class="p">,</span> 
                        <span class="n">engine</span><span class="o">=</span><span class="s1">'c'</span><span class="p">,</span> <span class="n">na_filter</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">150000</span><span class="p">)</span> 
 <span class="n">df_valid</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'./data/galaxy_redshift_sims_valid.csv'</span><span class="p">,</span> 
@@ -1794,7 +1763,7 @@ oqSVEEIIIYQQQkjY+v8Bwvj69dWOqgAAAABJRU5ErkJggg==
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div class="output_png output_subarea ">
+<div class="output_png output_subarea">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABBsAAAGaCAYAAABOlkseAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzsnXd4VMXXgN9UICEhEEKvKh5sKNLkU3qzIPIDQVBUQKqC
 YMeCFBVQBOkoIKII9g52EFQERESxwIiF3kIJCQkpm93vj7m7bDa7m90UksC8z8ND9t65M+fuzpyZ
@@ -3866,8 +3835,8 @@ uEXPV3Gf0AeAk8zsriXasKWQFBhsFLB5KQZPV8tZHo89sSceJPcd3Af4WDObV+/YYOlD0pH4NqAD
 mrw1XhB8oon+KejLhLIhCIIgCIIgCIIgCIKmEjEbgiAIgiAIgiAIgiBoKqFsCIIgCIIgCIIgCIKg
 qYSyIQiCIAiCIAiCIAiCphLKhiAIgiAIgiAIgiAImkooG4IgCIIgCIIgCIIgaCqhbAiCIAiCIAiC
 IAiCoKn8P7hBqH0PaehrAAAAAElFTkSuQmCC
-">
-</img></div>
+"/>
+</div>
 </div>
 </div>
 </div>
@@ -3877,7 +3846,7 @@ IAiCoKn8P7hBqH0PaehrAAAAAElFTkSuQmCC
 <div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">df_train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">df_train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -4018,7 +3987,7 @@ IAiCoKn8P7hBqH0PaehrAAAAAElFTkSuQmCC
 <div class="prompt input_prompt">In [5]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">### In the validation set we have the 5 SN levels for each galaxy ###</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1">### In the validation set we have the 5 SN levels for each galaxy ###</span>
 <span class="n">df_valid</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -4200,7 +4169,7 @@ IAiCoKn8P7hBqH0PaehrAAAAAElFTkSuQmCC
 <div class="prompt input_prompt">In [6]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">RobustScaler</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">RobustScaler</span>
 <span class="n">RS</span> <span class="o">=</span> <span class="n">RobustScaler</span><span class="p">()</span>
 
 <span class="c1">### The training features ### </span>
@@ -4275,7 +4244,7 @@ IAiCoKn8P7hBqH0PaehrAAAAAElFTkSuQmCC
 <div class="prompt input_prompt">In [7]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">### we will make a third test set    ###</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1">### we will make a third test set    ###</span>
 <span class="c1">### where magnitudes are set to the  ###</span>
 <span class="c1">### true value but we keep the noise ###</span>
 
@@ -4333,7 +4302,7 @@ IAiCoKn8P7hBqH0PaehrAAAAAElFTkSuQmCC
 <div class="prompt input_prompt">In [8]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="kn">as</span> <span class="nn">tf</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="kn">as</span> <span class="nn">tf</span>
 <span class="n">STDEV</span> <span class="o">=</span> <span class="mf">0.10</span>
 <span class="n">KMIX</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># number of mixtures</span>
 <span class="n">NOUT</span> <span class="o">=</span> <span class="n">KMIX</span> <span class="o">*</span> <span class="mi">3</span>  <span class="c1"># KMIX times a pi, alpha and beta</span>
@@ -4396,7 +4365,7 @@ Below is a schematic where the output is mapped to two $Beta$ distributions.</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img alt="ALt Text" src="./images/MDN_drawing_small.png" /></p>
+<p><img alt="ALt Text" src="./images/MDN_drawing_small.png"/></p>
 </div>
 </div>
 </div>
@@ -4405,7 +4374,7 @@ Below is a schematic where the output is mapped to two $Beta$ distributions.</p>
 <div class="prompt input_prompt">In [9]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">get_mixture_coef</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">get_mixture_coef</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
     <span class="c1">### Mapping output layer to mixute components and </span>
     <span class="c1">### parameters of the distribution</span>
     <span class="n">out_pi</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="n">KMIX</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">"mixparam"</span><span class="p">)</span>
@@ -4449,7 +4418,7 @@ Below is a schematic where the output is mapped to two $Beta$ distributions.</p>
 <div class="prompt input_prompt">In [10]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">gammaln</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">gammaln</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="c1"># fast approximate gammaln from Paul Mineiro</span>
     <span class="c1"># http://www.machinedlearnings.com/2011/06/faster-lda.html</span>
     <span class="n">logterm</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">log</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">+</span> <span class="n">x</span><span class="p">))</span>
@@ -4489,7 +4458,7 @@ examples. In the case for heteroscedastic errors the error estimate actually con
 <div class="prompt input_prompt">In [11]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">get_lossfunc</span><span class="p">(</span><span class="n">out_pi</span><span class="p">,</span> <span class="n">out_alpha</span><span class="p">,</span> <span class="n">out_beta</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Wh</span><span class="p">,</span> <span class="n">Wh2</span><span class="p">,</span> <span class="n">Wo</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="mf">5e-4</span><span class="p">):</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">get_lossfunc</span><span class="p">(</span><span class="n">out_pi</span><span class="p">,</span> <span class="n">out_alpha</span><span class="p">,</span> <span class="n">out_beta</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Wh</span><span class="p">,</span> <span class="n">Wh2</span><span class="p">,</span> <span class="n">Wo</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="mf">5e-4</span><span class="p">):</span>
     <span class="c1">### neg log likelihood with L2 regularization</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">tf_beta_dist</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">out_alpha</span><span class="p">,</span> <span class="n">out_beta</span><span class="p">)</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">out_pi</span><span class="p">)</span>
@@ -4517,7 +4486,7 @@ examples. In the case for heteroscedastic errors the error estimate actually con
 <div class="prompt input_prompt">In [12]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">NEPOCH</span> <span class="o">=</span> <span class="mi">10000</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">NEPOCH</span> <span class="o">=</span> <span class="mi">10000</span>
 <span class="n">weight_decay_value</span> <span class="o">=</span> <span class="mf">0.00001</span>
 <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">'/gpu:0'</span><span class="p">):</span>
     <span class="n">lossfunc</span> <span class="o">=</span> <span class="n">get_lossfunc</span><span class="p">(</span><span class="n">out_pi</span><span class="p">,</span> <span class="n">out_alpha</span><span class="p">,</span> <span class="n">out_beta</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Wh</span><span class="p">,</span> <span class="n">Wh2</span><span class="p">,</span> <span class="n">Wo</span><span class="p">)</span>
@@ -4590,7 +4559,7 @@ examples. In the case for heteroscedastic errors the error estimate actually con
 <div class="prompt input_prompt">In [13]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
 <span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">NEPOCH</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">loss_train</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Train'</span><span class="p">)</span>
 <span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">NEPOCH</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">loss_valid_1</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Valid SN-1 (noisiest)'</span><span class="p">)</span>
@@ -4610,7 +4579,7 @@ examples. In the case for heteroscedastic errors the error estimate actually con
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div class="output_png output_subarea ">
+<div class="output_png output_subarea">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABEoAAAGPCAYAAABLWzVAAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzs3Xd8V9X9x/HXNwkZJISVBGQJaL2IuLdIRUBFweLWal2I
 1IoDf66qtW6tq6jVusVqtVoUtyiCWq2tSlFxX0VEZtgrOyTf3x8JMUD24Bvg9Xw88sj9nnvOPZ9E
@@ -5288,8 +5257,8 @@ afXcIJIkSZvCjBJJkrRNSCkdmFL6cUrpoJpdryMPF1o4DM2SJEnbGecokSRJ24olwNHAgSmlzwFP
 kocJvRK4ICLah7NxkiRp++DQG0mStM1IKb0I+DJwMHmukkeAy4HzIsIvNZIk6TkzUCJJkiRJklRw
 jhJJkiRJkqSCgRJJkiRJkqSCgRJJkiRJkqSCgRJJkiRJkqSCgRJJkiRJkqSCgRJJkiRJkqTC/wej
 fUJ7FjhcFwAAAABJRU5ErkJggg==
-">
-</img></div>
+"/>
+</div>
 </div>
 </div>
 </div>
@@ -5308,7 +5277,7 @@ fUJ7FjhcFwAAAABJRU5ErkJggg==
 <div class="prompt input_prompt">In [14]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">### choose 3 random galaxies ###</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1">### choose 3 random galaxies ###</span>
 <span class="n">gal_id</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">75</span><span class="p">]</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
@@ -5357,7 +5326,7 @@ fUJ7FjhcFwAAAABJRU5ErkJggg==
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div class="output_png output_subarea ">
+<div class="output_png output_subarea">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABDcAAAPICAYAAADNLhCVAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzs3Xl4VOXZ+PHvmTNLJjMJBAm4oWKVpxSL/qrWWmt93aqt
 ClqFvlpaxVYRLYKIxWKtCxRRQXApVLQIFZQWi/pq7Vtbq7UurdpWfdvqA60sIlsIIctkMuv5/XHO
@@ -8081,8 +8050,8 @@ giAIgiAIgiAIwppGjBuCIAiCIAiCIAiCIKxpxLghCIIgCIIgCIIgCMKaRowbgiAIgiAIgiAIgiCs
 acS4IQiCIAiCIAiCIAjCmkaMG4IgCIIgCIIgCIIgrGnEuCEIgiAIgiAIgiAIwppGjBuCIAiCIAiC
 IAiCIKxpxLghCIIgCIIgCIIgCMKaRowbgiAIgiAIgiAIgiCsaf5/kdsQwScEtVYAAAAASUVORK5C
 YII=
-">
-</img></div>
+"/>
+</div>
 </div>
 </div>
 </div>
@@ -8104,7 +8073,7 @@ This due to fact that to first order the most likely location of the galaxy is d
 <div class="prompt input_prompt">In [15]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">### Plotting the 'artifical' test set where ###</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1">### Plotting the 'artifical' test set where ###</span>
 <span class="c1">### mag are the same an noise differs ###</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="c1"># lets looks at galaxy 9</span>
@@ -8156,7 +8125,7 @@ This due to fact that to first order the most likely location of the galaxy is d
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div class="output_png output_subarea ">
+<div class="output_png output_subarea">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABBQAAAGaCAYAAAC/nRCTAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzs3Xl4VOXZx/HvTFb2LQkial15sCqIitVW3C0qILKWJb5I
 rVJQECgQC2rFUkDBCi7IohIsKIpFLG6IVEQUlVaxVctRVFR2SEKAJCSZ5f3jzEwm+ySZbDO/z3Vx
@@ -9270,8 +9239,8 @@ P+bWOXuB/wX8K6YS+f8ZqBq6ceveiKn+1gO/w1RIrwVu0XG329Fa/xwT4mdjLuqyErgTc3ue/vWl
 ZISCEEIIIYQQQgghUiYFBSGEEEIIIYQQQqRMCgpCCCGEEEIIIYRImRQUhBBCCCGEEEIIkTIpKAgh
 hBBCCCGEECJlUlAQQgghhBBCCCFEyqSgIIQQQgghhBBCiJRJQUEIIYQQQgghhBApk4KCEEIIIYQQ
 QgghUiYFBSGEEEIIIYQQQqTsfwBQnZ7mGA+D/AAAAABJRU5ErkJggg==
-">
-</img></div>
+"/>
+</div>
 </div>
 </div>
 </div>
@@ -9295,7 +9264,7 @@ QgghUiYFBSGEEEIIIYQQQqTsfwBQnZ7mGA+D/AAAAABJRU5ErkJggg==
 <div class="prompt input_prompt">In [16]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">### return_df is a helper function that </span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1">### return_df is a helper function that </span>
 <span class="c1">### returns a pandas DataFrame and also add the</span>
 <span class="c1">### the mean, stddev and variance of the mixture model</span>
 <span class="n">res_1_df</span> <span class="o">=</span> <span class="n">return_df</span><span class="p">(</span><span class="n">pi_1</span><span class="p">,</span> <span class="n">alpha_1</span><span class="p">,</span> <span class="n">beta_1</span><span class="p">,</span> <span class="n">Y_valid</span><span class="p">)</span>
@@ -9311,7 +9280,7 @@ QgghUiYFBSGEEEIIIYQQQqTsfwBQnZ7mGA+D/AAAAABJRU5ErkJggg==
 <div class="prompt input_prompt">In [17]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">res_1_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">res_1_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -9480,7 +9449,7 @@ In the following plot the true redshift is plotted against the estimated redshif
 <div class="prompt input_prompt">In [18]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="n">amount</span> <span class="o">=</span> <span class="mi">1300</span>
 
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">Y_valid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">amount</span><span class="p">],</span> <span class="n">res_1_df</span><span class="p">[</span><span class="s1">'mean'</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">amount</span><span class="p">])</span>
@@ -9508,7 +9477,7 @@ In the following plot the true redshift is plotted against the estimated redshif
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div class="output_png output_subarea ">
+<div class="output_png output_subarea">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABDcAAAGaCAYAAAAb96hAAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzs3Xt83FWd//FXeknvbSa90IZCeoEexAtKRa0otUUqhdLi
 ZVfwgrqY1SK7C662FlZAkFYi7I9dqxW77YpdobgrJQUJFEspKxbsilEKcgq9RGp6n0zTS25N5vfH
@@ -10891,8 +10860,8 @@ OSwi0nzK4r5NMzdEWsPVwMvAyc3uSINGE3/JuLzZHRERaZByWESk+ZTFfZgGN0RaQForejSwrZnt
 1+z+1MPM9gG2B4Zn1nyKiBSKclhEpPmUxX2blqWItJC0QdXxwCbu/kqz+1ONma0FPANc4O6jmtwd
 EZFOUw6LiDSfsrhv0uCGiIiIiIiIiBSalqWIiIiIiIiISKFpcENERERERERECk2DGyIiIiIiIiJS
 aBrcEBEREREREZFC0+CGiIiIiIiIiBSaBjdEREREREREpND+DzLB6Crf+2hYAAAAAElFTkSuQmCC
-">
-</img></div>
+"/>
+</div>
 </div>
 </div>
 </div>
@@ -10911,7 +10880,7 @@ aBrcEBEREREREZFC0+CGiIiIiIiIiBSaBjdEREREREREpND+DzLB6Crf+2hYAAAAAElFTkSuQmCC
 <div class="prompt input_prompt">In [19]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">### Keep in mind that the data is mapped on to the domain (0,1)</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1">### Keep in mind that the data is mapped on to the domain (0,1)</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
 <span class="c1">### 3 (scaled) redshift bins</span>
@@ -10946,7 +10915,7 @@ aBrcEBEREREREZFC0+CGiIiIiIiIiBSaBjdEREREREREpND+DzLB6Crf+2hYAAAAAElFTkSuQmCC
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div class="output_png output_subarea ">
+<div class="output_png output_subarea">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABBQAAAGXCAYAAAADAwNNAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzs3XecXFX5x/HPnb4tCQkhIQVCKIcAImCQtnQNIkWRgBR/
 QZGmgiKKdEEE6UVEQKRIEKnSpAiKAbKAhAARMHAIkkB6z2br1Pv7487Mzm62zO7OZMt8369XXjs7
@@ -12339,8 +12308,8 @@ w+7vl6t8GPjbcr4Fvg/cV953P/BKQgvsOKFl1zP3AbLY4/uO24v5LHAB4YNn70nqJITYRiSHJYeF
 EOtPsliyWAyG8l4OhxFCCCGEEEIIIURvpIeCEEIIIYQQQggheiYNCkIIIYQQQgghhOiZNCgIIYQQ
 QgghhBCiZ9KgIIQQQgghhBBCiJ5Jg4IQQgghhBBCCCF6Jg0KQgghhBBCCCGE6Jk0KAghhBBCCCGE
 EKJn0qAghBBCCCGEEEKInkmDghBCCCGEEEIIIXr2/wFcD8ABEzjl3wAAAABJRU5ErkJggg==
-">
-</img></div>
+"/>
+</div>
 </div>
 </div>
 </div>
@@ -12377,7 +12346,7 @@ In reality the training set is not unbiased sample of the set you are interested
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="sd">"""</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="sd">"""</span>
 <span class="sd">Helper functions</span>
 <span class="sd">"""</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
@@ -12546,93 +12515,57 @@ In reality the training set is not unbiased sample of the set you are interested
 }
 </script>
 </div>
-    <footer>
+<footer>
 <p class="meta">
-  <span class="byline author vcard">
+<span class="byline author vcard">
     Posted by <span class="fn">
         Christopher Bonnett
     </span>
-  </span>
-<time datetime="2016-04-25T10:20:00+02:00" pubdate>Mon 25 April 2016</time>  <span class="categories">
-    <a class='category' href='https://cbonnett.github.io/category/.html'></a>
-  </span>
-  <span class="categories">
-    <a class="category" href="https://cbonnett.github.io/tag/tensorflow.html">TensorFlow</a>,    <a class="category" href="https://cbonnett.github.io/tag/redshift.html">redshift</a>,    <a class="category" href="https://cbonnett.github.io/tag/mdn.html">MDN</a>  </span>
+</span>
+<time datetime="2016-04-25T10:20:00+02:00" pubdate="">Mon 25 April 2016</time> <span class="categories">
+<a class="category" href="https://cbonnett.github.io/category/.html"></a>
+</span>
+<span class="categories">
+<a class="category" href="https://cbonnett.github.io/tag/tensorflow.html">TensorFlow</a>,    <a class="category" href="https://cbonnett.github.io/tag/redshift.html">redshift</a>,    <a class="category" href="https://cbonnett.github.io/tag/mdn.html">MDN</a> </span>
 </p><div class="sharing">
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="https://cbonnett.github.io/MDN.html" data-via="cbonnett" data-counturl="https://cbonnett.github.io/MDN.html" >Tweet</a>
-</div>    </footer>
-  </article>
-
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
-  </section>
+<a class="twitter-share-button" data-counturl="https://cbonnett.github.io/MDN.html" data-url="https://cbonnett.github.io/MDN.html" data-via="cbonnett" href="http://twitter.com/share">Tweet</a>
+</div> </footer>
+</article>
+<section>
+<h1>Comments</h1>
+<div aria-live="polite" id="disqus_thread"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
+</section>
 </div>
 <aside class="sidebar">
-  <section>
-    <h1>Recent Posts</h1>
-    <ul id="recent_posts">
-      <li class="post">
-          <a href="https://cbonnett.github.io/Insight.html">Classifying e-commerce products based on images and text</a>
-      </li>
-      <li class="post">
-          <a href="https://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html">Mixture Density Networks with Edward, Keras and TensorFlow</a>
-      </li>
-      <li class="post">
-          <a href="https://cbonnett.github.io/MDN.html">Mixture Density Networks for Galaxy distance determination in TensorFlow</a>
-      </li>
-    </ul>
-  </section>
-  <section>
-      
-    <h1>Categories</h1>
-    <ul id="recent_posts">
-        <li><a href="https://cbonnett.github.io/category/.html"></a></li>
-    </ul>
-  </section>
- 
-
-  <section>
-  <h1>Tags</h1>
-    <a href="https://cbonnett.github.io/tag/.html"></a>,    <a href="https://cbonnett.github.io/tag/mdn.html">MDN</a>,    <a href="https://cbonnett.github.io/tag/redshift.html">redshift</a>,    <a href="https://cbonnett.github.io/tag/keras.html">Keras</a>,    <a href="https://cbonnett.github.io/tag/edward.html">Edward</a>,    <a href="https://cbonnett.github.io/tag/tensorflow.html">TensorFlow</a>  </section>
-
-
-
 <section>
-    <a href="http://twitter.com/cbonnett" class="twitter-follow-button" data-show-count="true">Follow @cbonnett</a>
+<h1>Recent Posts</h1>
+<ul id="recent_posts">
+<li class="post">
+<a href="https://cbonnett.github.io/Insight.html">Classifying e-commerce products based on images and text</a>
+</li>
+<li class="post">
+<a href="https://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html">Mixture Density Networks with Edward, Keras and TensorFlow</a>
+</li>
+<li class="post">
+<a href="https://cbonnett.github.io/MDN.html">Mixture Density Networks for Galaxy distance determination in TensorFlow</a>
+</li>
+</ul>
 </section>
-</aside>    </div>
-  </div>
-  <footer role="contentinfo"><p>
-    Copyright &copy;  2016  Christopher Bonnett &mdash;
-  <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
-</p></footer>
-  <script src="https://cbonnett.github.io/theme/js/modernizr-2.0.js"></script>
-  <script src="https://cbonnett.github.io/theme/js/ender.js"></script>
-  <script src="https://cbonnett.github.io/theme/js/octopress.js" type="text/javascript"></script>
-  <script type="text/javascript">
-    var disqus_shortname = 'mk49';
-    var disqus_identifier = '/MDN.html';
-    var disqus_url = 'https://cbonnett.github.io/MDN.html';
-    var disqus_title = 'Mixture Density Networks for Galaxy distance determination in TensorFlow';
-    (function() {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = "//" + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-     })();
-  </script>
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-</body>
+<section>
+<h1>Categories</h1>
+<ul id="recent_posts">
+<li><a href="https://cbonnett.github.io/category/.html"></a></li>
+</ul>
+</section>
+<section>
+<h1>Tags</h1>
+<a href="https://cbonnett.github.io/tag/.html"></a>,    <a href="https://cbonnett.github.io/tag/mdn.html">MDN</a>,    <a href="https://cbonnett.github.io/tag/redshift.html">redshift</a>,    <a href="https://cbonnett.github.io/tag/keras.html">Keras</a>,    <a href="https://cbonnett.github.io/tag/edward.html">Edward</a>,    <a href="https://cbonnett.github.io/tag/tensorflow.html">TensorFlow</a> </section>
+<section>
+<a class="twitter-follow-button" data-show-count="true" href="http://twitter.com/cbonnett">Follow @cbonnett</a>
+</section>
+</aside> </div>
+</div></div></body>
 </html>
-
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

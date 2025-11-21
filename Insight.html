@@ -1,34 +1,24 @@
 <!DOCTYPE html>
+
 <!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
 <!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <title>Classifying e-commerce products based on images and text &mdash; Adventures in Machine Learning</title>
-  <meta name="author" content="Christopher Bonnett">
-
-  <link href="https://cbonnett.github.io/atom.xml" type="application/atom+xml" rel="alternate"
-        title="Adventures in Machine Learning Atom Feed" />
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-    <link href="https://cbonnett.github.io/favicon.png" rel="icon">
-
-  <link href="https://cbonnett.github.io/theme/css/main.css" media="screen, projection"
-        rel="stylesheet" type="text/css">
-
-  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
-        rel="stylesheet" type="text/css">
-  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
-        rel="stylesheet" type="text/css">
-  <link rel="stylesheet" type="text/css" href="improved-styles.css">
-
+<meta charset="utf-8"/>
+<title>Classifying e-commerce products based on images and text — Adventures in Machine Learning</title>
+<meta content="Christopher Bonnett" name="author"/>
+<link href="https://cbonnett.github.io/atom.xml" rel="alternate" title="Adventures in Machine Learning Atom Feed" type="application/atom+xml"/>
+<!-- http://t.co/dKP3o1e -->
+<meta content="True" name="HandheldFriendly"/>
+<meta content="320" name="MobileOptimized"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="https://cbonnett.github.io/favicon.png" rel="icon"/>
+<link href="https://cbonnett.github.io/theme/css/main.css" media="screen, projection" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"/>
+<link href="improved-styles.css" rel="stylesheet" type="text/css"/>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CF8XLEYDMP"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CF8XLEYDMP"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -36,39 +26,18 @@
 
   gtag('config', 'G-CF8XLEYDMP');
 </script>
-
-  <link rel="canonical" href="https://cbonnett.github.io/Insight.html">
-</head>
-
-<body>
-  <header role="banner">
-    <div class="container">
-      <h1><a href="https://cbonnett.github.io/">Adventures in Machine Learning</a></h1>
-    </div>
-  </header>
-  
-  <nav role="navigation">
-    <div class="container">
-      
-      <ul class="main-navigation">
-        <li><a href="https://www.linkedin.com/in/cbonnett">LinkedIn</a></li>
-        
-        <li><a href="https://cbonnett.github.io/category/.html"></a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <div id="main" class="container">
-    <div id="content">
-      <article>
-        <header>
-          <h1 class="entry-title">Classifying e-commerce products based on images and text</h1>
-          <p class="meta">
-            <time datetime="2016-06-26T10:20:00+02:00" pubdate>Sun 26 June 2016</time>
-          </p>
-        </header>
-
-  <div class="entry-content"><style type="text/css">/*!
+<link href="https://cbonnett.github.io/Insight.html" rel="canonical"/>
+<link href="/theme/css/lcars.css" rel="stylesheet"/></head>
+<body><div class="lcars-container"><div class="lcars-sidebar"><div class="lcars-elbow"></div><div class="lcars-sidebar-content"><a class="lcars-nav-item" href="https://www.linkedin.com/in/cbonnett">LinkedIn</a></div></div><div class="lcars-header"><h1>Adventures in Machine Learning</h1></div><div class="lcars-main">
+<div id="content">
+<article>
+<header>
+<h1 class="entry-title">Classifying e-commerce products based on images and text</h1>
+<p class="meta">
+<time datetime="2016-06-26T10:20:00+02:00" pubdate="">Sun 26 June 2016</time>
+</p>
+</header>
+<div class="entry-content"><style type="text/css">/*!
 *
 * IPython notebook
 *
@@ -1050,17 +1019,17 @@ The first part of the blog will be a high-level description of the data science.
 <p>During my time at <a href="http://insightdatascience.com/">Insight</a> I consulted for a <a href="https://www.ycombinator.com/">Y-combinator</a> startup called <a href="https://www.lynks.com/">Lynks</a> that allows people in Egypt to ship fashion and fashion-related items from US e-commerce stores to their homes in Egypt. This is a useful service as many US e-commerce websites do not take orders from abroad. Lynks buys products from any e-retailer on behalf of customers through their 'universal shopping cart' and ships that inventory to the Lynks warehouse in Delaware, where it consolidates orders and ships completed ones to the end customer. Other than the couple of days that products pass-through Lynks warehouse, Lynks doesn't store inventory, so its theoretical product list is the combination of all US based e-commerce stores.
 All the products that are ordered are currently classified by hand and Lynks has asked me to help prototype a pipeline that can assist in automating this task. 
 In the best case scenario this work will contribute to a fully automated classification pipeline; lower hanging fruit would be to assist the human labelers while more data is collected and the predictive models are improved. 
-The data currently collected for each product is an image and a short description of the item.<br>
-Here are two typical examples with the assigned labels that I am dealing with:</br></p>
-<p><img alt="Alt Text" src="./images/for_blog.001.jpeg" /></p>
+The data currently collected for each product is an image and a short description of the item.<br/>
+Here are two typical examples with the assigned labels that I am dealing with:</p>
+<p><img alt="Alt Text" src="./images/for_blog.001.jpeg"/></p>
 <p>So given an image and a short description we would like to predict the label. As you can see the label is hierarchical. Given we are building a prototype I will concern myself with the flattened label. 
 In total there are 99 unique classes and the classes are quite unbalanced, I will just work with the top 10 classes for which the classes are balanced well. The top 10 classes contain 50% of their total products.</p>
-<h2 id="Machine-learning-model">Machine learning model<a class="anchor-link" href="#Machine-learning-model">¶</a></h2><h3 id="Images">Images<a class="anchor-link" href="#Images">¶</a></h3><p>My goal is to combine the text and image into a single machine learning model, since they contain complementary information. Below I explain the path I took.<br>
+<h2 id="Machine-learning-model">Machine learning model<a class="anchor-link" href="#Machine-learning-model">¶</a></h2><h3 id="Images">Images<a class="anchor-link" href="#Images">¶</a></h3><p>My goal is to combine the text and image into a single machine learning model, since they contain complementary information. Below I explain the path I took.<br/>
 For the image data, I will want to make use of a convolutional neural network, while for the text data I will use NLP processing before using it in a machine learning model. 
 Although our data set is not small (~5000 in the training set) it can hardly be compared to <a href="http://karpathy.github.io/2014/09/02/what-i-learned-from-competing-against-a-convnet-on-imagenet/">Image-Net</a> data set containing 1.2 million images in a 1000 classes. 
-For this reason it make sense to leverage the power of pre-trained network that has been been trained on Image-Net which already has the capability of extracting useful features for natural images. Leveraging a pre-trained machine learning model is called transfer learning. On the text side of the feature space a simple <a href="http://scikit-learn.org/stable/modules/feature_extraction.html#the-bag-of-words-representation">bag of words model</a> will be sufficient given that the mere presence of a word is very informative and I don't expect a gain from interactions.<br>
-So I created a neural network that has a convolutional branch one on side while the other branch accepts the vectorized words. I settled on the following architecture for the model:</br></br></p>
-<p><img alt="Alt Text" src="./images/model.001.jpeg" /></p>
+For this reason it make sense to leverage the power of pre-trained network that has been been trained on Image-Net which already has the capability of extracting useful features for natural images. Leveraging a pre-trained machine learning model is called transfer learning. On the text side of the feature space a simple <a href="http://scikit-learn.org/stable/modules/feature_extraction.html#the-bag-of-words-representation">bag of words model</a> will be sufficient given that the mere presence of a word is very informative and I don't expect a gain from interactions.<br/>
+So I created a neural network that has a convolutional branch one on side while the other branch accepts the vectorized words. I settled on the following architecture for the model:</p>
+<p><img alt="Alt Text" src="./images/model.001.jpeg"/></p>
 <p>For this work I used the Keras library for which a pre-trained VGG-16 network is available. I won't go in detail on how to do the transfer learning as the author of Keras has written a <a href="http://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html">very comprehesive guide to transfer learning</a>.</p>
 <h3 id="Text">Text<a class="anchor-link" href="#Text">¶</a></h3><p>The information content of the text varies quite widely. In some cases, the item can be classified accurately using the text alone (e.g., 'men's shirt'); in other, rarer cases the text will not be as informative (e.g., 'bronx 84 graphic t'). Furthermore, the text in previous example might be difficult to classify as male or female since the text does not contain any gender information.
 Having said that, we have to keep in mind what the potential purposes of this classification process are. If, for example, classification is used to estimate the shipping cost of the product, a misclassification between a male and female shirt won't be of monetary importance; however, if it is used to understand the clientele in a better way this mistake is very relevant.</p>
@@ -1082,9 +1051,9 @@ Having said that, we have to keep in mind what the potential purposes of this cl
 </table>
 <p>For the text I have tried random forest and logistic regression both for which I it was easy to do hyperparameter optimization using random search, logistic regression with L2 regularization seems to have the edge over L1 regularization while none of random forest models were competitive.</p>
 <p>The text only analyis is slighly better than the image only analyis while at the same time being a lot cheaper. 
-But is it clear that the combination of both the images and the text leads to a large increased performance.<br>
-There a few more things we can try to optmize even further. One such trick is hyperparameter optimization, like I did with the text only model. Given that feedback loop for hyperparameter optimization is slow due to the fact that training a deep learning model takes quite a bit of time, I opted to use this only as a last measure.<br>
-A more natural way forward is to attempt to find convolutional filters that are better suited given the task at hand.</br></br></p>
+But is it clear that the combination of both the images and the text leads to a large increased performance.<br/>
+There a few more things we can try to optmize even further. One such trick is hyperparameter optimization, like I did with the text only model. Given that feedback loop for hyperparameter optimization is slow due to the fact that training a deep learning model takes quite a bit of time, I opted to use this only as a last measure.<br/>
+A more natural way forward is to attempt to find convolutional filters that are better suited given the task at hand.</p>
 <p>The pretrained network VGG than I’m using was trained on Image-Net which has 1000 classes, none of which to my knowledge are clothing or fashion items, so it makes sense to try and adjust the convolutional layers that have learned to identify higher-level features of the training set.
 This process is called fine tuning. I opted for fine-tuning the last 3 convolutional layers, here are the results.</p>
 <table>
@@ -1134,7 +1103,7 @@ The following code cell defines two functions: one defines the convolutional par
 <div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">get_base_model</span><span class="p">():</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">get_base_model</span><span class="p">():</span>
     <span class="sd">"""</span>
 <span class="sd">    Returns the convolutional part of VGG net as a keras model </span>
 <span class="sd">    All layers have trainable set to False</span>
@@ -1223,7 +1192,7 @@ To make the code adaptable, we will have to pass in several variables such as th
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">make_final_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">vec_size</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">,</span> <span class="n">do</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">l2_strength</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">):</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">make_final_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">vec_size</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">,</span> <span class="n">do</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">l2_strength</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    model : The VGG conv only part with loaded weights</span>
 <span class="sd">    vec_size : The size of the vectorized text vector coming from the bag of words </span>
@@ -1269,16 +1238,16 @@ To make the code adaptable, we will have to pass in several variables such as th
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The above code blocks allow us to define a model that takes images and an additional vector (e.g., text) and puts it all in neural network that can be trained. In this model we simply concatenate the feature vectors extracted from the text and apply a softmax classification layer to the concatenated vector. I tried more complex models, but all had worse performance.<br>
-Having defined the model, we would like to train and validate it, preferably with the processing tools that the Keras library provides. To make this possible we will have to adapt the Keras library pre-processing methods, since they only work for images. After first building my own (not so pretty) processing pipeline, I opted for the more elegant and robust solution of adapting the existing Keras capabilities. I went with adapting the <a href="http://keras.io/preprocessing/image/">'flow_from_directory'</a> method. The original method expects that all the images belonging to the same class live in the same sub-folder. This can be easily extended so that method not just looks for an image in the folder but also an numpy binary (.npy) file. This file is expected to have same name as the image file just with the '.npy' extension. So if the image is named 54567.jpg the pipeline expect there to be a  54567.npy file in the same folder. The fork of Keras with this feature implemented can be found <a href="https://github.com/cbonnett/keras">here</a>.</br></p>
+<p>The above code blocks allow us to define a model that takes images and an additional vector (e.g., text) and puts it all in neural network that can be trained. In this model we simply concatenate the feature vectors extracted from the text and apply a softmax classification layer to the concatenated vector. I tried more complex models, but all had worse performance.<br/>
+Having defined the model, we would like to train and validate it, preferably with the processing tools that the Keras library provides. To make this possible we will have to adapt the Keras library pre-processing methods, since they only work for images. After first building my own (not so pretty) processing pipeline, I opted for the more elegant and robust solution of adapting the existing Keras capabilities. I went with adapting the <a href="http://keras.io/preprocessing/image/">'flow_from_directory'</a> method. The original method expects that all the images belonging to the same class live in the same sub-folder. This can be easily extended so that method not just looks for an image in the folder but also an numpy binary (.npy) file. This file is expected to have same name as the image file just with the '.npy' extension. So if the image is named 54567.jpg the pipeline expect there to be a  54567.npy file in the same folder. The fork of Keras with this feature implemented can be found <a href="https://github.com/cbonnett/keras">here</a>.</p>
 <h2 id="So-what-about-classes-that-are-not-in-the-training-sample">So what about classes that are not in the training sample<a class="anchor-link" href="#So-what-about-classes-that-are-not-in-the-training-sample">¶</a></h2><p>A relevant question in any machine learning model and one that is very relevant for this project is: what happens when 
 the model is fed and image with accompanying text that does not belong to any of the classes in the training set? From the mechanics of a neural network we know that the softmax classifier will (incorrectly) classify an out-of-train-class object as belonging to one of the 10 classes. An example here could be an image of an e-commerce product like a book with the accompanying description.</p>
 <p>In this case, the fact that we have the bag-of-words vector makes this problem tractable. Recall that the bag-of-words model will return the word count for all unique words that are in the training set. For the case of the book, it is likely that not even a single word in the book description was seen in the training set. Therefore, every entry of the text vector will be zero. If such a vector is encountered it can be considered out-of-training sample and hence sent to a human classifier. A more challenging problem is when we only have image data as input. I hope to write about addressing that problem in future blog posts.</p>
 </div>
 </div>
-</div>  
-</div>       
-</div> 
+</div>
+</div>
+</article></div>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
@@ -1306,94 +1275,8 @@ the model is fed and image with accompanying text that does not belong to any of
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 </script>
-</div>
-    <footer>
-<p class="meta">
-  <span class="byline author vcard">
-    Posted by <span class="fn">
-        Christopher Bonnett
-    </span>
-  </span>
-<time datetime="2016-06-26T10:20:00+02:00" pubdate>Sun 26 June 2016</time>  <span class="categories">
-    <a class='category' href='https://cbonnett.github.io/category/.html'></a>
-  </span>
-  <span class="categories">
-    <a class="category" href="https://cbonnett.github.io/tag/keras.html">Keras</a>,    <a class="category" href="https://cbonnett.github.io/tag/.html"></a>  </span>
-</p><div class="sharing">
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="https://cbonnett.github.io/Insight.html" data-via="cbonnett" data-counturl="https://cbonnett.github.io/Insight.html" >Tweet</a>
-</div>    </footer>
-  </article>
-
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
-  </section>
-</div>
-<aside class="sidebar">
-  <section>
-    <h1>Recent Posts</h1>
-    <ul id="recent_posts">
-      <li class="post">
-          <a href="https://cbonnett.github.io/Insight.html">Classifying e-commerce products based on images and text</a>
-      </li>
-      <li class="post">
-          <a href="https://cbonnett.github.io/MDN_EDWARD_KERAS_TF.html">Mixture Density Networks with Edward, Keras and TensorFlow</a>
-      </li>
-      <li class="post">
-          <a href="https://cbonnett.github.io/MDN.html">Mixture Density Networks for Galaxy distance determination in TensorFlow</a>
-      </li>
-    </ul>
-  </section>
-  <section>
-      
-    <h1>Categories</h1>
-    <ul id="recent_posts">
-        <li><a href="https://cbonnett.github.io/category/.html"></a></li>
-    </ul>
-  </section>
- 
-
-  <section>
-  <h1>Tags</h1>
-    <a href="https://cbonnett.github.io/tag/.html"></a>,    <a href="https://cbonnett.github.io/tag/mdn.html">MDN</a>,    <a href="https://cbonnett.github.io/tag/redshift.html">redshift</a>,    <a href="https://cbonnett.github.io/tag/keras.html">Keras</a>,    <a href="https://cbonnett.github.io/tag/edward.html">Edward</a>,    <a href="https://cbonnett.github.io/tag/tensorflow.html">TensorFlow</a>  </section>
-
-
-
-<section>
-    <a href="http://twitter.com/cbonnett" class="twitter-follow-button" data-show-count="true">Follow @cbonnett</a>
-</section>
-</aside>    </div>
-  </div>
-  <footer role="contentinfo"><p>
-    Copyright &copy;  2016  Christopher Bonnett &mdash;
-  <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
-</p></footer>
-  <script src="https://cbonnett.github.io/theme/js/modernizr-2.0.js"></script>
-  <script src="https://cbonnett.github.io/theme/js/ender.js"></script>
-  <script src="https://cbonnett.github.io/theme/js/octopress.js" type="text/javascript"></script>
-  <script type="text/javascript">
-    var disqus_shortname = 'mk49';
-    var disqus_identifier = '/Insight.html';
-    var disqus_url = 'https://cbonnett.github.io/Insight.html';
-    var disqus_title = 'Classifying e-commerce products based on images and text';
-    (function() {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = "//" + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-     })();
-  </script>
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-</body>
-</html>        
-
+</div></div></body>
+</html>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
