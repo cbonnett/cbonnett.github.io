@@ -54,23 +54,34 @@ a:hover {
     align-items: center;
     justify-content: space-between;
     background-color: var(--lcars-orange);
-    border-bottom-left-radius: 40px;
-    /* The inner curve of the elbow */
+    border-bottom-left-radius: 0;
+    /* Remove radius here, handled by main content top-left */
     padding: 0 20px;
     color: #000;
     text-transform: uppercase;
     font-weight: bold;
     font-size: 2em;
+    position: relative;
 }
 
+/* Make the title clickable and look like part of the interface */
 .lcars-header h1 {
     margin: 0;
     font-size: 1.5em;
     letter-spacing: 2px;
+    cursor: pointer;
 }
 
-.lcars-header a {
+.lcars-header h1 a {
     color: #000;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.lcars-header h1 a:hover {
+    color: #333;
 }
 
 /* Sidebar (Left) - The "Elbow" Vertical Part */
@@ -86,11 +97,13 @@ a:hover {
 .lcars-elbow {
     height: var(--lcars-header-height);
     background-color: var(--lcars-orange);
-    border-bottom-right-radius: 40px;
-    /* The outer curve */
+    border-bottom-right-radius: 0;
+    /* Flat connection */
     margin-bottom: var(--lcars-gap);
     position: relative;
 }
+
+/* The Curve is actually in the negative space of the main content */
 
 /* Filler to make the curve look right if needed, but simple border radius often works for the "hockey stick" look */
 /* Actually, the classic LCARS elbow is a solid block that turns. 
@@ -135,17 +148,20 @@ a:hover {
     grid-column: 2;
     grid-row: 2;
     background-color: #000;
-    border: 2px solid var(--lcars-blue);
-    /* Frame the content */
-    border-top: none;
+    border-top: 5px solid var(--lcars-orange);
     /* Connected to header */
-    border-left: none;
+    border-left: 15px solid var(--lcars-purple);
     /* Connected to sidebar */
-    border-top-left-radius: 20px;
+    border-bottom-left-radius: 30px;
     /* Inner curve matching header/sidebar */
     padding: 20px;
     overflow-y: auto;
     position: relative;
+
+    /* Star Trek Data Frame Look */
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+        repeating-linear-gradient(0deg, transparent, transparent 19px, #111 20px);
 }
 
 /* Content Typography */
@@ -155,23 +171,54 @@ a:hover {
     color: var(--lcars-orange);
     text-transform: uppercase;
     font-weight: normal;
+    letter-spacing: 1px;
 }
 
 .lcars-main p {
     line-height: 1.6;
     margin-bottom: 1.5em;
     max-width: 800px;
+    color: var(--lcars-text);
 }
 
+/* Article Styling - Consistent Panel Look */
 .lcars-main article {
-    margin-bottom: 40px;
-    border-bottom: 1px dashed var(--lcars-blue);
-    padding-bottom: 20px;
+    background-color: #111;
+    border-left: 5px solid var(--lcars-blue);
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 0 10px 10px 0;
+    position: relative;
+}
+
+.lcars-main article:hover {
+    background-color: #1a1a1a;
+    border-left-color: var(--lcars-orange);
+}
+
+.lcars-main article header h1 a {
+    color: var(--lcars-beige);
+    text-decoration: none;
+}
+
+.lcars-main article header h1 a:hover {
+    color: var(--lcars-orange);
 }
 
 .lcars-main article header p.meta {
     color: var(--lcars-purple);
     font-size: 0.9em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Override improved-styles.css interference */
+.blog-index article {
+    background: #111 !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-left: 5px solid var(--lcars-blue) !important;
 }
 
 /* Responsive adjustments */
