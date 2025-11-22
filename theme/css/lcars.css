@@ -42,7 +42,10 @@ a:hover {
     display: grid;
     grid-template-columns: var(--lcars-elbow-width) 1fr;
     grid-template-rows: var(--lcars-header-height) 1fr;
-    height: 100vh;
+    min-height: 100vh;
+    /* Allow growth */
+    height: auto;
+    /* Remove fixed height */
     gap: var(--lcars-gap);
     padding: var(--lcars-gap);
     box-sizing: border-box;
@@ -157,7 +160,7 @@ a:hover {
     border-bottom-left-radius: 30px;
     /* Inner curve matching header/sidebar */
     padding: 20px;
-    overflow-y: auto;
+    /* overflow-y: auto; REMOVED for natural scroll */
     position: relative;
 
     /* Star Trek Data Frame Look */
