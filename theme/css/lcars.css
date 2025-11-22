@@ -184,8 +184,12 @@ a:hover {
 }
 
 /* Article Styling - Consistent Panel Look */
+/* Article Styling - Light Panel Look */
 .lcars-main article {
-    background-color: #111;
+    background-color: #e6e6e6;
+    /* Light gray/off-white */
+    color: #111;
+    /* Dark text */
     border-left: 5px solid var(--lcars-blue);
     padding: 20px;
     margin-bottom: 30px;
@@ -194,24 +198,32 @@ a:hover {
 }
 
 .lcars-main article:hover {
-    background-color: #1a1a1a;
+    background-color: #f2f2f2;
+    /* Slightly lighter on hover */
     border-left-color: var(--lcars-orange);
 }
 
+.lcars-main article p {
+    color: #111;
+    /* Ensure paragraph text is dark */
+}
+
 .lcars-main article header h1 a {
-    color: var(--lcars-orange) !important;
+    color: #000 !important;
+    /* Dark title for contrast */
     text-decoration: none;
     font-weight: bold;
-    text-shadow: 0 0 2px rgba(255, 153, 0, 0.5);
+    text-shadow: none;
 }
 
 .lcars-main article header h1 a:hover {
-    color: var(--lcars-beige) !important;
-    text-shadow: 0 0 5px rgba(255, 204, 153, 0.8);
+    color: var(--lcars-blue) !important;
+    text-shadow: none;
 }
 
 .lcars-main article header p.meta {
-    color: var(--lcars-purple);
+    color: #444;
+    /* Darker gray for meta text */
     font-size: 0.9em;
     text-transform: uppercase;
     margin-bottom: 10px;
