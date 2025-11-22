@@ -199,12 +199,15 @@ a:hover {
 }
 
 .lcars-main article header h1 a {
-    color: var(--lcars-beige);
+    color: var(--lcars-orange) !important;
     text-decoration: none;
+    font-weight: bold;
+    text-shadow: 0 0 2px rgba(255, 153, 0, 0.5);
 }
 
 .lcars-main article header h1 a:hover {
-    color: var(--lcars-orange);
+    color: var(--lcars-beige) !important;
+    text-shadow: 0 0 5px rgba(255, 204, 153, 0.8);
 }
 
 .lcars-main article header p.meta {
